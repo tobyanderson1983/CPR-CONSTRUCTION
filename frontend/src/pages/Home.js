@@ -1,7 +1,8 @@
 //Home.js
 
 import React, { useEffect, useState } from 'react';
-
+import { Link, useLocation } from 'react-router-dom';
+import './css/Home.css';
 
 function Home(){
 
