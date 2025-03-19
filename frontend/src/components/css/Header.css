@@ -1,0 +1,78 @@
+/* General header styling */
+header {
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Container for content */
+header div {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Main title */
+header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffcc00; /* Yellow highlight */
+    text-transform: uppercase;
+}
+
+/* Slogan styling */
+header h2 {
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: 5px;
+    color: #ff6600; /* Orange for emphasis */
+}
+
+header h3 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 15px;
+    color: #ddd;
+}
+
+/* Navigation styles */
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ff6600;
+    text-decoration: none;
+}
+
+/* Highlight the active link */
+nav a.active {
+    color: #ff0000; /* Bright red for emphasis */
+    font-weight: bold;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header h2, header h3 {
+        font-size: 1rem;
+    }
+
+    nav a {
+        font-size: 1rem;
+        margin: 0 10px;
+    }
+}

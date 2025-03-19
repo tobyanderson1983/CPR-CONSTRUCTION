@@ -1,0 +1,23 @@
+.portfolio-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.portfolio-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.portfolio-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    width: 250px;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.portfolio-item h3 {
+    color: #333;
+}
