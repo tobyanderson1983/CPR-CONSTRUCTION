@@ -1,4 +1,4 @@
-//ContactUs.js
+//Home.js
 
 import React, { useEffect, useState } from 'react';
 
@@ -6,9 +6,16 @@ import React, { useEffect, useState } from 'react';
 function Home(){
 
   return (
-    <div>
-      <h2>Home</h2>
-    </div>
+    <div className="home-container">
+    <section className="home-content">
+        <h2>Your One-Stop Solution for Services</h2>
+        <p>
+            We provide top-notch services to meet your needs. Browse our portfolio and contact us for more details.
+        </p>
+        
+        <Link to="/services" className="explore-btn" >Explore Services</Link>
+    </section>
+</div>
   );
 };
 
