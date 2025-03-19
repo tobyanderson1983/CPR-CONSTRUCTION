@@ -8,7 +8,7 @@ function ContactUs(){
   return (
     <div>
       <h2>Contact Us</h2>
-      <p>First git hub use--lol</p>
+      <p>First git hub use--3</p>
     </div>
   );
 };
