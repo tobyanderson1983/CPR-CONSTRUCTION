@@ -1,6 +1,6 @@
 //ContactUs.js
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 
 function ContactUs(){
