@@ -1,0 +1,22 @@
+.home-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.home-content h2 {
+    color: #333;
+}
+
+.explore-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.explore-btn:hover {
+    background-color: #0056b3;
+}
