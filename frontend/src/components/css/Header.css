@@ -1,16 +1,12 @@
 /* General header styling */
 header {
-    background-color: #222;
     color: #fff;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding-left: 0%;
 }
 
 /* Container for content */
 header div {
     max-width: 900px;
-    margin: 0 auto;
 }
 
 /* Main title */
@@ -18,8 +14,9 @@ header h1 {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #ffcc00; /* Yellow highlight */
+    color: white; 
     text-transform: uppercase;
+    text-align: center;
 }
 
 /* Slogan styling */
@@ -28,6 +25,7 @@ header h2 {
     font-style: italic;
     margin-bottom: 5px;
     color: #ff6600; /* Orange for emphasis */
+    text-align: left;
 }
 
 header h3 {
@@ -39,25 +37,26 @@ header h3 {
 
 /* Navigation styles */
 nav {
-    margin-top: 10px;
+    margin-top: 0px;
+    margin-left: 0px;
 }
 
 nav a {
-    color: #ffcc00;
+    color: white;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: .8rem;
     margin: 0 15px;
     transition: color 0.3s ease;
 }
 
 nav a:hover {
-    color: #ff6600;
+    color: yellow;
     text-decoration: none;
 }
 
 /* Highlight the active link */
 nav a.active {
-    color: #ff0000; /* Bright red for emphasis */
+    color: yellow; /* Bright red for emphasis */
     font-weight: bold;
 }
 
@@ -76,3 +75,20 @@ nav a.active {
         margin: 0 10px;
     }
 }
+
+.logo {
+    line-height: 0.9; /* Reduce spacing between lines */
+  }
+  
+  .cpr {
+    font-size: 2rem;
+    font-weight: bold;
+    display: block;
+  }
+  
+  .construction {
+    font-size: .7rem;
+    font-weight: bold;
+    display: block;
+  }
+  

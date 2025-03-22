@@ -8,7 +8,8 @@ const Dashboard = () => {
   const [services, setServices] = useState([]);
   const token = localStorage.getItem('token');
   const location = useLocation();
-  const userData = location.state;
+  //const userData = location.state;
+  const userData = location.state?.username || "Guest";
 
   console.log(userData)
 

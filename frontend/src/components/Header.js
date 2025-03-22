@@ -10,9 +10,7 @@ function Header(){
   return(
     <div>
       <header>
-        <h1>CRACKER CONSTRUCTION</h1>
-        <h2>We put the CON in construction!</h2>
-        <div>
+      <div>
           <nav>
               <Link to="/" className={location.pathname === "/" ? "active" : ""}>Home</Link>
               <Link to="/services" className={location.pathname === "/services" ? "active" : ""}>Services</Link>
@@ -20,6 +18,10 @@ function Header(){
               <Link to="/contact" className={location.pathname === "/contact" ? "active" : ""}>Contact Us</Link>
           </nav>
         </div>
+        <h1 className="logo">
+          <span className="cpr">CPR</span>
+          <span className="construction">CONSTRUCTION</span>
+        </h1> 
       </header>
     </div>
   );
