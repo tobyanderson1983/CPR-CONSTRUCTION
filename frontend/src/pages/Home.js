@@ -10,7 +10,7 @@ function Home(){
   return (
     <div className="home-container">
     <section className="home-content">
-        <LogIn />
+        <LogIn  />
         <h2>We Breathe Life Back into Your <span>HOME</span>.</h2>
 
        {/* <Link to="/services" className="explore-btn" >Explore Services</Link> */}
