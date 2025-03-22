@@ -1,14 +1,8 @@
-/* .home-container {
-    text-align: center;
-    padding: 20px;
-} */
-
 .home-container {
     display: flex;
     justify-content: center; /* Centers content horizontally */
     align-items: flex-start; /* Aligns content to the top */
     height: 100vh;
-    /* padding: 20px 50px; */
  }
   
  .home-content {
@@ -21,7 +15,6 @@
     font-family:cursive;
     text-align: left;
     margin-top: 200px;
-    /* margin-left: 20px; */
     max-width: 500px; /* Adjust width as needed */
 }
 
