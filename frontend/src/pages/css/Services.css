@@ -1,0 +1,119 @@
+/* General styling */
+.services-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: transparent;
+    padding: 20px;
+    margin-top: -100px;
+  }
+  
+  .services-form {
+    background: transparent;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+    margin-top: 0px;
+  }
+  
+  /* Headings */
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Flexbox layout for grouped inputs */
+  .flex-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  .flex-group .form-group {
+    flex: 1;
+  }
+  
+  /* Form input styling */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+  }
+  
+  input,
+  select,
+  textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: transparent;
+    color: white;
+  }
+  
+  input::placeholder{
+    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
+  }
+  select{
+    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
+  }
+  select::placeholder{
+    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
+  }
+
+  textarea {
+    resize: none;
+    height: 80px;
+  }
+
+  textarea::placeholder{
+    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
+  }
+
+  #city-state-zip-group{
+    margin-top: 15px;
+  }
+  
+  /* textarea-group margin */
+  #textarea{
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  /* Button styling */
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(0, 123, 255, 0.3); /* 30% transparent blue */
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .flex-group {
+      flex-direction: column;
+    }
+  }
+  
