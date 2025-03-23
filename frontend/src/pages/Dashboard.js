@@ -9,9 +9,9 @@ const Dashboard = () => {
   const token = localStorage.getItem('token');
   const location = useLocation();
   //const userData = location.state;
-  const userData = location.state?.username || "Guest";
+  const userName = location.state?.username || "Guest";
 
-  console.log(userData)
+  console.log(userName)
 
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Welcome {userData}</h2>
+      <h2>Welcome {userName}</h2>
       <h3>Your Service Requests:</h3>
       <ul>
         {services.map((service, index) => (
