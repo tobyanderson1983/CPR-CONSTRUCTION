@@ -10,13 +10,14 @@ const LogIn = () => {
   const navigate = useNavigate(); 
 
   const login = () => {
+
     axios.post('http://localhost:5000/api/auth/login', { username, password })
       .then(res => {
         localStorage.setItem('token', res.data.token);
         console.log('Login successful', res.data);
   
         if (typeof res.data.username === 'string') {
-          navigate('/dashboard', { state: { username: res.data.username } });
+          navigate('/adminDashboard', { state: { username: res.data.username } });
         } else {
           console.error("Expected username to be a string, but got:", res.data.username);
         }

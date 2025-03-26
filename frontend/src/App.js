@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
 import ContactUs from "./pages/ContactUs";
-import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import Header from "./components/Header";
 
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       { path: "/services", element: <Services /> },
       { path: "/portfolio", element: <Portfolio /> },
       { path: "/contact", element: <ContactUs /> },
-      { path: "/dashboard", element: <PrivateRoute element={<Dashboard />} /> },
+      { path: "/adminDashboard", element: <PrivateRoute element={<AdminDashboard />} /> },
     ],
   },
 ]);

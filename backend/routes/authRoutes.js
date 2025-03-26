@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
 });
 
 // Dashboard Route
-router.get('/dashboard', (req, res) => {
+router.get('/adminDashboard', (req, res) => {
   // Simulate a service request retrieval
   const services = [{ name: 'Plumbing', status: 'Pending' }];
   res.status(200).json({ services });
