@@ -3,14 +3,14 @@
     justify-content: flex-end; /* Aligns content to the right */
     height: 100vh; /* Full height */
     align-items:flex-start; 
-    padding-right: 50px; /* Adds some spacing from the right edge */
+    padding-right: 50px; /*Adds some spacing from the right edge */
   }
   
   .login-box {
     display: flex;
     flex-direction: column;
     align-items: flex-start; /* Aligns inputs to the left */
-    padding: 20px;
+    /* padding: 20px; */
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
