@@ -1,41 +1,99 @@
-//AdminDashboard.js
-
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from "react-router-dom";
+import Administrator from './Administrator';
+import Employee from './Employee';
+import Services from './Services';
 import axios from 'axios';
 
-const AdminDashboard = () => {
-  const [services, setServices] = useState([]);
-  const token = localStorage.getItem('token');
+
+const AdminDashboard = ({ firstName, lastName }) => {
+  const [view, setView] = useState(null);
+  const [adminData, setAdminData] = useState(null);
+  const [employeeData, setEmployeeData] = useState(null);
+  const [serviceData, setServiceData] = useState(null);
+  const [email, setEmail] = useState('');
+  //adding username temporarily instead of firstname lastname
   const location = useLocation();
-  //const userData = location.state;
   const userName = location.state?.username || "Guest";
 
-  //console.log(userName);
-  console.log(location.state.username)
+  const handleCreateAdmin = async (adminData) => {
+    try {
+      const res = await axios.post('http://localhost:5000/api/auth/admin', adminData);
+      console.log(res.data)
+      alert('Administrator created successfully!');
 
+      console.log('handleCreateAdmin');
+      console.log(res.data);
+      
+      setView(null); // Hide the form after submission
+    } catch (error) {
+      console.error('Error creating admin:', error);
+      alert('Failed to create administrator.');
+    }
+  };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get('http://localhost:5000/api/auth/adminDashboard', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setServices(response.data.services);
-    };
-    fetchData();
-  }, [token]);
+  const handleEditAdmin = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/auth/admin');
+      setAdminData(res.data);
+      setView('admin');
+    } catch (error) {
+      console.error('Error fetching admin:', error);
+    }
+  };
+
+  const handleEditEmployee = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/auth/employee');
+      setEmployeeData(res.data);
+      setView('employee');
+    } catch (error) {
+      console.error('Error fetching employee:', error);
+    }
+  };
+
+  const handleSearchService = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/api/auth/services?email=${email}`);
+      setServiceData(res.data);
+      setView('service');
+    } catch (error) {
+      console.error('Error fetching service:', error);
+    }
+  };
 
   return (
     <div>
-      <h2>Welcome {userName}</h2>
-      <h3>Your Service Requests:</h3>
-      <ul>
-        {services.map((service, index) => (
-          <li key={index}>
-            {service.name} - {service.status}
-          </li>
-        ))}
-      </ul>
+      {/* <h1>Welcome, {firstName} {lastName}!</h1> */}
+      <h1>Welcome, {userName}!</h1>
+      <div>
+        <h2>Administrator Management</h2>
+        <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
+        <button onClick={handleEditAdmin}>Edit Administrator</button>
+      </div>
+      
+      <div>
+        <h2>Employee Management</h2>
+        <button onClick={() => setView('employee')}>Create New Employee</button>
+        <button onClick={handleEditEmployee}>Edit Employee</button>
+      </div>
+      
+      <div>
+        <h2>Service Management</h2>
+        <button onClick={() => setView('service')}>Create New Service</button>
+        <input 
+          type="email" 
+          placeholder="Enter email to search" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+        />
+        <button onClick={handleSearchService}>Search</button>
+      </div>
+
+      {view === 'createAdmin' && <Administrator onSubmit={handleCreateAdmin} />}
+      {view === 'admin' && <Administrator data={adminData} />}
+      {view === 'employee' && <Employee data={employeeData} />}
+      {view === 'service' && <Services data={serviceData} />}
     </div>
   );
 };
