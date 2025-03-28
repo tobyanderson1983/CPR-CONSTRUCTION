@@ -9,6 +9,9 @@ const AdminSchema = new mongoose.Schema({
   streetAddress: { type: String, required: true },
   city: { type: String, required: true },
   state: { type: String, required: true },
+  zipCode: { type: String, required: true, 
+    match: [/^\d{5}(-\d{4})?$/, "Please enter a valid zip code (12345 or 12345-6789)"] 
+  },
   phoneNumber: { type: String, required: true,
     validate: {
       validator: function (v) {

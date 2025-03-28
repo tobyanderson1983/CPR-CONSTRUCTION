@@ -74,8 +74,9 @@ router.post('/services', async (req, res) => {
 // Create new administrator
 router.post('/admin', async (req, res) => {
   console.log('new admin route');
+  console.log(req.body)
   try {
-    const { firstName, lastName, streetAddress, city, state, phoneNumber, username, password, confirmPassword } = req.body;
+    const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, confirmPassword } = req.body;
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -95,6 +96,7 @@ router.post('/admin', async (req, res) => {
       streetAddress,
       city,
       state,
+      zipCode,
       phoneNumber,
       username,
       password,
