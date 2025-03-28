@@ -115,7 +115,7 @@ router.post('/admin', async (req, res) => {
 router.post('/employee', async (req, res) => {
   console.log('new employee route');
   try {
-    const { firstName, lastName, streetAddress, city, state, phoneNumber, username, password, confirmPassword } = req.body;
+    const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, confirmPassword } = req.body;
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -135,6 +135,7 @@ router.post('/employee', async (req, res) => {
       streetAddress,
       city,
       state,
+      zipCode,
       phoneNumber,
       username,
       password,

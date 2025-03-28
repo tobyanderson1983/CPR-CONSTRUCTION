@@ -13,6 +13,7 @@ const Employee = ({ data = {}, onSubmit }) => {
     streetAddress: data.streetAddress || '',
     city: data.city || '',
     state: data.state || 'WA',
+    zipCode: data.state || '',
     phoneNumber: data.phoneNumber || '',
     username: data.email || '',
     password: '',
@@ -45,6 +46,7 @@ const Employee = ({ data = {}, onSubmit }) => {
           <option key={s} value={s}>{s}</option>
         ))}
       </select>
+      <input type="text" name="zipCode" pattern="\d{5}" placeholder="Enter Zip Code" value={formData.zipCode} onChange={handleChange} required />
       <input type="text" name="phoneNumber" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} required />
       <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
       <input type="password" name="password" placeholder="Password" minLength="6" value={formData.password} onChange={handleChange} required />
