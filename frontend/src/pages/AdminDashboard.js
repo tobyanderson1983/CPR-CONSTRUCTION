@@ -4,6 +4,7 @@ import Administrator from './Administrator';
 import Employee from './Employee';
 import Services from './Services';
 import axios from 'axios';
+import './css/AdminDashboard.css';
 
 
 const AdminDashboard = ({ firstName, lastName }) => {
@@ -80,32 +81,38 @@ const AdminDashboard = ({ firstName, lastName }) => {
   };
 
   return (
-    <div>
-      <h1>Welcome to the Administrative dashboard, {fullName}!</h1>
-      <div>
-        <h2>Administrator Management</h2>
-        <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
-        <button onClick={handleEditAdmin}>Edit Administrator</button>
+    <div className="admin-dashboard">
+      <h2>Welcome to the ADMINSTRATORS dashboard, {fullName}!</h2>
+      <div className="dashboard-container">
+        {/* Administrator Management */}
+        <div className="dashboard-section">
+          {/* <h2>Administrator Management</h2> */}
+          <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
+          <button onClick={handleEditAdmin}>Edit Administrator</button>
+        </div>
+  
+        {/* Employee Management */}
+        <div className="dashboard-section">
+          {/* <h2>Employee Management</h2> */}
+          <button onClick={() => setView('createEmployee')}>Create New Employee</button>
+          <button onClick={handleEditEmployee}>Edit Employee</button>
+        </div>
+  
+        {/* Service Management */}
+        <div className="dashboard-section">
+          {/* <h2>Service Management</h2> */}
+          <button onClick={() => setView('service')}>Create New Service</button>
+          <input 
+            type="email" 
+            placeholder="Enter email to search" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+          />
+          <button onClick={handleSearchService}>Search</button>
+        </div>
       </div>
+  
       
-      <div>
-        <h2>Employee Management</h2>
-        <button onClick={() => setView('createEmployee')}>Create New Employee</button>
-        <button onClick={handleEditEmployee}>Edit Employee</button>
-      </div>
-      
-      <div>
-        <h2>Service Management</h2>
-        <button onClick={() => setView('service')}>Create New Service</button>
-        <input 
-          type="email" 
-          placeholder="Enter email to search" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-        />
-        <button onClick={handleSearchService}>Search</button>
-      </div>
-
       {view === 'createAdmin' && <Administrator onSubmit={handleCreateAdmin} />}
       {view === 'admin' && <Administrator data={adminData} />}
       {view === 'createEmployee' && <Employee onSubmit={handleCreateEmployee} />}
