@@ -1,38 +1,28 @@
 // //PrivateRoute.js
 
-// import React from 'react';
-// // import { Navigate, Outlet } from 'react-router-dom';
-// import { Navigate } from 'react-router-dom';
-// import AdminDashboard from './../pages/AdminDashboard';
-
-// const PrivateRoute = ({ element, ...rest }) => {
-//   const token = localStorage.getItem('token');
-
-//   // Return to outlet if the token is found, otherwise navigate to login
-//   // return token ? <AdminDashboard /> : <Navigate to="/login" />;
-//   return token ? <AdminDashboard /> : <Navigate to="/login" />;
-// };
-
-// export default PrivateRoute;
-
 import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const PrivateRoute = ({ children, allowedRoles }) => {
-  const token = localStorage.getItem("token"); // Check if user is authenticated
+  const token = localStorage.getItem("token"); // Check authentication
   const role = localStorage.getItem("role");   // Check user's role
   const location = useLocation();
+  const navigate = useNavigate();
 
   if (!token) {
+    // Remove all history state to prevent back navigation
+    window.history.replaceState(null, "", "/");
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   if (!allowedRoles.includes(role)) {
-    return <Navigate to="/" state={{ from: location }} replace />;
+    // Remove all history state before redirecting to home
+    window.history.replaceState(null, "", "/");
+    navigate("/");
+    return null;
   }
 
   return children;
 };
 
 export default PrivateRoute;
-
