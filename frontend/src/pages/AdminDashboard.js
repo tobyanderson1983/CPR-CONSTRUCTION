@@ -14,7 +14,8 @@ const AdminDashboard = ({ firstName, lastName }) => {
   const [email, setEmail] = useState('');
   //adding username temporarily instead of firstname lastname
   const location = useLocation();
-  const userName = location.state?.username || "Guest";
+  const fullName = `${location.state?.firstName || "Guest"} ${location.state?.lastName || ""}`.trim();
+
 
   const handleCreateAdmin = async (adminData) => {
     try {
@@ -80,8 +81,7 @@ const AdminDashboard = ({ firstName, lastName }) => {
 
   return (
     <div>
-      {/* <h1>Welcome, {firstName} {lastName}!</h1> */}
-      <h1>Welcome, {userName}!</h1>
+      <h1>Welcome to the Administrative dashboard, {fullName}!</h1>
       <div>
         <h2>Administrator Management</h2>
         <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
