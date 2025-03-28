@@ -9,17 +9,44 @@ const LogIn = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate(); 
 
-  const login = () => {
+  // const login = () => {
 
+  //   axios.post('http://localhost:5000/api/auth/login', { username, password })
+  //     .then(res => {
+  //       localStorage.setItem('token', res.data.token);
+  //       console.log('Login successful', res.data);
+  
+  //       if (typeof res.data.username === 'string') {
+  //         navigate('/adminDashboard', { state: { username: res.data.username } });
+  //       } else {
+  //         console.error("Expected username to be a string, but got:", res.data.username);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error("Login error:", error);
+  //       setError("Invalid credentials. Please try again.");
+  //     });
+  // };
+
+  const login = () => {
     axios.post('http://localhost:5000/api/auth/login', { username, password })
       .then(res => {
-        localStorage.setItem('token', res.data.token);
+        const { token, username, role } = res.data;
+  
+        // Save the token in local storage
+        localStorage.setItem('token', token);
+  
         console.log('Login successful', res.data);
   
-        if (typeof res.data.username === 'string') {
-          navigate('/adminDashboard', { state: { username: res.data.username } });
+        // Navigate based on role
+        if (role === 'admin') {
+          navigate('/adminDashboard', { state: { username } });
+        // } else if (role === 'user') {
+        //   navigate('/userDashboard', { state: { username } });
+        // } else if (role === 'service') {
+        //   navigate('/serviceDashboard', { state: { username } });
         } else {
-          console.error("Expected username to be a string, but got:", res.data.username);
+          console.error("Unexpected role received:", role);
         }
       })
       .catch(error => {
@@ -27,7 +54,7 @@ const LogIn = () => {
         setError("Invalid credentials. Please try again.");
       });
   };
-
+  
   return (
     <div className="login-container">
       <div className="login-box">

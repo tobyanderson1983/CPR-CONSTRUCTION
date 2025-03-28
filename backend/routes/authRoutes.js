@@ -20,23 +20,55 @@ router.post('/register', async (req, res) => {
 });
 
 // Login User
+// router.post('/login', async (req, res) => {
+//   console.log('at login route');
+//   const { username, password } = req.body;
+//   try {
+//     const user = await User.findOne({ username });
+//     if (!user) return res.status(400).json({ message: 'User not found' });
+
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+
+//     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+//     res.status(200).json({ token, username: user.username });
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+
 router.post('/login', async (req, res) => {
-  console.log('at login route');
+  console.log('At login route');
   const { username, password } = req.body;
+
   try {
-    const user = await User.findOne({ username });
+    let user = await Admin.findOne({ username });
+    let role = 'admin';
+
+    if (!user) {
+      user = await User.findOne({ username });
+      role = 'user';
+    }
+
+    if (!user) {
+      user = await Service.findOne({ username });
+      role = 'service';
+    }
+
     if (!user) return res.status(400).json({ message: 'User not found' });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    res.status(200).json({ token, username: user.username });
+    res.status(200).json({ token, username: user.username, role });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 // Dashboard Route
 router.get('/adminDashboard', (req, res) => {
