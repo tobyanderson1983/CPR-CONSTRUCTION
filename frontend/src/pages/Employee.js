@@ -1,0 +1,57 @@
+//Employee.js (frontend)
+
+import React, { useState } from 'react';
+
+const Employee = ({ data = {}, onSubmit }) => {
+  console.log('at Employee frontend page')
+  if(Object.keys(data).length === 0){
+    data = false;
+  }
+  const [formData, setFormData] = useState({
+    firstName: data.firstName || '',
+    lastName: data.lastName || '',
+    streetAddress: data.streetAddress || '',
+    city: data.city || '',
+    state: data.state || 'WA',
+    phoneNumber: data.phoneNumber || '',
+    username: data.email || '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match.');
+      return;
+    }
+    onSubmit(formData);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2>{data ? 'Edit' : 'Create'} Employee</h2>
+      <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required />
+      <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} required />
+      <input type="text" name="streetAddress" placeholder="Street Address" value={formData.streetAddress} onChange={handleChange} required />
+      <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
+      <select name="state" value={formData.state} onChange={handleChange}>
+        {["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"].map((s) => (
+          <option key={s} value={s}>{s}</option>
+        ))}
+      </select>
+      <input type="text" name="phoneNumber" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} required />
+      <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
+      <input type="password" name="password" placeholder="Password" minLength="6" value={formData.password} onChange={handleChange} required />
+      <input type="password" name="confirmPassword" placeholder="Confirm Password" minLength="6" value={formData.confirmPassword} onChange={handleChange} required />
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+
+export default Employee;

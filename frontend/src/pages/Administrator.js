@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 
 const Administrator = ({ data = {}, onSubmit }) => {
   console.log('at Administrator page')
+  if(Object.keys(data).length === 0){
+    data = false;
+  }
+  console.log(data)
   const [formData, setFormData] = useState({
     firstName: data.firstName || '',
     lastName: data.lastName || '',

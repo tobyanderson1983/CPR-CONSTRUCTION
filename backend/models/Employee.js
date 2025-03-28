@@ -1,9 +1,9 @@
-//Admin.js
+//Employee.js
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const AdminSchema = new mongoose.Schema({
+const EmployeeSchema = new mongoose.Schema({
   firstName: { type: String, required: true, trim: true },
   lastName: { type: String, required: true, trim: true },
   streetAddress: { type: String, required: true },
@@ -29,7 +29,7 @@ const AdminSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Pre-save middleware to hash the password before storing it
-AdminSchema.pre('save', async function (next) {
+EmployeeSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   try {
     const salt = await bcrypt.genSalt(10);
@@ -40,5 +40,5 @@ AdminSchema.pre('save', async function (next) {
   }
 });
 
-const Admin = mongoose.model('Admin', AdminSchema);
-module.exports = Admin;
+const Employee = mongoose.model('Employee', EmployeeSchema);
+module.exports = Employee;

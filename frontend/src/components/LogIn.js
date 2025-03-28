@@ -41,8 +41,9 @@ const LogIn = () => {
         // Navigate based on role
         if (role === 'admin') {
           navigate('/adminDashboard', { state: { username } });
-        // } else if (role === 'user') {
-        //   navigate('/userDashboard', { state: { username } });
+        } else if (role === 'employee') {
+          alert('employee success');
+        //   navigate('/employeeDashboard', { state: { username } });
         // } else if (role === 'service') {
         //   navigate('/serviceDashboard', { state: { username } });
         } else {

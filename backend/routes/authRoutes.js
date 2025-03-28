@@ -1,43 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const Employee = require('../models/Employee');
 const Service = require('../models/Service'); // Import the Service model
 const Admin = require('../models/Admin');
 const router = express.Router();
 
-// Register User
-router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, password: hashedPassword });
-    await newUser.save();
-    res.status(201).json(req.body);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// Login User
-// router.post('/login', async (req, res) => {
-//   console.log('at login route');
-//   const { username, password } = req.body;
-//   try {
-//     const user = await User.findOne({ username });
-//     if (!user) return res.status(400).json({ message: 'User not found' });
-
-//     const isMatch = await bcrypt.compare(password, user.password);
-//     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
-
-//     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-//     res.status(200).json({ token, username: user.username });
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
-
+// Login 
 router.post('/login', async (req, res) => {
   console.log('At login route');
   const { username, password } = req.body;
@@ -47,8 +16,8 @@ router.post('/login', async (req, res) => {
     let role = 'admin';
 
     if (!user) {
-      user = await User.findOne({ username });
-      role = 'user';
+      user = await Employee.findOne({ username });
+      role = 'employee';
     }
 
     if (!user) {
@@ -102,25 +71,9 @@ router.post('/services', async (req, res) => {
 //   }
 // });
 
-//added
-// router.post('/admin', async (req, res) => {
-//   console.log('post/admin')
-//   try {
-//     const { firstName, lastName, streetAddress, city, state, phoneNumber, username, password } = req.body;
-//     console.log(req.body);
-//     // Validate & Hash Password before saving to DB
-//     const newAdmin = new Admin({ firstName, lastName, streetAddress, city, state, phoneNumber, username, password });
-//     await newAdmin.save();
-//     res.status(201).json({ message: 'Administrator created successfully' });
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to create administrator' });
-//   }
-// });
-
-
 // Create new administrator
 router.post('/admin', async (req, res) => {
-  console.log('new route');
+  console.log('new admin route');
   try {
     const { firstName, lastName, streetAddress, city, state, phoneNumber, username, password, confirmPassword } = req.body;
 
@@ -152,6 +105,44 @@ router.post('/admin', async (req, res) => {
 
   } catch (error) {
     console.error('Error creating administrator:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+//create new employee
+router.post('/employee', async (req, res) => {
+  console.log('new employee route');
+  try {
+    const { firstName, lastName, streetAddress, city, state, phoneNumber, username, password, confirmPassword } = req.body;
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: 'Passwords do not match' });
+    }
+
+    // Check if the username (email) is already taken
+    const existingEmployee = await Employee.findOne({ username });
+    if (existingEmployee) {
+      return res.status(400).json({ error: 'Email already in use. Does this person have admin privileges or a customer?' });
+    }
+
+    // Create new employee
+    const newEmployee = new Employee({
+      firstName,
+      lastName,
+      streetAddress,
+      city,
+      state,
+      phoneNumber,
+      username,
+      password,
+    });
+
+    await newEmployee.save();
+    res.status(201).json({ message: 'Employee created successfully' });
+
+  } catch (error) {
+    console.error('Error creating employee:', error);
     res.status(500).json({ error: 'Server error' });
   }
 });

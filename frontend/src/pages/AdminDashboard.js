@@ -42,6 +42,22 @@ const AdminDashboard = ({ firstName, lastName }) => {
     }
   };
 
+  const handleCreateEmployee = async (employeeData) => {
+    try {
+      const res = await axios.post('http://localhost:5000/api/auth/employee', employeeData);
+      console.log(res.data)
+      alert('Employee created successfully!');
+
+      console.log('handleCreateEmployee');
+      console.log(res.data);
+      
+      setView(null); // Hide the form after submission
+    } catch (error) {
+      console.error('Error creating employee:', error);
+      alert('Failed to create employee.');
+    }
+  };
+
   const handleEditEmployee = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/auth/employee');
@@ -74,7 +90,7 @@ const AdminDashboard = ({ firstName, lastName }) => {
       
       <div>
         <h2>Employee Management</h2>
-        <button onClick={() => setView('employee')}>Create New Employee</button>
+        <button onClick={() => setView('createEmployee')}>Create New Employee</button>
         <button onClick={handleEditEmployee}>Edit Employee</button>
       </div>
       
@@ -92,6 +108,7 @@ const AdminDashboard = ({ firstName, lastName }) => {
 
       {view === 'createAdmin' && <Administrator onSubmit={handleCreateAdmin} />}
       {view === 'admin' && <Administrator data={adminData} />}
+      {view === 'createEmployee' && <Employee onSubmit={handleCreateEmployee} />}
       {view === 'employee' && <Employee data={employeeData} />}
       {view === 'service' && <Services data={serviceData} />}
     </div>
