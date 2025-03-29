@@ -22,7 +22,7 @@ const AdminDashboard = () => {
     try {
       const res = await axios.post('http://localhost:5000/api/auth/admin', adminData);
       alert('Administrator created successfully!');
-      console.log(res)
+      console.log(res);
       setView(null);
     } catch (error) {
       console.error('Error creating admin:', error);
@@ -44,7 +44,7 @@ const AdminDashboard = () => {
     try {
       const res = await axios.post('http://localhost:5000/api/auth/employee', employeeData);
       alert('Employee created successfully!');
-      console.log(res)
+      console.log(res);
       setView(null);
     } catch (error) {
       console.error('Error creating employee:', error);
@@ -74,51 +74,96 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard">
-      <h2>Welcome to the ADMINISTRATORS dashboard, {fullName}!</h2>
-      <div className="dashboard-container">
-        
-        {/* Administrator Management */}
-        <div className="dashboard-section">
-          <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
-          <button onClick={handleEditAdmin}>Edit Administrator</button>
-        </div>
+      {/* Conditionally Show h2 Only When View is Null */}
+      {view === null && <h2>Welcome to the ADMINISTRATORS dashboard, {fullName}!</h2>}
 
-        {/* Employee Management */}
-        <div className="dashboard-section">
-          <button onClick={() => setView('createEmployee')}>Create New Employee</button>
-          <button onClick={handleEditEmployee}>Edit Employee</button>
-        </div>
+      {/* Conditionally Show Buttons or Cancel Button */}
+      {view === null ? (
+        <div className="dashboard-container">
+          {/* Administrator Management */}
+          <div className="dashboard-section">
+            <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
+            <button onClick={handleEditAdmin}>Edit Administrator</button>
+          </div>
 
-        {/* Service Management */}
-        <div className="dashboard-section" id="service-management">
-          {view !== 'editService' ? (
-            <>
-              <button onClick={() => setView('service')}>Create New Service</button>
-              <button onClick={() => setView('editService')}>Edit an Existing Service</button>
-            </>
-          ) : (
-            <div id="service-management-search-bar">
-              <input 
-                type="email" 
-                placeholder="Enter email to search" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-              />
-              <button onClick={handleSearchService}>Search Customer</button>
-              <button onClick={() => setView(null)}>Cancel</button>
-            </div>
-          )}
-        </div>
-      </div>
+          {/* Employee Management */}
+          <div className="dashboard-section">
+            <button onClick={() => setView('createEmployee')}>Create New Employee</button>
+            <button onClick={handleEditEmployee}>Edit Employee</button>
+          </div>
 
-      {/* Display Forms or Data Based on View */}
-      {view === 'createAdmin' && <Administrator onSubmit={handleCreateAdmin} />}
-      {view === 'admin' && <Administrator data={adminData} />}
-      {view === 'createEmployee' && <Employee onSubmit={handleCreateEmployee} />}
-      {view === 'employee' && <Employee data={employeeData} />}
-      {view === 'service' && <Services data={serviceData} />}
+          {/* Service Management */}
+          <div className="dashboard-section">
+            <button onClick={() => setView('service')}>Create New Service</button>
+            <button onClick={() => setView('editService')}>Edit an Existing Service</button>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Display Forms with Submit & Cancel Buttons Inside */}
+      {view === 'createAdmin' && (
+        <div className="form-container">
+          <Administrator onSubmit={handleCreateAdmin} />
+          <div className="form-actions">
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {view === 'admin' && (
+        <div className="form-container">
+          <Administrator data={adminData} />
+          <div className="form-actions">
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {view === 'createEmployee' && (
+        <div className="form-container">
+          <Employee onSubmit={handleCreateEmployee} />
+          <div className="form-actions">
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {view === 'employee' && (
+        <div className="form-container">
+          <Employee data={employeeData} />
+          <div className="form-actions">
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {view === 'service' && (
+        <div className="form-container">
+          <Services data={serviceData} />
+          <div className="form-actions">
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
+        </div>
+      )}
+      
+      {view === 'editService' && (
+        <div className="form-container">
+          <input 
+            type="email" 
+            placeholder="Enter email to search" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+          />
+          <div className="form-actions">
+            <button onClick={handleSearchService}>Search Customer</button>
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default AdminDashboard;
+
+
