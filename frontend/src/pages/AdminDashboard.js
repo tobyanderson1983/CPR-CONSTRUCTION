@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useLocation } from "react-router-dom";
 import Administrator from './Administrator';
 import Employee from './Employee';
-import Services from './Services';
+// import Services from './Services';
 import axios from 'axios';
 import './css/AdminDashboard.css';
 
@@ -12,8 +12,13 @@ const AdminDashboard = () => {
   const [view, setView] = useState(null);
   const [adminData, setAdminData] = useState(null);
   const [employeeData, setEmployeeData] = useState(null);
-  const [serviceData, setServiceData] = useState(null);
+  //const [serviceData, setServiceData] = useState(null);
+  //change to
+  const [services, setServices] = useState([]);
+  ////////--------------------
   const [email, setEmail] = useState('');
+
+  ///
   
   const location = useLocation();
   const fullName = `${location.state?.firstName || "Guest"} ${location.state?.lastName || ""}`.trim();
@@ -62,11 +67,24 @@ const AdminDashboard = () => {
     }
   };
 
+  // const handleSearchService = async () => {
+  //   try {
+  //     const res = await axios.get(`http://localhost:5000/api/auth/services?email=${email}`);
+  //     setServiceData(res.data);
+  //     setView('service');
+  //   } catch (error) {
+  //     console.error('Error fetching service:', error);
+  //   }
+  // };
+
+  //new handleSearchService
+
   const handleSearchService = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/api/auth/services?email=${email}`);
-      setServiceData(res.data);
-      setView('service');
+      setServices(res.data);
+      setView('serviceResults');
+      //was setView('service')
     } catch (error) {
       console.error('Error fetching service:', error);
     }
@@ -137,7 +155,7 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {view === 'service' && (
+      {/* {view === 'service' && (
         <div className="form-container">
           <Services data={serviceData} />
           <div className="form-actions">
@@ -159,11 +177,105 @@ const AdminDashboard = () => {
             <button onClick={() => setView(null)}>Cancel</button>
           </div>
         </div>
+      )} */}
+      
+      {view === null && (
+        <div>
+          <button onClick={() => setView('searchService')}>Search Customer Services</button>
+        </div>
       )}
+
+      {view === 'searchService' && (
+        <div>
+          <input type="email" placeholder="Enter customer email" onChange={(e) => setEmail(e.target.value)} />
+          <button onClick={handleSearchService}>Search</button>
+          <button onClick={() => setView(null)}>Cancel</button>
+        </div>
+      )}
+
+      {view === 'serviceResults' && (
+        <div>
+          <h3>Service Requests for {email}</h3>
+          {services.length > 0 ? (
+            <ul>
+              {services.map((service, index) => (
+                <li key={index}>
+                  {service.serviceType} - {service.status} - {new Date(service.dateRequested).toLocaleDateString()}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No service requests found.</p>
+          )}
+          <button onClick={() => setView(null)}>Back</button>
+        </div>
+      )}
+
     </div>
   );
 };
 
 export default AdminDashboard;
+
+//----------------------------------new code
+
+// import React, { useState } from 'react';
+// import axios from 'axios';
+
+// const AdminDashboard = () => {
+//   const [view, setView] = useState(null);
+//   const [services, setServices] = useState([]);
+//   const [email, setEmail] = useState('');
+
+//   const handleSearchService = async () => {
+//     try {
+//       const res = await axios.get(`http://localhost:5000/api/auth/services?email=${email}`);
+//       setServices(res.data);
+//       setView('serviceResults');
+//     } catch (error) {
+//       console.error('Error fetching service:', error);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h2>Admin Dashboard</h2>
+
+//       {view === null && (
+//         <div>
+//           <button onClick={() => setView('searchService')}>Search Customer Services</button>
+//         </div>
+//       )}
+
+//       {view === 'searchService' && (
+//         <div>
+//           <input type="email" placeholder="Enter customer email" onChange={(e) => setEmail(e.target.value)} />
+//           <button onClick={handleSearchService}>Search</button>
+//           <button onClick={() => setView(null)}>Cancel</button>
+//         </div>
+//       )}
+
+//       {view === 'serviceResults' && (
+//         <div>
+//           <h3>Service Requests for {email}</h3>
+//           {services.length > 0 ? (
+//             <ul>
+//               {services.map((service, index) => (
+//                 <li key={index}>
+//                   {service.serviceType} - {service.status} - {new Date(service.dateRequested).toLocaleDateString()}
+//                 </li>
+//               ))}
+//             </ul>
+//           ) : (
+//             <p>No service requests found.</p>
+//           )}
+//           <button onClick={() => setView(null)}>Back</button>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default AdminDashboard;
 
 

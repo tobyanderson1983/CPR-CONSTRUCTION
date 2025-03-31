@@ -5,6 +5,12 @@
     min-height: 100vh;
     padding: 20px;
   }
+
+  .admin-dashboard button{
+    margin-top: 10px;
+    padding: 8px;
+    width: 100px;
+  }
   
   .dashboard-container {
     display: flex;
@@ -44,14 +50,19 @@
   
   .form-actions {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 10px;
     margin-top: 15px;
+    margin-left: 0px;
   }
   
   .form-actions button {
     padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
+    margin-left: 20px;
   }
+
+  
+
   

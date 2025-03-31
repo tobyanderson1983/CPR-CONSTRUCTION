@@ -25,7 +25,7 @@ function Header() {
           <nav>
             {privateRoutes.includes(location.pathname) ? (
               // Show only "Log Out" if on a private route
-              <Link onClick={handleLogout} className="logout-button">Log Out</Link>
+              <button onClick={handleLogout} className="logout-button">Log Out</button>
             ) : (
               // Show full navigation for public pages
               <>

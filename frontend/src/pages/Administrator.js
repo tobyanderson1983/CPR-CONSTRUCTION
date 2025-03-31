@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import './css/Administrator.css';
 
 const Administrator = ({ data = {}, onSubmit }) => {
-  console.log('at Administrator page')
+
   if(Object.keys(data).length === 0){
     data = false;
   }
-  console.log(data)
+  
   const [formData, setFormData] = useState({
     firstName: data.firstName || '',
     lastName: data.lastName || '',
@@ -50,6 +51,7 @@ const Administrator = ({ data = {}, onSubmit }) => {
       <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
       <input type="password" name="password" placeholder="Password" minLength="6" value={formData.password} onChange={handleChange} required />
       <input type="password" name="confirmPassword" placeholder="Confirm Password" minLength="6" value={formData.confirmPassword} onChange={handleChange} required />
+      <br />
       <button type="submit">Submit</button>
     </form>
   );

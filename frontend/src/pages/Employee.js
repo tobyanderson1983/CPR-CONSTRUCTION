@@ -51,6 +51,7 @@ const Employee = ({ data = {}, onSubmit }) => {
       <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
       <input type="password" name="password" placeholder="Password" minLength="6" value={formData.password} onChange={handleChange} required />
       <input type="password" name="confirmPassword" placeholder="Confirm Password" minLength="6" value={formData.confirmPassword} onChange={handleChange} required />
+      <br />
       <button type="submit">Submit</button>
     </form>
   );

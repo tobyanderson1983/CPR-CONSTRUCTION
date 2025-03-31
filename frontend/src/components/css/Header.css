@@ -92,4 +92,9 @@ nav a.active {
     font-weight: bold;
     display: block;
   }
+
+  .logout-button{
+    width: 15%;
+    padding: 8px;
+  }
   

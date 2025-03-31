@@ -4,12 +4,20 @@ const jwt = require('jsonwebtoken');
 const Employee = require('../models/Employee');
 const Service = require('../models/Service'); // Import the Service model
 const Admin = require('../models/Admin');
+//
+const Customer = require('../models/Customer');
+//-----
 const router = express.Router();
+
+//???
+//const { createService, getServices, updateService } = require('../controllers/services.controller');
+///------------------------------
 
 // Login 
 router.post('/login', async (req, res) => {
-  console.log('At login route');
+ 
   const { username, password } = req.body;
+  console.log(req.body, username, password)
 
   try {
     let user = await Admin.findOne({ username });
@@ -25,13 +33,20 @@ router.post('/login', async (req, res) => {
       role = 'service';
     }
 
-    if (!user) return res.status(400).json({ message: 'User not found' });
+    if (!user){
+      console.log('at Customer')
+      user = await Customer.findOne({ username });
+      console.log(user); //null
+      role = 'customer';
+    }
 
+    if (!user) return res.status(400).json({ message: 'User not found' });
+   
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
     const token = jwt.sign({ id: user._id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
+    
     res.status(200).json({ token, username: user.username, role, firstName: user.firstName, lastName: user.lastName });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -47,19 +62,19 @@ router.get('/adminDashboard', (req, res) => {
 });
 
 // Save a new service request
-router.post('/services', async (req, res) => {
-  try {
-    console.log("Received service request:", req.body);
+// router.post('/services', async (req, res) => {
+//   try {
+//     console.log("Received service request:", req.body);
     
-    const newService = new Service(req.body);
-    await newService.save();
+//     const newService = new Service(req.body);
+//     await newService.save();
     
-    res.status(201).json({ message: "Service request submitted successfully", data: newService });
-  } catch (err) {
-    console.error("Error saving service request:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
-  }
-});
+//     res.status(201).json({ message: "Service request submitted successfully", data: newService });
+//   } catch (err) {
+//     console.error("Error saving service request:", err);
+//     res.status(500).json({ message: "Server error", error: err.message });
+//   }
+// });
 
 // ✅ GET: Retrieve all service requests
 // router.get('/services', async (req, res) => {
@@ -71,10 +86,25 @@ router.post('/services', async (req, res) => {
 //   }
 // });
 
+//new get services route
+router.get('/services', async (req, res) => {
+  const { email } = req.query;
+
+  try {
+    const customer = await Customer.findOne({ email });
+    if (!customer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+    
+    res.status(200).json(customer.serviceRequests);
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
 // Create new administrator
 router.post('/admin', async (req, res) => {
-  console.log('new admin route');
-  console.log(req.body)
+
   try {
     const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, confirmPassword } = req.body;
 
@@ -149,5 +179,39 @@ router.post('/employee', async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
+//added customer routes
+
+router.post('/services', async (req, res) => {
+  console.log('/services')
+  try {
+    const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, serviceType, description } = req.body;
+
+    let customer = await Customer.findOne({ username });
+
+    if (!customer) {
+      // Hash password before saving
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      customer = new Customer({
+        firstName, lastName, streetAddress, city, state, phoneNumber, username, zipCode, password: hashedPassword,
+        serviceRequests: [{ serviceType, description }]
+      });
+
+      await customer.save();
+      return res.status(201).json({ message: "Customer profile and service request created successfully" });
+    }
+
+    customer.serviceRequests.unshift({ serviceType, description });
+    await customer.save();
+    
+    res.status(200).json({ message: "Service request added successfully" });
+  } catch (err) {
+    console.error("Error processing service request:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+//-----------------------------------------
 
 module.exports = router;
