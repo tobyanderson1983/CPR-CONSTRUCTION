@@ -1,61 +1,58 @@
-//CustomerDashboard
+// CustomerDashboard
 
-// import React , { useEffect, useState } from 'react';
-// import { useLocation } from "react-router-dom";
-// import axios from 'axios';
-
-// const CustomerDashboard = () => {
-//   const [services, setServices] = useState([]);
-//   const token = localStorage.getItem('token');
-//   const location = useLocation();
-  //const userData = location.state; //this was already not being used before icommented everything
-  //const userName = location.state?.username || "Guest";
-
-  //console.log(userName);
-  //console.log(location.state.username)
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await axios.get('http://localhost:5000/api/auth/customerDashboard', {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     setServices(response.data.services);
-  //   };
-  //   fetchData();
-  // }, [token]);
-
-//   return (
-//     <div>
-//       <h2>Welcome {userName}</h2>
-//       <h3>Your Service Requests:</h3>
-//       <ul>
-//         {services.map((service, index) => (
-//           <li key={index}>
-//             {service.name} - {service.status}
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default CustomerDashboard;
-
-// EmployeeDashboard.js
-
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const CustomerDashboard = () => {
-    const location = useLocation(); // ✅ Get location from React Router
-    const fullName = `${location.state?.firstName || "Guest"} ${location.state?.lastName || ""}`.trim();
+  const [services, setServices] = useState([]);
+  const token = localStorage.getItem('token');
+  const location = useLocation();
+  const navigate = useNavigate(); // Redirect users if needed
+  const userName = `${location.state?.firstName || "Guest"} ${location.state?.lastName || ""}`.trim();
 
-    return (
-        <div>
-            <h1>Welcome to your employee dashboard, {fullName}!</h1>
-        </div>
-    );
-}
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!token) {
+        console.warn("No token found, redirecting to login...");
+        navigate("/login"); // Redirect to login page if token is missing
+        return;
+      }
+
+      try {
+        const response = await axios.get('http://localhost:5000/api/auth/customer', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setServices(response.data.services);
+      } catch (error) {
+        console.error("Error fetching services:", error.response?.data || error.message);
+      }
+    };
+
+    fetchData();
+  }, [token, navigate]);
+
+  return (
+    <div>
+      <h2>Welcome, {userName}!</h2>
+      <h3>Your Service Requests:</h3>
+      {services.length === 0 ? (
+        <p>No service requests found.</p>
+      ) : (
+        <ul>
+          {services.map((service, index) => (
+            <li key={index}>
+              <strong>Service:</strong> {service.serviceType} <br />
+              <strong>Status:</strong> {service.status} <br />
+              <strong>Date Requested:</strong> {new Date(service.dateRequested).toLocaleDateString()}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 export default CustomerDashboard;
+

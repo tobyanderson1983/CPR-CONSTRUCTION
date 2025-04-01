@@ -2,22 +2,15 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Employee = require('../models/Employee');
-const Service = require('../models/Service'); // Import the Service model
+const Service = require('../models/Service'); 
 const Admin = require('../models/Admin');
-//
 const Customer = require('../models/Customer');
-//-----
 const router = express.Router();
 
-//???
-//const { createService, getServices, updateService } = require('../controllers/services.controller');
-///------------------------------
-
-// Login 
+// Login --confirmed use
 router.post('/login', async (req, res) => {
  
   const { username, password } = req.body;
-  console.log(req.body, username, password)
 
   try {
     let user = await Admin.findOne({ username });
@@ -33,26 +26,27 @@ router.post('/login', async (req, res) => {
       role = 'service';
     }
 
-    if (!user){
-      console.log('at Customer')
+    if (!user) {
       user = await Customer.findOne({ username });
-      console.log(user); //null
       role = 'customer';
     }
-
+   
     if (!user) return res.status(400).json({ message: 'User not found' });
    
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ id: user._id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(
+      { id: user._id, role, username: user.email || user.username }, 
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
     
     res.status(200).json({ token, username: user.username, role, firstName: user.firstName, lastName: user.lastName });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
-
 
 // Dashboard Route
 router.get('/adminDashboard', (req, res) => {
@@ -61,42 +55,32 @@ router.get('/adminDashboard', (req, res) => {
   res.status(200).json({ services });
 });
 
-// Save a new service request
-// router.post('/services', async (req, res) => {
-//   try {
-//     console.log("Received service request:", req.body);
-    
-//     const newService = new Service(req.body);
-//     await newService.save();
-    
-//     res.status(201).json({ message: "Service request submitted successfully", data: newService });
-//   } catch (err) {
-//     console.error("Error saving service request:", err);
-//     res.status(500).json({ message: "Server error", error: err.message });
-//   }
-// });
-
-// ✅ GET: Retrieve all service requests
-// router.get('/services', async (req, res) => {
-//   try {
-//     const services = await Service.find();
-//     res.status(200).json(services);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
-
 //new get services route
-router.get('/services', async (req, res) => {
-  const { email } = req.query;
-
+router.get('/customer', async (req, res) => {
+  
   try {
-    const customer = await Customer.findOne({ email });
+    // Check if Authorization header is provided
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: "Unauthorized: No token provided" });
+    }
+
+    // Extract token and verify it
+    const token = authHeader.split(" ")[1]; // Get the actual token part
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Decode token
+    const username = decoded.username; // Extract username from token
+    
+    if (!username) {
+      return res.status(400).json({ message: "Invalid token: No username found" });
+    }
+
+    // Find customer by username
+    const customer = await Customer.findOne({ username }); // Ensure it's email if stored as such
     if (!customer) {
       return res.status(404).json({ message: "Customer not found" });
     }
-    
-    res.status(200).json(customer.serviceRequests);
+
+    res.status(200).json({ services: customer.serviceRequests });
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
   }

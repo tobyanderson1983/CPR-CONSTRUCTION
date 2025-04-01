@@ -19,16 +19,12 @@ const LogIn = () => {
         username,
         password,
       });
+      
       const { token, username: user, role, firstName, lastName } = res.data;
-      console.log(user);
-      console.log(firstName);
-      console.log(lastName);
 
       // ✅ Save token & role in localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
-
-      console.log("Login successful", res.data);
 
       // ✅ Navigate based on role
       if (role === "admin") {
@@ -38,7 +34,6 @@ const LogIn = () => {
       } else if (role === 'service') {
       //   navigate('/serviceDashboard', { state: { username } });
       }else if(role === 'customer'){
-        console.log('cutomer');
         navigate("/customerDashboard", { state: { firstName, lastName } });
       } else {
         console.error("Unexpected role received:", role);

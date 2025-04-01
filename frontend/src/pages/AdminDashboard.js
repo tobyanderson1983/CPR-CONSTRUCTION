@@ -12,14 +12,8 @@ const AdminDashboard = () => {
   const [view, setView] = useState(null);
   const [adminData, setAdminData] = useState(null);
   const [employeeData, setEmployeeData] = useState(null);
-  //const [serviceData, setServiceData] = useState(null);
-  //change to
   const [services, setServices] = useState([]);
-  ////////--------------------
-  const [email, setEmail] = useState('');
-
-  ///
-  
+  const [email, setEmail] = useState('');  
   const location = useLocation();
   const fullName = `${location.state?.firstName || "Guest"} ${location.state?.lastName || ""}`.trim();
 
