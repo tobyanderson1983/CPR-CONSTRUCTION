@@ -15,7 +15,7 @@ const Administrator = ({ data = {}, onSubmit }) => {
     state: data.state || 'WA',
     zipCode: data.zipCode || '',
     phoneNumber: data.phoneNumber || '',
-    username: data.email || '',
+    username: data.email || '', //does data.email need to be changed to data.username?
     password: '',
     confirmPassword: ''
   });

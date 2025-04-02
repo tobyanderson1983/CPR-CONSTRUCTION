@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Employee = require('../models/Employee');
@@ -6,11 +7,16 @@ const Service = require('../models/Service');
 const Admin = require('../models/Admin');
 const Customer = require('../models/Customer');
 const router = express.Router();
+const upload = multer();
 
 // Login --confirmed use
 router.post('/login', async (req, res) => {
  
   const { username, password } = req.body;
+  //change to this?
+  //add a var that can tell if admin
+  // if admin user, no password verification needed to edit profile/service
+  //returns back to admin page and autopopulates the form
 
   try {
     let user = await Admin.findOne({ username });
@@ -21,10 +27,10 @@ router.post('/login', async (req, res) => {
       role = 'employee';
     }
 
-    if (!user) {
-      user = await Service.findOne({ username });
-      role = 'service';
-    }
+    // if (!user) {
+    //   user = await Service.findOne({ username });
+    //   role = 'service';
+    // }
 
     if (!user) {
       user = await Customer.findOne({ username });
@@ -166,11 +172,13 @@ router.post('/employee', async (req, res) => {
 
 //added customer routes
 
-router.post('/services', async (req, res) => {
-  console.log('/services')
+router.post('/services', upload.none(), async (req, res) => {
+  
   try {
-    const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, serviceType, description } = req.body;
-
+    const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, serviceType, description, role } = req.body;
+    console.log(`role = ${role}`);
+    console.log('req.body = ');
+    console.log(req.body)
     let customer = await Customer.findOne({ username });
 
     if (!customer) {

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useLocation } from "react-router-dom";
 import Administrator from './Administrator';
 import Employee from './Employee';
-// import Services from './Services';
+import Services from './Services';
 import axios from 'axios';
 import './css/AdminDashboard.css';
 
@@ -12,11 +12,13 @@ const AdminDashboard = () => {
   const [view, setView] = useState(null);
   const [adminData, setAdminData] = useState(null);
   const [employeeData, setEmployeeData] = useState(null);
+  const [serviceData] = useState(null);
   const [services, setServices] = useState([]);
   const [email, setEmail] = useState('');  
   const location = useLocation();
   const fullName = `${location.state?.firstName || "Guest"} ${location.state?.lastName || ""}`.trim();
 
+  //create a new administrative employee
   const handleCreateAdmin = async (adminData) => {
     try {
       const res = await axios.post('http://localhost:5000/api/auth/admin', adminData);
@@ -29,6 +31,7 @@ const AdminDashboard = () => {
     }
   };
 
+  //edit an existing administrative employee
   const handleEditAdmin = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/auth/admin');
@@ -39,6 +42,7 @@ const AdminDashboard = () => {
     }
   };
 
+  //create a new regular employee
   const handleCreateEmployee = async (employeeData) => {
     try {
       const res = await axios.post('http://localhost:5000/api/auth/employee', employeeData);
@@ -51,6 +55,7 @@ const AdminDashboard = () => {
     }
   };
 
+  //edit an existing regular employee
   const handleEditEmployee = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/auth/employee');
@@ -87,7 +92,7 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       {/* Conditionally Show h2 Only When View is Null */}
-      {view === null && <h2>Welcome to the ADMINISTRATORS dashboard, {fullName}!</h2>}
+      {view === null && <h2>Welcome, {fullName}!</h2>}
 
       {/* Conditionally Show Buttons or Cancel Button */}
       {view === null ? (
@@ -106,8 +111,12 @@ const AdminDashboard = () => {
 
           {/* Service Management */}
           <div className="dashboard-section">
-            <button onClick={() => setView('service')}>Create New Service</button>
+            <button onClick={() => setView('createService')}>Create New Service</button>
             <button onClick={() => setView('editService')}>Edit an Existing Service</button>
+          </div>
+
+          <div className='dashboard-section'>
+            <button onClick={() => setView('searchService')}>Search Customer Services</button>
           </div>
         </div>
       ) : null}
@@ -149,9 +158,9 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {/* {view === 'service' && (
+      {view === 'createService' && (
         <div className="form-container">
-          <Services data={serviceData} />
+          <Services data={serviceData} isAdminView={true} />
           <div className="form-actions">
             <button onClick={() => setView(null)}>Cancel</button>
           </div>
@@ -171,13 +180,13 @@ const AdminDashboard = () => {
             <button onClick={() => setView(null)}>Cancel</button>
           </div>
         </div>
-      )} */}
+      )}
       
-      {view === null && (
-        <div>
+      {/* {view === null && (
+        <div className='dashboard-section'>
           <button onClick={() => setView('searchService')}>Search Customer Services</button>
         </div>
-      )}
+      )} */}
 
       {view === 'searchService' && (
         <div>

@@ -7,7 +7,8 @@ const ServiceRequestSchema = new mongoose.Schema({
   description: { type: String, required: true },
   status: { type: String, enum: ['Pending', 'Completed'], default: 'Pending' },
   dateRequested: { type: Date, default: Date.now },
-  notes: { type: String }
+  notes: { type: String },
+  // role: {type: String, default: 'customer'}
 });
 
 const CustomerSchema = new mongoose.Schema({
@@ -19,7 +20,8 @@ const CustomerSchema = new mongoose.Schema({
   zipCode: { type: String, required: true },
   phoneNumber: { type: String, required: true },
   username: { type: String, required: true, unique: true }, //email
-  password: { type: String, required: true },
+  password: { type: String, required: true, select: false },
+  role: {type: String },
   serviceRequests: [ServiceRequestSchema]
 });
 
