@@ -231,8 +231,56 @@ router.get('/services', async (req, res) => {
   }
 });
 
+//edit service 
+router.put('/services/:serviceId', async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+    const { serviceType, description, status } = req.body;
 
+    // Find the customer that has this service request
+    const customer = await Customer.findOne({ "serviceRequests._id": serviceId });
 
+    if (!customer) {
+      return res.status(404).json({ message: "Service request not found" });
+    }
+
+    // Update the specific service request
+    const service = customer.serviceRequests.id(serviceId);
+    service.serviceType = serviceType;
+    service.description = description;
+    service.status = status;
+
+    await customer.save();
+    res.status(200).json({ message: "Service request updated successfully" });
+
+  } catch (error) {
+    console.error('Error updating service:', error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+//delete service
+router.delete('/services/:serviceId', async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+
+    const customer = await Customer.findOne({ "serviceRequests._id": serviceId });
+
+    if (!customer) {
+      return res.status(404).json({ message: "Service request not found" });
+    }
+
+    // Remove the service request
+    customer.serviceRequests = customer.serviceRequests.filter(service => service._id.toString() !== serviceId);
+    
+    await customer.save();
+    res.status(200).json({ message: "Service request deleted successfully" });
+
+  } catch (error) {
+    console.error('Error deleting service:', error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 
 module.exports = router;

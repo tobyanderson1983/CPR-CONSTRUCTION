@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const ServiceRequestSchema = new mongoose.Schema({
   serviceType: { type: String, required: true },
   description: { type: String, required: true },
-  status: { type: String, enum: ['Pending', 'Completed'], default: 'Pending' },
+  status: { type: String, enum: ['Pending', 'Completed', 'In Progress'], default: 'Pending' },
   dateRequested: { type: Date, default: Date.now },
   notes: { type: String },
   // role: {type: String, default: 'customer'}

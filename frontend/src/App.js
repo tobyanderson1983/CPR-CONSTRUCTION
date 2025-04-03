@@ -1,4 +1,3 @@
-
 import React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
@@ -8,6 +7,7 @@ import ContactUs from "./pages/ContactUs";
 import AdminDashboard from "./pages/AdminDashboard";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import CustomerDashboard from "./pages/CustomerDashboard";
+import EditService from "./pages/EditService"; // ✅ Import EditService
 import PrivateRoute from "./components/PrivateRoute";
 import Header from "./components/Header";
 
@@ -60,6 +60,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute allowedRoles={["customer"]}>
             <CustomerDashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/edit-service/:id",
+        element: (
+          <PrivateRoute allowedRoles={["admin"]}>
+            <EditService />
           </PrivateRoute>
         ),
       },

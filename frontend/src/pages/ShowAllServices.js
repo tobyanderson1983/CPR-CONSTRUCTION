@@ -1,34 +1,43 @@
-//ShowAllServices.js
-
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const ShowAllServices = () => {
-    const [services, setServices] = useState([]); // Store fetched services
-    const [page, setPage] = useState(1); // Track current page
-    const [totalServices, setTotalServices] = useState(0); // Store total number of services
-    const limit = 5; // Number of services per page
+    const [services, setServices] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalServices, setTotalServices] = useState(0);
+    const limit = 5;
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         fetchServices(page);
-    }, [page]); // Re-fetch when page changes
+    }, [page, location.state?.updated]); // Re-fetch services if edit just happened
 
     const fetchServices = async (pageNum) => {
         try {
             const res = await axios.get(`http://localhost:5000/api/auth/services?page=${pageNum}&limit=${limit}`);
-            console.log(res.data); // Debugging: Check if pagination works
-
             if (pageNum === 1) {
-                setServices(res.data.services); // First page replaces list
+                setServices(res.data.services);
             } else {
-                setServices(prevServices => [...prevServices, ...res.data.services]); // Append new data
+                setServices(prevServices => [...prevServices, ...res.data.services]);
             }
-
-            setTotalServices(res.data.totalServices); // Store total count for button logic
-
+            setTotalServices(res.data.totalServices);
         } catch (error) {
             console.error('Error fetching service requests:', error);
-            alert('Failed to fetch services.');
+        }
+    };
+
+    const handleEdit = (service) => {
+        navigate(`/edit-service/${service._id}`, { state: { service } });
+    };
+
+    const handleDelete = async (serviceId) => {
+        try {
+            await axios.delete(`http://localhost:5000/api/auth/services/${serviceId}`);
+            setServices(services.filter(service => service._id !== serviceId));
+        } catch (error) {
+            console.error("Error deleting service:", error);
         }
     };
 
@@ -45,15 +54,14 @@ const ShowAllServices = () => {
                             <strong>Service Type:</strong> {service.serviceType} <br />
                             <strong>Description:</strong> {service.description} <br />
                             <strong>Status:</strong> {service.status} <br />
-                            <strong>Role:</strong> {service.role} <br />
-                            <strong>Date Requested:</strong> {new Date(service.dateRequested).toLocaleString()} <br />
+                            <button onClick={() => handleEdit(service)}>Edit</button>
+                            <button onClick={() => handleDelete(service._id)}>Delete</button>
                             <hr />
                         </li>
                     ))}
                 </ul>
             )}
 
-            {/* "Load More" Button */}
             {services.length < totalServices && (
                 <button onClick={() => setPage(page + 1)}>Load More</button>
             )}
