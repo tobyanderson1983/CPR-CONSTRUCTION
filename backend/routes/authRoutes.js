@@ -176,9 +176,6 @@ router.post('/services', upload.none(), async (req, res) => {
   
   try {
     const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, serviceType, description, role } = req.body;
-    console.log(`role = ${role}`);
-    console.log('req.body = ');
-    console.log(req.body)
     let customer = await Customer.findOne({ username });
 
     if (!customer) {
@@ -204,6 +201,38 @@ router.post('/services', upload.none(), async (req, res) => {
   }
 });
 
-//-----------------------------------------
+//get all services 5 at a time
+router.get('/services', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1; // Default to page 1
+    const limit = parseInt(req.query.limit) || 5; // Default to 5 items per page
+    const skip = (page - 1) * limit;
+
+    const customers = await Customer.find();
+    
+    const allServices = customers.flatMap(customer => 
+      customer.serviceRequests.map(service => ({
+        ...service.toObject(),
+        firstName: customer.firstName,
+        lastName: customer.lastName
+      }))
+    );
+
+    const paginatedServices = allServices.slice(skip, skip + limit);
+
+    res.status(200).json({
+      services: paginatedServices,
+      totalServices: allServices.length, // Total count for frontend navigation
+    });
+
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    res.status(500).json({ error: 'Failed to retrieve services' });
+  }
+});
+
+
+
+
 
 module.exports = router;

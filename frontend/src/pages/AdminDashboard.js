@@ -1,10 +1,11 @@
 //AdminDashboard.js
 
 import React, { useState } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 import Administrator from './Administrator';
 import Employee from './Employee';
 import Services from './Services';
+import ShowAllServices from './ShowAllServices';
 import axios from 'axios';
 import './css/AdminDashboard.css';
 
@@ -66,17 +67,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // const handleSearchService = async () => {
-  //   try {
-  //     const res = await axios.get(`http://localhost:5000/api/auth/services?email=${email}`);
-  //     setServiceData(res.data);
-  //     setView('service');
-  //   } catch (error) {
-  //     console.error('Error fetching service:', error);
-  //   }
-  // };
-
-  //new handleSearchService
+  //new handleSearchService------------------------------------------------------------------
 
   const handleSearchService = async () => {
     try {
@@ -117,6 +108,8 @@ const AdminDashboard = () => {
 
           <div className='dashboard-section'>
             <button onClick={() => setView('searchService')}>Search Customer Services</button>
+
+            <button onClick={() => setView('showAllServices')}>Show All Services</button>
           </div>
         </div>
       ) : null}
@@ -213,6 +206,29 @@ const AdminDashboard = () => {
           <button onClick={() => setView(null)}>Back</button>
         </div>
       )}
+
+      {/* showing as an examle for the one below it */}
+
+      {/* {view === 'createService' && (
+        <div className="form-container">
+          <Services data={serviceData} isAdminView={true} />
+          <div className="form-actions">
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
+        </div>
+      )}       */}
+
+
+      {view === 'showAllServices' && (
+        <div className="form-container">
+          <ShowAllServices 
+            // data={serviceData} isAdminView={true} 
+          />
+          <div className="form-actions">
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
+        </div>
+      )}      
 
     </div>
   );

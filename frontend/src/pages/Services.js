@@ -22,7 +22,7 @@ const Services = ({ isAdminView }) => {
   };
   
   const handleSubmit = async (e) => {
-    console.log(`at service page handleSubmit ${isAdminView}`);
+
     e.preventDefault();
     
     if(isAdminView){

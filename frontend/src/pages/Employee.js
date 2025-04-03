@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 const Employee = ({ data = {}, onSubmit }) => {
-  console.log('at Employee frontend page')
+
   if(Object.keys(data).length === 0){
     data = false;
   }
