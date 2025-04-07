@@ -3,7 +3,7 @@ const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Employee = require('../models/Employee');
-const Service = require('../models/Service'); 
+//const Service = require('../models/Service'); 
 const Admin = require('../models/Admin');
 const Customer = require('../models/Customer');
 const router = express.Router();
@@ -13,12 +13,9 @@ const upload = multer();
 router.post('/login', async (req, res) => {
  
   const { username, password } = req.body;
-  //change to this?
-  //add a var that can tell if admin
-  // if admin user, no password verification needed to edit profile/service
-  //returns back to admin page and autopopulates the form
 
   try {
+  
     let user = await Admin.findOne({ username });
     let role = 'admin';
 
@@ -26,11 +23,6 @@ router.post('/login', async (req, res) => {
       user = await Employee.findOne({ username });
       role = 'employee';
     }
-
-    // if (!user) {
-    //   user = await Service.findOne({ username });
-    //   role = 'service';
-    // }
 
     if (!user) {
       user = await Customer.findOne({ username });
@@ -52,13 +44,6 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-});
-
-// Dashboard Route
-router.get('/adminDashboard', (req, res) => {
-  // Simulate a service request retrieval
-  const services = [{ name: 'Plumbing', status: 'Pending' }];
-  res.status(200).json({ services });
 });
 
 //new get services route
@@ -173,10 +158,13 @@ router.post('/employee', async (req, res) => {
 //added customer routes
 
 router.post('/services', upload.none(), async (req, res) => {
+    console.log('at services route')
   
   try {
     const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, serviceType, description, role } = req.body;
     let customer = await Customer.findOne({ username });
+
+    console.log(req.body)
 
     if (!customer) {
       // Hash password before saving
@@ -256,6 +244,29 @@ router.put('/services/:serviceId', async (req, res) => {
   } catch (error) {
     console.error('Error updating service:', error);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+//get a customer's services
+// Get a customer by username (assuming you want their full profile and services)
+router.get('/customerServices', async (req, res) => {
+  try {
+    const { username } = req.query;
+    if (!username) {
+      return res.status(400).json({ message: 'Username is required' });
+    }
+
+    const user = await Customer.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    console.log('Returned user: ', user);
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

@@ -63,6 +63,8 @@ const Services = ({ isAdminView }) => {
       }
   
       try {
+        console.log('making the request')
+        console.log(formData)
         const res = await axios.post('http://localhost:5000/api/auth/services', formData);
         alert(res.data.message);
         navigate('/');
