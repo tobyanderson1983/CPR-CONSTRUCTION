@@ -37,7 +37,6 @@ router.post('/', async (req, res) => {
 
 //get all admins 5 at a time --- IN USE
 router.get('/', async (req, res) => {
-  console.log('at get all admins', req.body)
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 5;
