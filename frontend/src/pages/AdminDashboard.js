@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Administrator from './Administrator';
+import ShowAllAdmins from './ShowAllAdmins';
 import Employee from './Employee';
 import Services from './Services';
 import ShowAllServices from './ShowAllServices';
@@ -15,6 +16,9 @@ const AdminDashboard = () => {
   const [employeeData, setEmployeeData] = useState(null);
   const [serviceData] = useState(null);
   const [services, setServices] = useState([]);
+  //--------------
+  const [admins, setAdmins] = useState([]);
+  //--------------
   const [username, setUsername] = useState('');  
   const location = useLocation();
   const fullName = `${location.state?.firstName || "Guest"} ${location.state?.lastName || ""}`.trim();
@@ -32,7 +36,18 @@ const AdminDashboard = () => {
     }
   };
 
-  //view all admins
+  // view all admins
+  const handleGetAdmins = async (adminData) => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/admins/', adminData);
+      alert('Administrator created successfully!');
+      console.log(res);
+      setView(null);
+    } catch (error) {
+      console.error('Error creating admin:', error);
+      alert('Failed to create administrator.');
+    }
+  };
 
   //view a single admin
 
@@ -52,7 +67,7 @@ const AdminDashboard = () => {
   //create a new regular employee
   const handleCreateEmployee = async (employeeData) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/employee', employeeData);
+      const res = await axios.post('http://localhost:5000/api/employees/', employeeData);
       alert('Employee created successfully!');
       console.log(res);
       setView(null);
@@ -108,6 +123,7 @@ const AdminDashboard = () => {
           {/* Administrator Management */}
           <div className="dashboard-section">
             <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
+            <button onClick={() => setView('showAllAdmins')}>View All Admins</button>
             <button onClick={handleEditAdmin}>Edit Administrator</button>
           </div>
 
@@ -125,7 +141,6 @@ const AdminDashboard = () => {
 
           <div className='dashboard-section'>
             <button onClick={() => setView('searchService')}>Search Customer Services</button>
-
             <button onClick={() => setView('showAllServices')}>Show All Services</button>
           </div>
         </div>
@@ -140,6 +155,22 @@ const AdminDashboard = () => {
           </div>
         </div>
       )}
+
+      {/* adding an area to show all admin users */}
+
+      {view === 'showAllAdmins' && (
+        <div className="form-container">
+          <ShowAllAdmins 
+            // is puttung admins below correct?
+            data={admins}
+          />
+          <div className="form-actions">
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
+        </div>
+      )}  
+
+      {/* ------------------------------------------ */}
 
       {view === 'admin' && (
         <div className="form-container">

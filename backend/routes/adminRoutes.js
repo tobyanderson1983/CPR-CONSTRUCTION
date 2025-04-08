@@ -35,15 +35,35 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET all admins ----NOT IN USE
+//get all admins 5 at a time --- IN USE
 router.get('/', async (req, res) => {
+  console.log('at get all admins', req.body)
   try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const skip = (page - 1) * limit;
+
     const admins = await Admin.find();
-    res.json(admins);
-  } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+
+    const allAdmins = admins.map(admin => ({
+      ...admin.toObject(),
+      firstName: admin.firstName,
+      lastName: admin.lastName
+    }));
+
+    const paginatedAdmins = allAdmins.slice(skip, skip + limit);
+
+    res.status(200).json({
+      admins: paginatedAdmins,
+      totalAdmins: allAdmins.length,
+    });
+
+  } catch (error) {
+    console.error('Error fetching admins:', error);
+    res.status(500).json({ error: 'Failed to retrieve admins' });
   }
 });
+
 
 // GET one admin -----NOT IN USE    
 router.get('/:id', async (req, res) => {

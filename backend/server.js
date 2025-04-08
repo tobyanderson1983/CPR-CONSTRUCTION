@@ -18,11 +18,17 @@ mongoose.connect(process.env.MONGO_URI)
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);//add routes to authRoutes
 
-//lets try making seperate admin routes----------------------------------------------------------------
+//adminRoutes
 const adminRoutes = require('./routes/adminRoutes');
 app.use('/api/admins', adminRoutes);//add routes to adminRoutes
 
-//-----------------------------------------------------------------------------------------------------
+//employeeRoutes
+const employeeRoutes = require('./routes/employeeRoutes');
+app.use('/api/employees', employeeRoutes);//add routes to employeeRoutes
+
+//customerRoutes
+const customerRoutes = require('./routes/customerRoutes');
+app.use('/api/customers', customerRoutes);//add routes to customerRoutes
 
 // Start Server
 app.listen(5000, () => {
