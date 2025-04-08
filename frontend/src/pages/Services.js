@@ -45,7 +45,7 @@ const Services = ({ isAdminView }) => {
       formPayload.append('role', role);
 
       try {
-        const res = await axios.post('http://localhost:5000/api/auth/services', formPayload, {
+        const res = await axios.post('http://localhost:5000/api/customers/', formPayload, {
           headers: {
             'Content-Type': 'multipart/form-data',
           }});
@@ -65,7 +65,7 @@ const Services = ({ isAdminView }) => {
       try {
         console.log('making the request')
         console.log(formData)
-        const res = await axios.post('http://localhost:5000/api/auth/services', formData);
+        const res = await axios.post('http://localhost:5000/api/customers/', formData);
         alert(res.data.message);
         navigate('/');
       } catch (error) {

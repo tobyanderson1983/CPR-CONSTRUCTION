@@ -1,38 +1,43 @@
 //routes/customerRoutes.js
 
 const express = require('express');
+const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const Customer = require('../models/Customer');
 const router = express.Router();
+const upload = multer();
 
-// CREATE customer -- NOT IN USE
-router.post('/', async (req, res) => {
-//   const {
-//     firstName, lastName, streetAddress, city, state,
-//     zipCode, phoneNumber, username, password, confirmPassword
-//   } = req.body;
+// CREATE customer and service request -- IN USE
+router.post('/', upload.none(), async (req, res) => {
+    console.log('at services route')
+  
+  try {
+    const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, serviceType, description, role } = req.body;
+    let customer = await Customer.findOne({ username });
 
-//   try {
-//     if (password !== confirmPassword)
-//       return res.status(400).json({ error: 'Passwords do not match' });
+    console.log(req.body)
 
-//     const existing = await Admin.findOne({ username });
-//     if (existing)
-//       return res.status(400).json({ error: 'Email already in use' });
+    if (!customer) {
+      // Hash password before saving
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-//     const hashedPassword = await bcrypt.hash(password, 10);
+      customer = new Customer({
+        firstName, lastName, streetAddress, city, state, phoneNumber, username, zipCode, password: hashedPassword,
+        serviceRequests: [{ serviceType, description }]
+      });
 
-//     const newAdmin = new Admin({
-//       firstName, lastName, streetAddress, city, state,
-//       zipCode, phoneNumber, username, password: hashedPassword
-//     });
+      await customer.save();
+      return res.status(201).json({ message: "Customer profile and service request created successfully" });
+    }
 
-//     await newAdmin.save();
-//     res.status(201).json({ message: 'Admin created successfully' });
-//   } catch (err) {
-//     console.error('Create admin error:', err);
-//     res.status(500).json({ error: 'Server error' });
-//   }
+    customer.serviceRequests.unshift({ serviceType, description });
+    await customer.save();
+    
+    res.status(200).json({ message: "Service request added successfully" });
+  } catch (err) {
+    console.error("Error processing service request:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
 });
 
 //get all customers services route -- IN USE

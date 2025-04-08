@@ -1,5 +1,4 @@
 const express = require('express');
-const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Employee = require('../models/Employee');
@@ -7,7 +6,7 @@ const Employee = require('../models/Employee');
 const Admin = require('../models/Admin');
 const Customer = require('../models/Customer');
 const router = express.Router();
-const upload = multer();
+
 
 // Login --confirmed use
 router.post('/login', async (req, res) => {
@@ -50,37 +49,6 @@ router.post('/login', async (req, res) => {
 
 //added customer routes
 
-router.post('/services', upload.none(), async (req, res) => {
-    console.log('at services route')
-  
-  try {
-    const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, serviceType, description, role } = req.body;
-    let customer = await Customer.findOne({ username });
-
-    console.log(req.body)
-
-    if (!customer) {
-      // Hash password before saving
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      customer = new Customer({
-        firstName, lastName, streetAddress, city, state, phoneNumber, username, zipCode, password: hashedPassword,
-        serviceRequests: [{ serviceType, description }]
-      });
-
-      await customer.save();
-      return res.status(201).json({ message: "Customer profile and service request created successfully" });
-    }
-
-    customer.serviceRequests.unshift({ serviceType, description });
-    await customer.save();
-    
-    res.status(200).json({ message: "Service request added successfully" });
-  } catch (err) {
-    console.error("Error processing service request:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
-  }
-});
 
 //get all services 5 at a time
 router.get('/services', async (req, res) => {
