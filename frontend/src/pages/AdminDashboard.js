@@ -102,7 +102,7 @@ const AdminDashboard = () => {
 
   const handleSearchService = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/auth/customerServices?username=${username}`);
+      const res = await axios.get(`http://localhost:5000/api/customers?username=${username}`);
       console.log(res.data.user);
       setServices(res.data.user.serviceRequests || []); // only set the services array
       setView('showAllServices');

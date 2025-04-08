@@ -73,15 +73,26 @@ router.get('/customer', async (req, res) => {
   });
   
 
-// GET one CUSTOMER -----NOT IN USE    
-router.get('/:id', async (req, res) => {
-//   try {
-//     const admin = await Admin.findById(req.params.id);
-//     if (!admin) return res.status(404).json({ error: 'Admin not found' });
-//     res.json(admin);
-//   } catch (err) {
-//     res.status(500).json({ error: 'Server error' });
-//   }
+//GET a customer and the customers services  ---- IN USE 
+router.get('/', async (req, res) => {
+  try {
+    const { username } = req.query;
+    if (!username) {
+      return res.status(400).json({ message: 'Username is required' });
+    }
+
+    const user = await Customer.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    console.log('Returned user: ', user);
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 // UPDATE a customer -------NOT IN USE
