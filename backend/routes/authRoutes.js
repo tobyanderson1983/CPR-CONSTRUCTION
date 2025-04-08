@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Employee = require('../models/Employee');
 //const Service = require('../models/Service'); 
-const Admin = require('../models/Admin');
+// const Admin = require('../models/Admin');
 const Customer = require('../models/Customer');
 const router = express.Router();
 const upload = multer();
@@ -46,8 +46,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+
 //new get services route
 router.get('/customer', async (req, res) => {
+  console.log('at get customer route')
   
   try {
     // Check if Authorization header is provided
@@ -77,44 +80,7 @@ router.get('/customer', async (req, res) => {
   }
 });
 
-// Create new administrator
-router.post('/admin', async (req, res) => {
 
-  try {
-    const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, confirmPassword } = req.body;
-
-    // Check if passwords match
-    if (password !== confirmPassword) {
-      return res.status(400).json({ error: 'Passwords do not match' });
-    }
-
-    // Check if the username (email) is already taken
-    const existingAdmin = await Admin.findOne({ username });
-    if (existingAdmin) {
-      return res.status(400).json({ error: 'Email already in use' });
-    }
-
-    // Create new admin
-    const newAdmin = new Admin({
-      firstName,
-      lastName,
-      streetAddress,
-      city,
-      state,
-      zipCode,
-      phoneNumber,
-      username,
-      password,
-    });
-
-    await newAdmin.save();
-    res.status(201).json({ message: 'Administrator created successfully' });
-
-  } catch (error) {
-    console.error('Error creating administrator:', error);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
 
 //create new employee
 router.post('/employee', async (req, res) => {

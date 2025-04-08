@@ -22,7 +22,7 @@ const AdminDashboard = () => {
   //create a new administrative employee
   const handleCreateAdmin = async (adminData) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/admin', adminData);
+      const res = await axios.post('http://localhost:5000/api/admins/', adminData);
       alert('Administrator created successfully!');
       console.log(res);
       setView(null);
@@ -32,16 +32,22 @@ const AdminDashboard = () => {
     }
   };
 
+  //view all admins
+
+  //view a single admin
+
   //edit an existing administrative employee
   const handleEditAdmin = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/auth/admin');
+      const res = await axios.get('http://localhost:5000/api/admins/');
       setAdminData(res.data);
       setView('admin');
     } catch (error) {
       console.error('Error fetching admin:', error);
     }
   };
+
+  //dlete an admin
 
   //create a new regular employee
   const handleCreateEmployee = async (employeeData) => {
