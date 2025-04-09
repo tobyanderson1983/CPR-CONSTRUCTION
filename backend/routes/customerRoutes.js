@@ -3,6 +3,7 @@
 const express = require('express');
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const Customer = require('../models/Customer');
 const router = express.Router();
 const upload = multer();
@@ -40,60 +41,77 @@ router.post('/', upload.none(), async (req, res) => {
   }
 });
 
-//get all customers services route -- IN USE
-router.get('/customer', async (req, res) => {
-    console.log('at get customer route')
-    
-    try {
-      // Check if Authorization header is provided
-      const authHeader = req.headers.authorization;
-      if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ message: "Unauthorized: No token provided" });
-      }
-  
-      // Extract token and verify it
-      const token = authHeader.split(" ")[1]; // Get the actual token part
-      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Decode token
-      const username = decoded.username; // Extract username from token
-      
-      if (!username) {
-        return res.status(400).json({ message: "Invalid token: No username found" });
-      }
-  
-      // Find customer by username
-      const customer = await Customer.findOne({ username }); // Ensure it's email if stored as such
-      if (!customer) {
-        return res.status(404).json({ message: "Customer not found" });
-      }
-  
-      res.status(200).json({ services: customer.serviceRequests });
-    } catch (err) {
-      res.status(500).json({ message: "Server error", error: err.message });
-    }
-  });
-  
-
-//GET a customer and the customers services  ---- IN USE 
+//get/READ all services 5 at a time --- IN USE
 router.get('/', async (req, res) => {
   try {
-    const { username } = req.query;
-    if (!username) {
-      return res.status(400).json({ message: 'Username is required' });
-    }
+    const page = parseInt(req.query.page) || 1; // Default to page 1
+    const limit = parseInt(req.query.limit) || 5; // Default to 5 items per page
+    const skip = (page - 1) * limit;
 
-    const user = await Customer.findOne({ username });
+    const customers = await Customer.find();
+    
+    const allServices = customers.flatMap(customer => 
+      customer.serviceRequests.map(service => ({
+        ...service.toObject(),
+        firstName: customer.firstName,
+        lastName: customer.lastName
+      }))
+    );
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+    const paginatedServices = allServices.slice(skip, skip + limit);
 
-    console.log('Returned user: ', user);
-    res.status(200).json({ user });
+    res.status(200).json({
+      services: paginatedServices,
+      totalServices: allServices.length, // Total count for frontend navigation
+    });
+
   } catch (error) {
-    console.error('Error fetching user:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error fetching services:', error);
+    res.status(500).json({ error: 'Failed to retrieve services' });
   }
 });
+
+
+// get a single customers service data --- sent from handleSearchService on the AdminDashboard -- IN USE
+router.get('/oneCustomer', async (req, res) => {
+  
+  try {
+    // Check for token
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: "Unauthorized: No token provided" });
+    }
+
+    // Get the customer username from the query string
+    const { username } = req.query;
+    if (!username) {
+      return res.status(400).json({ message: "Missing customer username in query" });
+    }
+
+    const customer = await Customer.findOne({ username });
+
+    if (!customer) {
+      return res.status(404).json({ message: 'Customer not found' });
+    }
+
+    const allServices = customer.serviceRequests.map(service => ({
+      ...service.toObject(),
+      firstName: customer.firstName,
+      lastName: customer.lastName
+    }));
+
+    if(customer.serviceRequests.length){
+      res.status(200).json({ services: allServices });
+    } else {
+      res.status(200).json({ services: customer });
+    }
+    
+  } catch (err) {
+    console.error("Error processing request:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
 
 // UPDATE a customer -------NOT IN USE
 router.put('/:id', async (req, res) => {
@@ -106,7 +124,59 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE customer -----NOT IN USE
+//edit service ---from old authRoutes ---- NOT IN USE
+router.put('/services/:serviceId', async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+    const { serviceType, description, status } = req.body;
+
+    // Find the customer that has this service request
+    const customer = await Customer.findOne({ "serviceRequests._id": serviceId });
+
+    if (!customer) {
+      return res.status(404).json({ message: "Service request not found" });
+    }
+
+    // Update the specific service request
+    const service = customer.serviceRequests.id(serviceId);
+    service.serviceType = serviceType;
+    service.description = description;
+    service.status = status;
+
+    await customer.save();
+    res.status(200).json({ message: "Service request updated successfully" });
+
+  } catch (error) {
+    console.error('Error updating service:', error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+//DELETE a customer's SERVICE REQUEST by id -- NOT IN USE
+router.delete('/service/:serviceId', async (req, res) => {
+  console.log('delete route')
+  try {
+    const { serviceId } = req.params;
+    const customer = await Customer.findOne({ "serviceRequests._id": serviceId });
+
+    if (!customer) {
+      return res.status(404).json({ message: "Service request not found" });
+    }
+
+    // Remove the service request
+    customer.serviceRequests = customer.serviceRequests.filter(service => service._id.toString() !== serviceId);
+    
+    await customer.save();
+    res.status(200).json({ message: "Service request deleted successfully" });
+
+  } catch (error) {
+    console.error('Error deleting service:', error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+// DELETE a CUSTOMER -----NOT IN USE
 router.delete('/:id', async (req, res) => {
 //   try {
 //     const deleted = await Admin.findByIdAndDelete(req.params.id);

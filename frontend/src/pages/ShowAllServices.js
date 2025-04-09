@@ -13,17 +13,22 @@ const ShowAllServices = ({ data }) => {
     const location = useLocation();
 
     const fetchServices = async (pageNum) => {
-        try {
-            const res = await axios.get(`http://localhost:5000/api/auth/services?page=${pageNum}&limit=${limit}`);
-            if (pageNum === 1) {
-                setServices(res.data.services);
-            } else {
-                setServices(prevServices => [...prevServices, ...res.data.services]);
+        if(!data.firstName){
+            try {
+                const res = await axios.get(`http://localhost:5000/api/customers?page=${pageNum}&limit=${limit}`);
+                if (pageNum === 1) {
+                    setServices(res.data.services);
+                } else {
+                    setServices(prevServices => [...prevServices, ...res.data.services]);
+                }
+                setTotalServices(res.data.totalServices);
+            } catch (error) {
+                console.error('Error fetching service requests:', error);
             }
-            setTotalServices(res.data.totalServices);
-        } catch (error) {
-            console.error('Error fetching service requests:', error);
+        }else{
+            setServices([data]);
         }
+        
     };
 
     useEffect(() => {
@@ -44,7 +49,7 @@ const ShowAllServices = ({ data }) => {
 
     const handleDelete = async (serviceId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/auth/services/${serviceId}`);
+            await axios.delete(`http://localhost:5000/api/customers/service/${serviceId}`);
             setServices(services.filter(service => service._id !== serviceId));
         } catch (error) {
             console.error("Error deleting service:", error);

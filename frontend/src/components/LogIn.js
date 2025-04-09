@@ -15,7 +15,7 @@ const LogIn = () => {
     event.preventDefault(); // Prevent the default form submission
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post("http://localhost:5000/api/login", {
         username,
         password,
       });

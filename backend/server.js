@@ -18,6 +18,11 @@ mongoose.connect(process.env.MONGO_URI)
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);//add routes to authRoutes
 
+//loginRoutes
+const loginRoutes = require('./routes/loginRoutes');
+app.use('/api/login', loginRoutes);//add routes to loginRoutes
+
+
 //adminRoutes
 const adminRoutes = require('./routes/adminRoutes');
 app.use('/api/admins', adminRoutes);//add routes to adminRoutes

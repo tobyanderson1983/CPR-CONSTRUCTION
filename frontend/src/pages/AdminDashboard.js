@@ -100,16 +100,36 @@ const AdminDashboard = () => {
   //   }
   // };
 
+  // const handleSearchService = async () => {
+  //   try {
+  //     const res = await axios.get(`http://localhost:5000/api/customers?username=${username}`);
+  //     console.log(res.data.user);
+  //     setServices(res.data.user.serviceRequests || []); // only set the services array
+  //     setView('showAllServices');
+  //   } catch (error) {
+  //     console.error('Error fetching service:', error);
+  //   }
+  // };
+  
   const handleSearchService = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/customers?username=${username}`);
-      console.log(res.data.user);
-      setServices(res.data.user.serviceRequests || []); // only set the services array
+      // Get the token from localStorage or wherever you store it
+      const token = localStorage.getItem("token");
+  
+      // Make the GET request with the Authorization header
+      const res = await axios.get(`http://localhost:5000/api/customers/oneCustomer?username=${username}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the Bearer token here
+        },
+      });
+  
+      setServices(res.data.services || []); // Set services array
       setView('showAllServices');
     } catch (error) {
       console.error('Error fetching service:', error);
     }
   };
+  
   
 
   return (
@@ -237,7 +257,10 @@ const AdminDashboard = () => {
             data={services}
           />
           <div className="form-actions">
-            <button onClick={() => setView(null)}>Cancel</button>
+            <button onClick={() => {
+              setView(null); 
+              setServices([]);
+            }}>Cancel</button>
           </div>
         </div>
       )}     
