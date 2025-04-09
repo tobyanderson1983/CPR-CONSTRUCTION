@@ -29,9 +29,6 @@ const Services = ({ isAdminView }) => {
       const role = 'admin';
       const formPayload = new FormData();
 
-      // formData.append('fieldName', fieldValue);
-      // Append the 'role' variable to formData
-
       formPayload.append('firstName', formData.firstName);
       formPayload.append('lastName', formData.lastName);
       formPayload.append('streetAddress', formData.streetAddress);
@@ -63,8 +60,6 @@ const Services = ({ isAdminView }) => {
       }
   
       try {
-        console.log('making the request')
-        console.log(formData)
         const res = await axios.post('http://localhost:5000/api/customers/', formData);
         alert(res.data.message);
         navigate('/');
