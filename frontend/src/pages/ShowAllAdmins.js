@@ -11,7 +11,7 @@ const ShowAllAdmins = ({ data }) => {
     const limit = 5;
     const navigate = useNavigate();
     const location = useLocation();
-
+    console.log(admins)
     const fetchAdmins = async (pageNum) => {
         try {
             const res = await axios.get(`http://localhost:5000/api/admins?page=${pageNum}&limit=${limit}`);
@@ -44,7 +44,8 @@ const ShowAllAdmins = ({ data }) => {
 
     const handleDelete = async (adminId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/auth/admin/${adminId}`);
+            await axios.delete(`http://localhost:5000/api/admins/${adminId}`);
+
             setAdmins(admins.filter(admin => admin._id !== adminId));
         } catch (error) {
             console.error("Error deleting admin:", error);
@@ -59,15 +60,15 @@ const ShowAllAdmins = ({ data }) => {
             ) : (
                 <ul>
                     {admins.map((admin) => (
-                        <li key={admin._id}>
-                            <strong>Name:</strong> {admin.firstName} {admin.lastName} <br />
-                            {/* <strong>Service Type:</strong> {service.serviceType} <br />
-                            <strong>Description:</strong> {service.description} <br />
-                            <strong>Status:</strong> {service.status} <br /> */}
+                        <div key={admin._id}>
+                           <strong>Name:</strong> {admin.firstName} {admin.lastName}<br />
+                            <strong>Phone Number:</strong> {admin.phoneNumber} <br />
+                            <strong>Address:</strong> {admin.streetAddress}, {admin.state} {admin.zipCode}<br />
+                            <strong>email:</strong> {admin.username}<br />
                             <button onClick={() => handleEdit(admin)}>Edit</button>
                             <button onClick={() => handleDelete(admin._id)}>Delete</button>
                             <hr />
-                        </li>
+                        </div>
                     ))}
                 </ul>
             )}

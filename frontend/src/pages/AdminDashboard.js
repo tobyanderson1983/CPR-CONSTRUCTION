@@ -183,7 +183,6 @@ const AdminDashboard = () => {
       {view === 'showAllAdmins' && (
         <div className="form-container">
           <ShowAllAdmins 
-            // is puttung admins below correct?
             data={admins}
           />
           <div className="form-actions">
