@@ -13,10 +13,7 @@ app.use(cors());
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.log(err));
-
-// Import Routes
-const authRoutes = require('./routes/authRoutes');
-app.use('/api/auth', authRoutes);//add routes to authRoutes
+  
 
 //loginRoutes
 const loginRoutes = require('./routes/loginRoutes');
