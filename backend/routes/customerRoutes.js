@@ -124,7 +124,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-//edit service ---from old authRoutes ---- NOT IN USE
+//edit service ---from old authRoutes ---- IN USE
 router.put('/services/:serviceId', async (req, res) => {
   try {
     const { serviceId } = req.params;
@@ -152,9 +152,8 @@ router.put('/services/:serviceId', async (req, res) => {
   }
 });
 
-//DELETE a customer's SERVICE REQUEST by id -- NOT IN USE
+//DELETE a customer's SERVICE REQUEST by id -- IN USE
 router.delete('/service/:serviceId', async (req, res) => {
-  console.log('delete route')
   try {
     const { serviceId } = req.params;
     const customer = await Customer.findOne({ "serviceRequests._id": serviceId });
