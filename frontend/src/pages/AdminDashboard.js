@@ -131,6 +131,8 @@ const AdminDashboard = () => {
   };
   
   
+// --------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
 
   return (
     <div className="admin-dashboard">
@@ -156,13 +158,10 @@ const AdminDashboard = () => {
           {/* Service Management */}
           <div className="dashboard-section">
             <button onClick={() => setView('createService')}>Create New Service</button>
-            <button onClick={() => setView('editService')}>Edit an Existing Service</button>
-          </div>
-
-          <div className='dashboard-section'>
-            <button onClick={() => setView('searchService')}>Search Customer Services</button>
+            <button onClick={() => setView('searchService')}>Edit an Existing Service</button>
             <button onClick={() => setView('showAllServices')}>Show All Services</button>
           </div>
+
         </div>
       ) : null}
 
@@ -226,21 +225,6 @@ const AdminDashboard = () => {
         <div className="form-container">
           <Services data={serviceData} isAdminView={true} />
           <div className="form-actions">
-            <button onClick={() => setView(null)}>Cancel</button>
-          </div>
-        </div>
-      )}
-      
-      {view === 'editService' && (
-        <div className="form-container">
-          <input 
-            type="email" 
-            placeholder="Enter email to search" 
-            value={username} //changed email to username
-            onChange={(e) => setUsername(e.target.value)} //changed setEmail to setUsername
-          />
-          <div className="form-actions">
-            <button onClick={handleSearchService}>Search Customer</button>
             <button onClick={() => setView(null)}>Cancel</button>
           </div>
         </div>
