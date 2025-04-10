@@ -1,7 +1,7 @@
 // Administrator.js
 
 import React, { useState } from 'react';
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import './css/Administrator.css';
 
 const Administrator = ({ onSubmit }) => {
@@ -17,7 +17,7 @@ const Administrator = ({ onSubmit }) => {
     state: data.state || 'WA',
     zipCode: data.zipCode || '',
     phoneNumber: data.phoneNumber || '',
-    username: data.username || '', // ✅ Make sure it's `username`, not `email`
+    username: data.username || '', 
     password: '',
     confirmPassword: ''
   });
@@ -29,8 +29,6 @@ const Administrator = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // If user is editing and leaves password fields empty, skip password validation
-    const isEditing = !!data._id;
     const changingPassword = formData.password || formData.confirmPassword;
 
     if (changingPassword && formData.password !== formData.confirmPassword) {
@@ -67,24 +65,18 @@ const Administrator = ({ onSubmit }) => {
       <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
 
       {/* Only require password fields if creating a new user or if editing and changing password */}
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        minLength="6"
-        value={formData.password}
-        onChange={handleChange}
-        required={!data._id} // Required only when creating
-      />
-      <input
-        type="password"
-        name="confirmPassword"
-        placeholder="Confirm Password"
-        minLength="6"
-        value={formData.confirmPassword}
-        onChange={handleChange}
-        required={!data._id} // Required only when creating
-      />
+
+      { !data._id && (
+        <>
+          <input type="password" name="password" placeholder="Password" minLength="6" value={formData.password} 
+          onChange={handleChange} required 
+          />
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" minLength="6" 
+          value={formData.confirmPassword} onChange={handleChange} required 
+          />
+        </>
+      )}
+
 
       <br />
       <button type="submit">Submit</button>
