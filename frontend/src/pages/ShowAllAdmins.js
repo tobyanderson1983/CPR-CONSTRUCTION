@@ -11,7 +11,7 @@ const ShowAllAdmins = ({ data }) => {
     const limit = 5;
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(admins)
+    
     const fetchAdmins = async (pageNum) => {
         try {
             const res = await axios.get(`http://localhost:5000/api/admins?page=${pageNum}&limit=${limit}`);
@@ -39,7 +39,7 @@ const ShowAllAdmins = ({ data }) => {
     }, [data, page, location.state?.updated]);
 
     const handleEdit = (admin) => {
-        navigate(`/edit-admin/${admin._id}`, { state: { admin } });
+        navigate(`/administrator/${admin._id}`, { state: { admin } });
     };
 
     const handleDelete = async (adminId) => {

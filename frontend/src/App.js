@@ -7,9 +7,12 @@ import ContactUs from "./pages/ContactUs";
 import AdminDashboard from "./pages/AdminDashboard";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import CustomerDashboard from "./pages/CustomerDashboard";
-import EditService from "./pages/EditService"; // ✅ Import EditService
+import EditService from "./pages/EditService"; 
+// import EditAdmin from "./pages/EditAdmin";
+import Administrator from "./pages/Administrator";
 import PrivateRoute from "./components/PrivateRoute";
 import Header from "./components/Header";
+import axios from 'axios';
 
 // ✅ Layout Component that includes Header
 const Layout = () => (
@@ -71,6 +74,39 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/administrator/:id",
+        element: (
+          <PrivateRoute allowedRoles={["admin"]}>
+             <Administrator
+                onSubmit={async (formData) => {
+                  try {
+                    if (formData._id) {
+                      // EDIT mode
+                      await axios.put(`http://localhost:5000/api/admins/${formData._id}`, formData);
+                      alert('Administrator updated successfully!');
+                    } else {
+                      // CREATE mode
+                      await axios.post('http://localhost:5000/api/admins', formData);
+                      alert('Administrator created successfully!');
+                    }
+                  } catch (error) {
+                    console.error('Failed to submit administrator data:', error);
+                    alert('Error occurred during submit.');
+                  }
+                }}
+              />
+          </PrivateRoute>
+        ),
+      },
+      // {
+      //   path: "/edit-admin/:id",
+      //   element: (
+      //     <PrivateRoute allowedRoles={["admin"]}>
+      //       <EditAdmin />
+      //     </PrivateRoute>
+      //   ),
+      // },
     ],
   },
 ]);

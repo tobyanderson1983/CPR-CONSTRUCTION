@@ -1,12 +1,14 @@
+// Administrator.js
+
 import React, { useState } from 'react';
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import './css/Administrator.css';
 
-const Administrator = ({ data = {}, onSubmit }) => {
+const Administrator = ({ onSubmit }) => {
+  const location = useLocation();
+  const data = location.state?.admin || {};
+  const navigate = useNavigate();
 
-  if(Object.keys(data).length === 0){
-    data = false;
-  }
-  
   const [formData, setFormData] = useState({
     firstName: data.firstName || '',
     lastName: data.lastName || '',
@@ -15,7 +17,7 @@ const Administrator = ({ data = {}, onSubmit }) => {
     state: data.state || 'WA',
     zipCode: data.zipCode || '',
     phoneNumber: data.phoneNumber || '',
-    username: data.email || '', //does data.email need to be changed to data.username?
+    username: data.username || '', // ✅ Make sure it's `username`, not `email`
     password: '',
     confirmPassword: ''
   });
@@ -25,32 +27,65 @@ const Administrator = ({ data = {}, onSubmit }) => {
   };
 
   const handleSubmit = (e) => {
-
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
+
+    // If user is editing and leaves password fields empty, skip password validation
+    const isEditing = !!data._id;
+    const changingPassword = formData.password || formData.confirmPassword;
+
+    if (changingPassword && formData.password !== formData.confirmPassword) {
       alert('Passwords do not match.');
       return;
     }
-    onSubmit(formData);
+
+    const updatedData = {
+      ...formData,
+      _id: data._id // keep _id for editing if it exists
+    };
+
+    onSubmit(updatedData);
+    navigate("/adminDashboard");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{data ? 'Edit' : 'Create'} Administrator</h2>
+      <h2>{data._id ? 'Edit' : 'Create'} Administrator</h2>
+
       <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required />
       <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} required />
       <input type="text" name="streetAddress" placeholder="Street Address" value={formData.streetAddress} onChange={handleChange} required />
       <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
+
       <select name="state" value={formData.state} onChange={handleChange}>
         {["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"].map((s) => (
           <option key={s} value={s}>{s}</option>
         ))}
       </select>
+
       <input type="text" name="zipCode" pattern="\d{5}" placeholder="Enter Zip Code" value={formData.zipCode} onChange={handleChange} required />
       <input type="text" name="phoneNumber" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} required />
       <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
-      <input type="password" name="password" placeholder="Password" minLength="6" value={formData.password} onChange={handleChange} required />
-      <input type="password" name="confirmPassword" placeholder="Confirm Password" minLength="6" value={formData.confirmPassword} onChange={handleChange} required />
+
+      {/* Only require password fields if creating a new user or if editing and changing password */}
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        minLength="6"
+        value={formData.password}
+        onChange={handleChange}
+        required={!data._id} // Required only when creating
+      />
+      <input
+        type="password"
+        name="confirmPassword"
+        placeholder="Confirm Password"
+        minLength="6"
+        value={formData.confirmPassword}
+        onChange={handleChange}
+        required={!data._id} // Required only when creating
+      />
+
       <br />
       <button type="submit">Submit</button>
     </form>

@@ -75,7 +75,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// UPDATE admin -------NOT IN USE
+// UPDATE admin ------- IN USE
 router.put('/:id', async (req, res) => {
   try {
     const updated = await Admin.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -86,7 +86,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE admin -----NOT IN USE
+// DELETE admin ----- IN USE
 router.delete('/:id', async (req, res) => {
   try {
     const deleted = await Admin.findByIdAndDelete(req.params.id);

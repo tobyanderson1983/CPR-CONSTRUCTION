@@ -28,7 +28,6 @@ const AdminDashboard = () => {
     try {
       const res = await axios.post('http://localhost:5000/api/admins/', adminData);
       alert('Administrator created successfully!');
-      console.log(res);
       setView(null);
     } catch (error) {
       console.error('Error creating admin:', error);
