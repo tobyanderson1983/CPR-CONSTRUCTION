@@ -16,9 +16,7 @@ const AdminDashboard = () => {
   const [employeeData, setEmployeeData] = useState(null);
   const [serviceData] = useState(null);
   const [services, setServices] = useState([]);
-  //--------------
   const [admins, setAdmins] = useState([]);
-  //--------------
   const [username, setUsername] = useState('');  
   const location = useLocation();
   const fullName = `${location.state?.firstName || "Guest"} ${location.state?.lastName || ""}`.trim();
@@ -168,16 +166,20 @@ const AdminDashboard = () => {
       {/* ------------------------------------------------------------------------------------------------------ */}
 
       {/* Display Forms with Submit & Cancel Buttons Inside */}
+  
       {view === 'createAdmin' && (
         <div className="form-container">
-          <Administrator onSubmit={handleCreateAdmin} />
-          <div className="form-actions">
-            <button onClick={() => setView(null)}>Cancel</button>
-          </div>
+          <Administrator onSubmit={handleCreateAdmin} onCancel={() => setView(null)} />
         </div>
       )}
 
-      {/* adding an area to show all admin users */}
+      {view === 'admin' && (
+        <div className="form-container">
+          <Administrator data={adminData} onSubmit={handleEditAdmin} onCancel={() => setView(null)} />
+        </div>
+      )}
+
+      {/* show all admin users */}
 
       {view === 'showAllAdmins' && (
         <div className="form-container">
@@ -192,14 +194,14 @@ const AdminDashboard = () => {
 
       {/* ------------------------------------------ */}
 
-      {view === 'admin' && (
+      {/* {view === 'admin' && (
         <div className="form-container">
           <Administrator data={adminData} />
           <div className="form-actions">
             <button onClick={() => setView(null)}>Cancel</button>
           </div>
         </div>
-      )}
+      )} */}
 
       {view === 'createEmployee' && (
         <div className="form-container">

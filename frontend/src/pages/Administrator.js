@@ -1,10 +1,10 @@
-// Administrator.js
+//Administrator.js
 
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import './css/Administrator.css';
 
-const Administrator = ({ onSubmit }) => {
+const Administrator = ({ onSubmit, onCancel }) => {
   const location = useLocation();
   const data = location.state?.admin || {};
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Administrator = ({ onSubmit }) => {
     state: data.state || 'WA',
     zipCode: data.zipCode || '',
     phoneNumber: data.phoneNumber || '',
-    username: data.username || '', 
+    username: data.username || '',
     password: '',
     confirmPassword: ''
   });
@@ -38,11 +38,22 @@ const Administrator = ({ onSubmit }) => {
 
     const updatedData = {
       ...formData,
-      _id: data._id // keep _id for editing if it exists
+      _id: data._id
     };
 
     onSubmit(updatedData);
     navigate("/adminDashboard");
+  };
+
+  // const handleCancel = () => {
+  //   navigate("/adminDashboard");
+  // };
+  const handleCancel = () => {
+    if (onCancel) {
+      onCancel();
+    } else {
+      navigate("/adminDashboard");
+    }
   };
 
   return (
@@ -64,22 +75,24 @@ const Administrator = ({ onSubmit }) => {
       <input type="text" name="phoneNumber" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} required />
       <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
 
-      {/* Only require password fields if creating a new user or if editing and changing password */}
-
-      { !data._id && (
+      {/* Show password fields only when creating a new admin */}
+      {!data._id && (
         <>
-          <input type="password" name="password" placeholder="Password" minLength="6" value={formData.password} 
-          onChange={handleChange} required 
-          />
-          <input type="password" name="confirmPassword" placeholder="Confirm Password" minLength="6" 
-          value={formData.confirmPassword} onChange={handleChange} required 
-          />
+          <input type="password" name="password" placeholder="Password" minLength="6" value={formData.password} onChange={handleChange} required />
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" minLength="6" value={formData.confirmPassword} onChange={handleChange} required />
         </>
       )}
 
-
-      <br />
-      <button type="submit">Submit</button>
+      {/* <div style={{ marginTop: '1rem' }}>
+        <button type="submit">Submit</button>
+        <button type="button" onClick={handleCancel} style={{ marginLeft: '10px' }}>Cancel</button>
+      </div>
+    </form> */}
+    
+     <div style={{ marginTop: '1rem' }}>
+        <button type="submit">Submit</button>
+        <button type="button" onClick={handleCancel} style={{ marginLeft: '10px' }}>Cancel</button>
+      </div>
     </form>
   );
 };
