@@ -21,7 +21,7 @@ const AdminDashboard = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const location = useLocation();
-  const fullName = `${location.state?.firstName || "Guest"} ${location.state?.lastName || ""}`.trim();
+  const fullName = `${location.state?.firstName} ${location.state?.lastName || ""}`.trim();
 
   //create a new administrative employee
   const handleCreateAdmin = async (adminData) => {
