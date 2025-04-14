@@ -76,15 +76,6 @@ router.get('/:id', async (req, res) => {
 });
 
 // UPDATE admin ------- IN USE
-// router.put('/:id', async (req, res) => {
-//   try {
-//     const updated = await Admin.findByIdAndUpdate(req.params.id, req.body, { new: true });
-//     if (!updated) return res.status(404).json({ error: 'Admin not found' });
-//     res.json(updated);
-//   } catch (err) {
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
 router.put('/:id', async (req, res) => {
   try {
     const {

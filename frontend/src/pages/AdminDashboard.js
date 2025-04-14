@@ -1,7 +1,8 @@
 //AdminDashboard.js
-
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
+//import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { redirect, useLocation, useNavigate } from 'react-router-dom';
 import Administrator from './Administrator';
 import ShowAllAdmins from './ShowAllAdmins';
 import Employee from './Employee';
@@ -21,7 +22,21 @@ const AdminDashboard = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const location = useLocation();
-  const fullName = `${location.state?.firstName} ${location.state?.lastName || ""}`.trim();
+  const navigate = useNavigate();
+  const storedAdmin = JSON.parse(localStorage.getItem('adminName'));
+  const fullName = `${storedAdmin?.firstName || ''} ${storedAdmin?.lastName || ''}`.trim();
+  
+
+  useEffect(() => {
+    const stateExists = !!location.state?.firstName && !!location.state?.lastName;
+    const adminInStorage = localStorage.getItem('adminName');
+
+    if (!stateExists && !adminInStorage) {
+      navigate('/');
+    }
+  }, [location, navigate]);
+
+
 
   //create a new administrative employee
   const handleCreateAdmin = async (adminData) => {
@@ -29,6 +44,7 @@ const AdminDashboard = () => {
       const res = await axios.post('http://localhost:5000/api/admins/', adminData);
       alert('Administrator created successfully!');
       setView(null);
+      // problem here is that it will state that the logged in user is "undefined"
     } catch (error) {
       console.error('Error creating admin:', error);
       alert('Failed to create administrator.');

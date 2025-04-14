@@ -25,6 +25,9 @@ const LogIn = () => {
       // ✅ Save token & role in localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+
+      localStorage.setItem('adminName', JSON.stringify({ firstName, lastName }));
+
       
 
       // ✅ Navigate based on role

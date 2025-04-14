@@ -101,10 +101,15 @@ const Administrator = ({ onSubmit, onCancel }) => {
         </>
       )}
     
-     <div style={{ marginTop: '1rem' }}>
-        <button type="submit">Submit</button>
-        <button type="button" onClick={handleCancel} style={{ marginLeft: '10px' }}>Cancel</button>
+      <div className="form-actions">
+        <button type="submit" className="submit-button">
+          {data?._id ? 'Update' : 'Submit'}
+        </button>
+        <button type="button" onClick={handleCancel} className="cancel-button">
+          Cancel
+        </button>
       </div>
+      
     </form>
   );
 };
