@@ -47,6 +47,11 @@ const AdminDashboard = () => {
   };
 
   //view a single admin
+  const handleSearchAdmin = async () => {
+    //copy search exisiting service
+    console.log('handleSearchAdmin');
+    //const res = await axios.get('http://localhost:5000/api/admins/', adminData);
+  };
 
   //edit an existing administrative employee
   const handleEditAdmin = async () => {
@@ -143,7 +148,9 @@ const AdminDashboard = () => {
           <div className="dashboard-section">
             <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
             <button onClick={() => setView('showAllAdmins')}>View All Admins</button>
-            <button onClick={handleEditAdmin}>Edit Administrator</button>
+            {/* for search administrator, use setview and/ or copy search service code */}
+             <button onClick={handleSearchAdmin}>Search Administrator</button>
+            {/* <button onClick={handleEditAdmin}>Edit Administrator</button> */}
           </div>
 
           {/* Employee Management */}
@@ -155,7 +162,7 @@ const AdminDashboard = () => {
           {/* Service Management */}
           <div className="dashboard-section">
             <button onClick={() => setView('createService')}>Create New Service</button>
-            <button onClick={() => setView('searchService')}>Edit an Existing Service</button>
+            <button onClick={() => setView('searchService')}>Search Existing Service</button>
             <button onClick={() => setView('showAllServices')}>Show All Services</button>
           </div>
 

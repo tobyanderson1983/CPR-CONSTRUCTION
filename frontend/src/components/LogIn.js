@@ -13,18 +13,19 @@ const LogIn = () => {
 
   const login = async (event) => {
     event.preventDefault(); // Prevent the default form submission
-
+    
     try {
       const res = await axios.post("http://localhost:5000/api/login", {
         username,
         password,
       });
-      
+     
       const { token, username: user, role, firstName, lastName } = res.data;
 
       // ✅ Save token & role in localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+      
 
       // ✅ Navigate based on role
       if (role === "admin") {

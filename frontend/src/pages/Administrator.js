@@ -36,18 +36,36 @@ const Administrator = ({ onSubmit, onCancel }) => {
       return;
     }
 
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+  
+    
+    // const {
+    //   firstName, lastName, streetAddress, city, state,
+    //   zipCode, phoneNumber, username, password
+    // } = formData;
+
+    // const updatedData = {
+    //   ...formData,
+    //   _id: data._id
+    // };
+    const { confirmPassword, ...safeData } = formData;
+    console.log(formData)
+
     const updatedData = {
-      ...formData,
+      ...safeData,
       _id: data._id
     };
+
+    console.log('updated data: ', updatedData)
+
 
     onSubmit(updatedData);
     navigate("/adminDashboard");
   };
 
-  // const handleCancel = () => {
-  //   navigate("/adminDashboard");
-  // };
   const handleCancel = () => {
     if (onCancel) {
       onCancel();
@@ -82,12 +100,6 @@ const Administrator = ({ onSubmit, onCancel }) => {
           <input type="password" name="confirmPassword" placeholder="Confirm Password" minLength="6" value={formData.confirmPassword} onChange={handleChange} required />
         </>
       )}
-
-      {/* <div style={{ marginTop: '1rem' }}>
-        <button type="submit">Submit</button>
-        <button type="button" onClick={handleCancel} style={{ marginLeft: '10px' }}>Cancel</button>
-      </div>
-    </form> */}
     
      <div style={{ marginTop: '1rem' }}>
         <button type="submit">Submit</button>
