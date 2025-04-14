@@ -74,21 +74,25 @@ router.get('/', async (req, res) => {
 
 // get a single customers service data --- sent from handleSearchService on the AdminDashboard -- IN USE
 router.get('/oneCustomer', async (req, res) => {
-  
   try {
-    // Check for token
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({ message: "Unauthorized: No token provided" });
     }
 
-    // Get the customer username from the query string
-    const { username } = req.query;
-    if (!username) {
-      return res.status(400).json({ message: "Missing customer username in query" });
+    const { username, firstName, lastName } = req.query;
+
+    if (!username && (!firstName || !lastName)) {
+      return res.status(400).json({ message: "Please provide a username or both firstName and lastName." });
     }
 
-    const customer = await Customer.findOne({ username });
+    // Search by username or firstName + lastName
+    let customer;
+    if (username) {
+      customer = await Customer.findOne({ username });
+    } else {
+      customer = await Customer.findOne({ firstName, lastName });
+    }
 
     if (!customer) {
       return res.status(404).json({ message: 'Customer not found' });
@@ -100,12 +104,12 @@ router.get('/oneCustomer', async (req, res) => {
       lastName: customer.lastName
     }));
 
-    if(customer.serviceRequests.length){
+    if (customer.serviceRequests.length) {
       res.status(200).json({ services: allServices });
     } else {
       res.status(200).json({ services: customer });
     }
-    
+
   } catch (err) {
     console.error("Error processing request:", err);
     res.status(500).json({ message: "Server error", error: err.message });

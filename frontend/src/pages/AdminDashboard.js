@@ -18,6 +18,8 @@ const AdminDashboard = () => {
   const [services, setServices] = useState([]);
   const [admins, setAdmins] = useState([]);
   const [username, setUsername] = useState('');  
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const location = useLocation();
   const fullName = `${location.state?.firstName || "Guest"} ${location.state?.lastName || ""}`.trim();
 
@@ -102,35 +104,31 @@ const AdminDashboard = () => {
   //   }
   // };
 
-  // const handleSearchService = async () => {
-  //   try {
-  //     const res = await axios.get(`http://localhost:5000/api/customers?username=${username}`);
-  //     console.log(res.data.user);
-  //     setServices(res.data.user.serviceRequests || []); // only set the services array
-  //     setView('showAllServices');
-  //   } catch (error) {
-  //     console.error('Error fetching service:', error);
-  //   }
-  // };
-  
   const handleSearchService = async () => {
     try {
-      // Get the token from localStorage or wherever you store it
       const token = localStorage.getItem("token");
   
-      // Make the GET request with the Authorization header
-      const res = await axios.get(`http://localhost:5000/api/customers/oneCustomer?username=${username}`, {
+      const queryParams = new URLSearchParams();
+      if (username) queryParams.append('username', username);
+      else if (firstName && lastName) {
+        queryParams.append('firstName', firstName);
+        queryParams.append('lastName', lastName);
+      }
+  
+      const res = await axios.get(`http://localhost:5000/api/customers/oneCustomer?${queryParams.toString()}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Add the Bearer token here
+          Authorization: `Bearer ${token}`,
         },
       });
   
-      setServices(res.data.services || []); // Set services array
+      setServices(res.data.services || []);
       setView('showAllServices');
     } catch (error) {
       console.error('Error fetching service:', error);
+      alert('Could not find service. Check your input and try again.');
     }
   };
+  
   
   
 // --------------------------------------------------------------------------------------------------------------
@@ -237,9 +235,25 @@ const AdminDashboard = () => {
         </div>
       )}
 
+
       {view === 'searchService' && (
         <div>
-          <input type="email" placeholder="Enter customer email" onChange={(e) => setUsername(e.target.value)} />
+          <p>Search by either Username (Email) or Full Name</p>
+          <input
+            type="text"
+            placeholder="Enter username (email)"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="First Name"
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            onChange={(e) => setLastName(e.target.value)}
+          />
           <button onClick={handleSearchService}>Search</button>
           <button onClick={() => setView(null)}>Cancel</button>
         </div>

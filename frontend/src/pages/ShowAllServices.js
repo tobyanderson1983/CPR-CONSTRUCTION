@@ -66,9 +66,9 @@ const ShowAllServices = ({ data }) => {
                     {services.map((service) => (
                         <li key={service._id}>
                             <strong>Customer:</strong> {service.firstName} {service.lastName} <br />
-                            <strong>Service Type:</strong> {service.serviceType} <br />
-                            <strong>Description:</strong> {service.description} <br />
-                            <strong>Status:</strong> {service.status} <br />
+                            <strong>Service Type:</strong> {service.serviceType ? service.serviceType : 'none'} <br />
+                            <strong>Description:</strong> {service.description ? service.description : 'none'}<br />
+                            <strong>Status:</strong> {service.status ? service.status : 'none'} <br />
                             <button onClick={() => handleEdit(service)}>Edit</button>
                             <button onClick={() => handleDelete(service._id)}>Delete</button>
                             <hr />
