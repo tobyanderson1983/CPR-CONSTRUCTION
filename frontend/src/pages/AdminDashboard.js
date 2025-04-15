@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { redirect, useLocation, useNavigate } from 'react-router-dom';
 import Administrator from './Administrator';
 import ShowAllAdmins from './ShowAllAdmins';
+import ShowAllEmployees from './ShowAllEmployees';
 import Employee from './Employee';
 import Services from './Services';
 import ShowAllServices from './ShowAllServices';
@@ -16,6 +17,7 @@ const AdminDashboard = () => {
   const [serviceData] = useState(null);
   const [services, setServices] = useState([]);
   const [admins, setAdmins] = useState([]);
+  const [employees, setEmployees] = useState([]);
   const [username, setUsername] = useState('');  
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -154,22 +156,24 @@ const AdminDashboard = () => {
         <div className="dashboard-container">
           {/* Administrator Management */}
           <div className="dashboard-section">
+            <button onClick={() => setView('searchAdmin')}>Search Administrator</button>
+            <button onClick={() => setView('showAllAdmins')}>View All Administrators</button>
             <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
-            <button onClick={() => setView('showAllAdmins')}>View All Admins</button>
-             <button onClick={() => setView('searchAdmin')}>Search Administrator</button>
           </div>
 
           {/* Employee Management */}
           <div className="dashboard-section">
+            <button onClick={() => setView('searchEmployee')}>Search Employee</button>
+            <button onClick={() => setView('showAllEmployees')}>View All Employees</button>
             <button onClick={() => setView('createEmployee')}>Create New Employee</button>
-            <button onClick={() => setView('editEmployee')} >Edit Employee</button>
+            {/* <button onClick={() => setView('editEmployee')} >Edit Employee</button> */}
           </div>
 
           {/* Service Management */}
           <div className="dashboard-section">
-            <button onClick={() => setView('createService')}>Create New Service</button>
-            <button onClick={() => setView('searchService')}>Search Existing Service</button>
+            <button onClick={() => setView('searchService')}>Search Service</button>
             <button onClick={() => setView('showAllServices')}>Show All Services</button>
+            <button onClick={() => setView('createService')}>Create New Service</button>
           </div>
 
         </div>
@@ -228,12 +232,29 @@ const AdminDashboard = () => {
         </div>
       )}  
 
-      {view === 'createEmployee' && (
+      {view === 'showAllEmployees' && (
+        <div className="form-container">
+          <ShowAllEmployees 
+            data={employees}
+          />
+          <div className="form-actions">
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
+        </div>
+      )}  
+
+      {/* {view === 'createEmployee' && (
         <div className="form-container">
           <Employee onSubmit={handleCreateEmployee} />
           <div className="form-actions">
             <button onClick={() => setView(null)}>Cancel</button>
           </div>
+        </div>
+      )} */}
+
+      {view === 'createEmployee' && (
+        <div className="form-container">
+          <Employee onSubmit={handleCreateEmployee} onCancel={() => setView(null)} />
         </div>
       )}
 

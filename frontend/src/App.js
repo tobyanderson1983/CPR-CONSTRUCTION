@@ -10,6 +10,7 @@ import CustomerDashboard from "./pages/CustomerDashboard";
 import EditService from "./pages/EditService"; 
 // import EditAdmin from "./pages/EditAdmin";
 import Administrator from "./pages/Administrator";
+import Employee from "./pages/Employee";
 import PrivateRoute from "./components/PrivateRoute";
 import Header from "./components/Header";
 import axios from 'axios';
@@ -55,6 +56,31 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute allowedRoles={["employee"]}>
             <EmployeeDashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/employee/:id",
+        element: (
+          <PrivateRoute allowedRoles={["admin"]}>
+             <Employee
+                onSubmit={async (formData) => {
+                  try {
+                    if (formData._id) {
+                      // EDIT mode
+                      await axios.put(`http://localhost:5000/api/employees/${formData._id}`, formData);
+                      alert('Employee updated successfully!');
+                    } else {
+                      // CREATE mode
+                      await axios.post('http://localhost:5000/api/employees', formData);
+                      alert('Employee created successfully!');
+                    }
+                  } catch (error) {
+                    console.error('Failed to submit employee data:', error);
+                    alert('Error occurred during submit.');
+                  }
+                }}
+              />
           </PrivateRoute>
         ),
       },

@@ -122,8 +122,7 @@ router.put('/:id', async (req, res) => {
       if (password !== confirmPassword) {
         return res.status(400).json({ error: 'Passwords do not match' });
       }
-      const hashedPassword = await bcrypt.hash(password, 10);
-      admin.password = hashedPassword;
+      admin.password = password;
     }
 
     await admin.save();
