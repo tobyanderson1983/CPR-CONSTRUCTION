@@ -177,7 +177,6 @@ const AdminDashboard = () => {
             <button onClick={() => setView('searchEmployee')}>Search Employee</button>
             <button onClick={() => setView('showAllEmployees')}>View All Employees</button>
             <button onClick={() => setView('createEmployee')}>Create New Employee</button>
-            {/* <button onClick={() => setView('editEmployee')} >Edit Employee</button> */}
           </div>
 
           {/* Service Management */}
@@ -193,14 +192,8 @@ const AdminDashboard = () => {
       {/* ------------------------------------------------------------------------------------------------------ */}
       {/* ------------------------------------------------------------------------------------------------------ */}
 
-      {/* Display Forms with Submit & Cancel Buttons Inside */}
+      {/* ===================================ADMINISTRATOR VIEWS================================================ */}
   
-      {view === 'createAdmin' && (
-        <div className="form-container">
-          <Administrator onSubmit={handleCreateAdmin} onCancel={() => setView(null)} />
-        </div>
-      )}
-
       {view === 'searchAdmin' && (
         <div>
           <p>Search by either Username (Email) or Full Name</p>
@@ -237,22 +230,13 @@ const AdminDashboard = () => {
         </div>
       )}  
 
-      {view === 'showAllEmployees' && (
+      {view === 'createAdmin' && (
         <div className="form-container">
-          <ShowAllEmployees 
-            data={employees}
-          />
-          <div className="form-actions">
-            <button onClick={() => setView(null)}>Cancel</button>
-          </div>
-        </div>
-      )}  
-
-      {view === 'createEmployee' && (
-        <div className="form-container">
-          <Employee onSubmit={handleCreateEmployee} onCancel={() => setView(null)} />
+          <Administrator onSubmit={handleCreateAdmin} onCancel={() => setView(null)} />
         </div>
       )}
+
+      {/* ========================================EMPLOYEE VIEWS================================================ */}
 
       {view === 'searchEmployee' && (
         <div>
@@ -277,25 +261,24 @@ const AdminDashboard = () => {
         </div>
       )}
 
-
-      {view === 'employee' && (
+      {view === 'showAllEmployees' && (
         <div className="form-container">
-          <Employee data={employeeData} />
+          <ShowAllEmployees 
+            data={employees}
+          />
           <div className="form-actions">
             <button onClick={() => setView(null)}>Cancel</button>
           </div>
         </div>
-      )}
+      )}  
 
-      {view === 'createService' && (
+      {view === 'createEmployee' && (
         <div className="form-container">
-          <Services data={serviceData} isAdminView={true} />
-          <div className="form-actions">
-            <button onClick={() => setView(null)}>Cancel</button>
-          </div>
+          <Employee onSubmit={handleCreateEmployee} onCancel={() => setView(null)} />
         </div>
       )}
 
+      {/* ============================================CUSTOMER/SERVICES VIEWS=================================== */}
 
       {view === 'searchService' && (
         <div>
@@ -334,15 +317,14 @@ const AdminDashboard = () => {
         </div>
       )}     
 
-       {view === 'editEmployee' && (
-        <div>
-          <input type="email" placeholder="Enter employee email" onChange={(e) => setUsername(e.target.value)} />
-          <button 
-            onClick={handleSearchEmployee}
-          >Search</button>
-          <button onClick={() => setView(null)}>Cancel</button>
+      {view === 'createService' && (
+        <div className="form-container">
+          <Services data={serviceData} isAdminView={true} />
+          <div className="form-actions">
+            <button onClick={() => setView(null)}>Cancel</button>
+          </div>
         </div>
-      )} 
+      )}
 
     </div>
   );
