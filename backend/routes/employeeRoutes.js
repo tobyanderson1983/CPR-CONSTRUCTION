@@ -66,15 +66,38 @@ router.get('/', async (req, res) => {
 });
   
 
-// GET one Employee -----NOT IN USE    
-router.get('/:id', async (req, res) => {
-//   try {
-//     const admin = await Admin.findById(req.params.id);
-//     if (!admin) return res.status(404).json({ error: 'Admin not found' });
-//     res.json(admin);
-//   } catch (err) {
-//     res.status(500).json({ error: 'Server error' });
-//   }
+//search one employee
+router.get('/oneEmployee', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: "Unauthorized: No token provided" });
+    }
+
+    const { username, firstName, lastName } = req.query;
+  
+    if (!username && (!firstName || !lastName)) {
+      return res.status(400).json({ message: "Please provide a username or both firstName and lastName." });
+    }
+
+    // Search by username or firstName + lastName
+    let employee;
+    if (username) {
+      employee = await Employee.findOne({ username });
+    } else {
+      employee = await Employee.find({ firstName, lastName });
+      console.log(employee)
+    }
+
+    if (!employee) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+    res.status(200).json({ employee });
+
+  } catch (err) {
+    console.error("Error processing request:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
 });
 
 
