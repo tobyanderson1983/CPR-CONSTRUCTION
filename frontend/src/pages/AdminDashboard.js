@@ -39,7 +39,7 @@ const AdminDashboard = () => {
   //create a new administrative employee
   const handleCreateAdmin = async (adminData) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/admins/', adminData);
+      await axios.post('http://localhost:5000/api/admins/', adminData);
       alert('Administrator created successfully!');
       setView(null);
     } catch (error) {
@@ -50,17 +50,16 @@ const AdminDashboard = () => {
 
   //search for a single admin
   const handleSearchAdmin = async () => {
-    console.log('handleSearchAdmin')
     try {
       const token = localStorage.getItem("token");
-  
       const queryParams = new URLSearchParams();
+
       if (username) queryParams.append('username', username);
       else if (firstName && lastName) {
         queryParams.append('firstName', firstName);
         queryParams.append('lastName', lastName);
       }
-      console.log('queryParams.username: ', queryParams.username)
+    
       const res = await axios.get(`http://localhost:5000/api/admins/oneAdmin?${queryParams.toString()}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -79,25 +78,25 @@ const AdminDashboard = () => {
     }
   };
 
-  //edit an existing administrative employee
-  const handleEditAdmin = async () => {
-    try {
-      const res = await axios.get('http://localhost:5000/api/admins/');
-      setAdminData(res.data);
-      setView('admin');
-    } catch (error) {
-      console.error('Error fetching admin:', error);
-    }
-  };
+  //edit an existing administrative employee--dont think this gets used--REMOVE
+  // const handleEditAdmin = async () => {
+  //   console.log('in handleEditAdmin')
+  //   try {
+  //     const res = await axios.get('http://localhost:5000/api/admins/');
+  //     setAdminData(res.data);
+  //     setView('admin');
+  //   } catch (error) {
+  //     console.error('Error fetching admin:', error);
+  //   }
+  // };
 
   //dlete an admin
 
   //create a new regular employee
   const handleCreateEmployee = async (employeeData) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/employees/', employeeData);
+      await axios.post('http://localhost:5000/api/employees/', employeeData);
       alert('Employee created successfully!');
-      console.log(res);
       setView(null);
     } catch (error) {
       console.error('Error creating employee:', error);
@@ -157,10 +156,7 @@ const AdminDashboard = () => {
           <div className="dashboard-section">
             <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
             <button onClick={() => setView('showAllAdmins')}>View All Admins</button>
-            {/* for search administrator, use setview and/ or copy search service code */}
-             {/* <button onClick={handleSearchAdmin}>Search Administrator</button> */}
              <button onClick={() => setView('searchAdmin')}>Search Administrator</button>
-            {/* <button onClick={handleEditAdmin}>Edit Administrator</button> */}
           </div>
 
           {/* Employee Management */}
@@ -213,11 +209,11 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {view === 'admin' && (
+      {/* {view === 'admin' && ( ----dont think this gets used ---REMOVE
         <div className="form-container">
           <Administrator data={adminData} onSubmit={handleEditAdmin} onCancel={() => setView(null)} />
         </div>
-      )}
+      )} */}
 
       {/* show all admin users */}
 

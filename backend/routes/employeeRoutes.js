@@ -9,7 +9,6 @@ const router = express.Router();
 
 // CREATE employee -- IN USE
 router.post('/', async (req, res) => {
-  console.log('new employee route');
   try {
     const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, confirmPassword } = req.body;
 

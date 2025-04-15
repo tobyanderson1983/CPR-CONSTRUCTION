@@ -63,18 +63,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-
-// GET one admin -----NOT IN USE    
-// router.get('/:id', async (req, res) => {
-//   try {
-//     const admin = await Admin.findById(req.params.id);
-//     if (!admin) return res.status(404).json({ error: 'Admin not found' });
-//     res.json(admin);
-//   } catch (err) {
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
-
 router.get('/oneAdmin', async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -91,42 +79,15 @@ router.get('/oneAdmin', async (req, res) => {
     // Search by username or firstName + lastName
     let admin;
     if (username) {
-      // admin = await Admin.findOne({ username });
       admin = await Admin.findOne({ username });
     } else {
-      // admin = await Admin.findOne({ firstName, lastName });
       admin = await Admin.find({ firstName, lastName });
       console.log(admin)
     }
 
     if (!admin) {
-      return res.status(404).json({ message: 'Customer not found' });
+      return res.status(404).json({ message: 'Admin not found' });
     }
-    //----------------------------------------------------------------------------
-    // const allMatchingAdmins = admin.map(matchingAdmin => ({
-    //   ...matchingAdmin.toObject(),
-    //  // firstName: admin.firstName,
-    //  // lastName: admin.lastName
-    // }));
-
-    // if (allMatchingAdmins.length) {
-    //   res.status(200).json({ admin: allMatchingAdmins });
-    // } else {
-    //   res.status(200).json({ admin: admin });
-    // }
-    //----------------------------------------------------------------------------
-
-    // const allServices = customer.serviceRequests.map(service => ({
-    //   ...service.toObject(),
-    //   firstName: customer.firstName,
-    //   lastName: customer.lastName
-    // }));
-
-    // if (customer.serviceRequests.length) {
-    //   res.status(200).json({ services: allServices });
-    // } else {
-    //   res.status(200).json({ services: customer });
-    // }
     res.status(200).json({ admin });
 
   } catch (err) {

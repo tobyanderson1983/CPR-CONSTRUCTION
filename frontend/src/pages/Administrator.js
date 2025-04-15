@@ -40,18 +40,12 @@ const Administrator = ({ onSubmit, onCancel }) => {
       alert('Passwords do not match');
       return;
     }
-  
-  
-    const { confirmPassword, ...safeData } = formData;
-    console.log(formData)
 
+    const { confirmPassword, ...safeData } = formData;
     const updatedData = {
       ...safeData,
       _id: data._id
     };
-
-    console.log('updated data: ', updatedData)
-
 
     onSubmit(updatedData);
     navigate("/adminDashboard");
