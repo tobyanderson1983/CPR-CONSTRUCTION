@@ -91,9 +91,12 @@ router.get('/oneAdmin', async (req, res) => {
     // Search by username or firstName + lastName
     let admin;
     if (username) {
+      // admin = await Admin.findOne({ username });
       admin = await Admin.findOne({ username });
     } else {
-      admin = await Admin.findOne({ firstName, lastName });
+      // admin = await Admin.findOne({ firstName, lastName });
+      admin = await Admin.find({ firstName, lastName });
+      console.log(admin)
     }
 
     if (!admin) {
@@ -124,7 +127,7 @@ router.get('/oneAdmin', async (req, res) => {
     // } else {
     //   res.status(200).json({ services: customer });
     // }
-    res.status(200).json({ admin: admin });
+    res.status(200).json({ admin });
 
   } catch (err) {
     console.error("Error processing request:", err);

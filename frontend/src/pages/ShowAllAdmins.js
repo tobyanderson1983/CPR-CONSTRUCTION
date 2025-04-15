@@ -1,5 +1,4 @@
 //ShowAllAdmins.js
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -11,13 +10,12 @@ const ShowAllAdmins = ({ data }) => {
     const limit = 5;
     const navigate = useNavigate();
     const location = useLocation();
-
-    //how to conditionally fetchAdmins???
     
     const fetchAdmins = async (pageNum) => {
         try {
             const res = await axios.get(`http://localhost:5000/api/admins?page=${pageNum}&limit=${limit}`);
             if (pageNum === 1) {
+                console.log('fetch admins..res.data.admins: ', res.data.admins)
                 setAdmins(res.data.admins);
             } else {
                 setAdmins(prevAdmins => [...prevAdmins, ...res.data.admins]);
@@ -28,18 +26,39 @@ const ShowAllAdmins = ({ data }) => {
         }
     };
 
+    // useEffect(() => {
+    //     if(data.source === 'search'){
+    //         console.log('data.list" ', data.list)
+    //         data = [data.list];
+    //         console.log('data.length: ', data.length)
+    //         setAdmins(data.list);
+    //         console.log('admins: ', admins)
+    //         console.log('data: ', data)
+    //         setTotalAdmins(data.length);
+    //         //lets try setAdmins() and set it to data.list as an arrary
+    //        // setAdmins(data);// took out []
+    //         //tell it what to do now that you know it is from the search
+    //     }else{
+    //         const shouldUsePassedData = data && data.length > 0;
+    //         if (shouldUsePassedData) {
+    //             setAdmins(data);
+    //             setTotalAdmins(data.length);
+    //         } else {
+    //             fetchAdmins(page);
+    //         }
+    //     }
+    // }, [data, page, location.state?.updated]);
+
     useEffect(() => {
-        console.log('in useEffect and data: ', data);
-        console.log('data.source: ', data.source)
-        if(data.source === 'search'){
-            console.log('in if')
-            console.log('data.list: ', data.list)
-            console.log('data.list.firstName: ', data.list.firstName)
-            //lets try setAdmins() and set it to data.list as an arrary
-            setAdmins([data.list]);
-            //tell it what to do now that you know it is from the search
-        }else{
-            const shouldUsePassedData = data && data.length > 0;
+        if (data.source === 'search') {
+            console.log('data.list:', data.list);
+            
+            const searchResults = Array.isArray(data.list) ? data.list : [data.list];
+            
+            setAdmins(searchResults);
+            setTotalAdmins(searchResults.length);
+        } else {
+            const shouldUsePassedData = data && Array.isArray(data) && data.length > 0;
             if (shouldUsePassedData) {
                 setAdmins(data);
                 setTotalAdmins(data.length);
@@ -47,16 +66,8 @@ const ShowAllAdmins = ({ data }) => {
                 fetchAdmins(page);
             }
         }
-        // const shouldUsePassedData = data && data.length > 0;
-
-        // if (shouldUsePassedData) {
-        //     setAdmins(data);
-        //     setTotalAdmins(data.length);
-        // } else {
-        //     fetchAdmins(page);
-        // }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, page, location.state?.updated]);
+    
 
     const handleEdit = (admin) => {
         navigate(`/administrator/${admin._id}`, { state: { admin } });

@@ -1,5 +1,4 @@
 //AdminDashboard.js
-
 import React, { useState, useEffect } from 'react';
 import { redirect, useLocation, useNavigate } from 'react-router-dom';
 import Administrator from './Administrator';
@@ -43,21 +42,13 @@ const AdminDashboard = () => {
       const res = await axios.post('http://localhost:5000/api/admins/', adminData);
       alert('Administrator created successfully!');
       setView(null);
-      // problem here is that it will state that the logged in user is "undefined"
     } catch (error) {
       console.error('Error creating admin:', error);
       alert('Failed to create administrator.');
     }
   };
 
-
-  //view a single admin
-  // const handleSearchAdmin = async () => {
-  //   //copy search exisiting service
-  //   console.log('handleSearchAdmin');
-  //   //const res = await axios.get('http://localhost:5000/api/admins/', adminData);
-  // };
-
+  //search for a single admin
   const handleSearchAdmin = async () => {
     console.log('handleSearchAdmin')
     try {
@@ -75,20 +66,12 @@ const AdminDashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('res.data.admin: ', res.data.admin)
-      //if an array of admins..display each..otherwise display an admin
-  
-      // setAdmins(res.data.admin || []);
+
       setAdmins({
         list: res.data.admin || [],
-        source: 'search', // or any other variable you'd like to pass
+        source: 'search', 
       });
-      
-      // add a value etc to setSdmins
-      
-      
 
-      console.log('just need to setView')
       setView('showAllAdmins');
     } catch (error) {
       console.error('Error fetching admins:', error);
@@ -124,25 +107,12 @@ const AdminDashboard = () => {
 
   //search for an employee to edit
   const handleSearchEmployee = async () => {
-    // try {
-    //   const res = await axios.get(`http://localhost:5000/api/auth/customerServices?username=${username}`);
-    //   console.log(res.data.user);
-    //   setServices(res.data.user.serviceRequests || []); // only set the services array
-    //   setView('showAllServices');
-    // } catch (error) {
-    //   console.error('Error fetching service:', error);
-    // }
+   //add code
   };
 
   //edit an existing regular employee
   // const handleEditEmployee = async () => {
-  //   try {
-  //     const res = await axios.get('http://localhost:5000/api/auth/employee');
-  //     setEmployeeData(res.data);
-  //     setView('employee');
-  //   } catch (error) {
-  //     console.error('Error fetching employee:', error);
-  //   }
+    //add code
   // };
 
   const handleSearchService = async () => {
@@ -261,17 +231,6 @@ const AdminDashboard = () => {
           </div>
         </div>
       )}  
-
-      {/* ------------------------------------------ */}
-
-      {/* {view === 'admin' && (
-        <div className="form-container">
-          <Administrator data={adminData} />
-          <div className="form-actions">
-            <button onClick={() => setView(null)}>Cancel</button>
-          </div>
-        </div>
-      )} */}
 
       {view === 'createEmployee' && (
         <div className="form-container">
