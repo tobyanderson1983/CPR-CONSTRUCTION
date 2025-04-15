@@ -68,7 +68,6 @@ router.get('/', async (req, res) => {
 
 //search one employee
 router.get('/oneEmployee', async (req, res) => {
-  console.log('search employee route')
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -86,9 +85,7 @@ router.get('/oneEmployee', async (req, res) => {
     if (username) {
       employee = await Employee.findOne({ username });
     } else {
-      console.log(firstName, lastName)
       employee = await Employee.find({ firstName, lastName });
-      console.log(employee)
     }
 
     if (!employee) {

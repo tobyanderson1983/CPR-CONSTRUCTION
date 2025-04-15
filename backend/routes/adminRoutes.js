@@ -63,6 +63,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+//search one admin
 router.get('/oneAdmin', async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
