@@ -1,6 +1,5 @@
 //AdminDashboard.js
-//import { useNavigate } from 'react-router-dom';
-//import { useEffect } from 'react';
+
 import React, { useState, useEffect } from 'react';
 import { redirect, useLocation, useNavigate } from 'react-router-dom';
 import Administrator from './Administrator';
@@ -51,24 +50,50 @@ const AdminDashboard = () => {
     }
   };
 
-  // view all admins
-  const handleGetAdmins = async (adminData) => {
-    try {
-      const res = await axios.get('http://localhost:5000/api/admins/', adminData);
-      alert('Administrator created successfully!');
-      console.log(res);
-      setView(null);
-    } catch (error) {
-      console.error('Error creating admin:', error);
-      alert('Failed to create administrator.');
-    }
-  };
 
   //view a single admin
+  // const handleSearchAdmin = async () => {
+  //   //copy search exisiting service
+  //   console.log('handleSearchAdmin');
+  //   //const res = await axios.get('http://localhost:5000/api/admins/', adminData);
+  // };
+
   const handleSearchAdmin = async () => {
-    //copy search exisiting service
-    console.log('handleSearchAdmin');
-    //const res = await axios.get('http://localhost:5000/api/admins/', adminData);
+    console.log('handleSearchAdmin')
+    try {
+      const token = localStorage.getItem("token");
+  
+      const queryParams = new URLSearchParams();
+      if (username) queryParams.append('username', username);
+      else if (firstName && lastName) {
+        queryParams.append('firstName', firstName);
+        queryParams.append('lastName', lastName);
+      }
+      console.log('queryParams.username: ', queryParams.username)
+      const res = await axios.get(`http://localhost:5000/api/admins/oneAdmin?${queryParams.toString()}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log('res.data.admin: ', res.data.admin)
+      //if an array of admins..display each..otherwise display an admin
+  
+      // setAdmins(res.data.admin || []);
+      setAdmins({
+        list: res.data.admin || [],
+        source: 'search', // or any other variable you'd like to pass
+      });
+      
+      // add a value etc to setSdmins
+      
+      
+
+      console.log('just need to setView')
+      setView('showAllAdmins');
+    } catch (error) {
+      console.error('Error fetching admins:', error);
+      alert('Could not find admin. Check your input and try again.');
+    }
   };
 
   //edit an existing administrative employee
@@ -163,7 +188,8 @@ const AdminDashboard = () => {
             <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
             <button onClick={() => setView('showAllAdmins')}>View All Admins</button>
             {/* for search administrator, use setview and/ or copy search service code */}
-             <button onClick={handleSearchAdmin}>Search Administrator</button>
+             {/* <button onClick={handleSearchAdmin}>Search Administrator</button> */}
+             <button onClick={() => setView('searchAdmin')}>Search Administrator</button>
             {/* <button onClick={handleEditAdmin}>Edit Administrator</button> */}
           </div>
 
@@ -191,6 +217,29 @@ const AdminDashboard = () => {
       {view === 'createAdmin' && (
         <div className="form-container">
           <Administrator onSubmit={handleCreateAdmin} onCancel={() => setView(null)} />
+        </div>
+      )}
+
+      {view === 'searchAdmin' && (
+        <div>
+          <p>Search by either Username (Email) or Full Name</p>
+          <input
+            type="text"
+            placeholder="Enter username (email)"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="First Name"
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <button onClick={handleSearchAdmin}>Search</button>
+          <button onClick={() => setView(null)}>Cancel</button>
         </div>
       )}
 

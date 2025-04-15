@@ -41,16 +41,7 @@ const Administrator = ({ onSubmit, onCancel }) => {
       return;
     }
   
-    
-    // const {
-    //   firstName, lastName, streetAddress, city, state,
-    //   zipCode, phoneNumber, username, password
-    // } = formData;
-
-    // const updatedData = {
-    //   ...formData,
-    //   _id: data._id
-    // };
+  
     const { confirmPassword, ...safeData } = formData;
     console.log(formData)
 
@@ -109,7 +100,7 @@ const Administrator = ({ onSubmit, onCancel }) => {
           Cancel
         </button>
       </div>
-      
+
     </form>
   );
 };

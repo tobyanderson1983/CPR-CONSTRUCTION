@@ -11,6 +11,8 @@ const ShowAllAdmins = ({ data }) => {
     const limit = 5;
     const navigate = useNavigate();
     const location = useLocation();
+
+    //how to conditionally fetchAdmins???
     
     const fetchAdmins = async (pageNum) => {
         try {
@@ -27,14 +29,32 @@ const ShowAllAdmins = ({ data }) => {
     };
 
     useEffect(() => {
-        const shouldUsePassedData = data && data.length > 0;
-
-        if (shouldUsePassedData) {
-            setAdmins(data);
-            setTotalAdmins(data.length);
-        } else {
-            fetchAdmins(page);
+        console.log('in useEffect and data: ', data);
+        console.log('data.source: ', data.source)
+        if(data.source === 'search'){
+            console.log('in if')
+            console.log('data.list: ', data.list)
+            console.log('data.list.firstName: ', data.list.firstName)
+            //lets try setAdmins() and set it to data.list as an arrary
+            setAdmins([data.list]);
+            //tell it what to do now that you know it is from the search
+        }else{
+            const shouldUsePassedData = data && data.length > 0;
+            if (shouldUsePassedData) {
+                setAdmins(data);
+                setTotalAdmins(data.length);
+            } else {
+                fetchAdmins(page);
+            }
         }
+        // const shouldUsePassedData = data && data.length > 0;
+
+        // if (shouldUsePassedData) {
+        //     setAdmins(data);
+        //     setTotalAdmins(data.length);
+        // } else {
+        //     fetchAdmins(page);
+        // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, page, location.state?.updated]);
 

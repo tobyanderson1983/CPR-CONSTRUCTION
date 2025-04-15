@@ -65,13 +65,70 @@ router.get('/', async (req, res) => {
 
 
 // GET one admin -----NOT IN USE    
-router.get('/:id', async (req, res) => {
+// router.get('/:id', async (req, res) => {
+//   try {
+//     const admin = await Admin.findById(req.params.id);
+//     if (!admin) return res.status(404).json({ error: 'Admin not found' });
+//     res.json(admin);
+//   } catch (err) {
+//     res.status(500).json({ error: 'Server error' });
+//   }
+// });
+
+router.get('/oneAdmin', async (req, res) => {
   try {
-    const admin = await Admin.findById(req.params.id);
-    if (!admin) return res.status(404).json({ error: 'Admin not found' });
-    res.json(admin);
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: "Unauthorized: No token provided" });
+    }
+
+    const { username, firstName, lastName } = req.query;
+  
+    if (!username && (!firstName || !lastName)) {
+      return res.status(400).json({ message: "Please provide a username or both firstName and lastName." });
+    }
+
+    // Search by username or firstName + lastName
+    let admin;
+    if (username) {
+      admin = await Admin.findOne({ username });
+    } else {
+      admin = await Admin.findOne({ firstName, lastName });
+    }
+
+    if (!admin) {
+      return res.status(404).json({ message: 'Customer not found' });
+    }
+    //----------------------------------------------------------------------------
+    // const allMatchingAdmins = admin.map(matchingAdmin => ({
+    //   ...matchingAdmin.toObject(),
+    //  // firstName: admin.firstName,
+    //  // lastName: admin.lastName
+    // }));
+
+    // if (allMatchingAdmins.length) {
+    //   res.status(200).json({ admin: allMatchingAdmins });
+    // } else {
+    //   res.status(200).json({ admin: admin });
+    // }
+    //----------------------------------------------------------------------------
+
+    // const allServices = customer.serviceRequests.map(service => ({
+    //   ...service.toObject(),
+    //   firstName: customer.firstName,
+    //   lastName: customer.lastName
+    // }));
+
+    // if (customer.serviceRequests.length) {
+    //   res.status(200).json({ services: allServices });
+    // } else {
+    //   res.status(200).json({ services: customer });
+    // }
+    res.status(200).json({ admin: admin });
+
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    console.error("Error processing request:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 
