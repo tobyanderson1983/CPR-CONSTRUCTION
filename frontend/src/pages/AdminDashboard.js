@@ -37,6 +37,7 @@ const AdminDashboard = () => {
   }, [location, navigate]);
 
 
+//====================================ADMINISTRATOR HANDLERS=====================================
 
   //create a new administrative employee
   const handleCreateAdmin = async (adminData) => {
@@ -80,19 +81,7 @@ const AdminDashboard = () => {
     }
   };
 
-  //edit an existing administrative employee--dont think this gets used--REMOVE
-  // const handleEditAdmin = async () => {
-  //   console.log('in handleEditAdmin')
-  //   try {
-  //     const res = await axios.get('http://localhost:5000/api/admins/');
-  //     setAdminData(res.data);
-  //     setView('admin');
-  //   } catch (error) {
-  //     console.error('Error fetching admin:', error);
-  //   }
-  // };
-
-  //dlete an admin
+  //====================================EMPLOYEE HANDLERS================================================
 
   //create a new regular employee
   const handleCreateEmployee = async (employeeData) => {
@@ -106,16 +95,37 @@ const AdminDashboard = () => {
     }
   };
 
-  //search for an employee to edit
-  const handleSearchEmployee = async () => {
-   //add code
+   //search for a single employee
+   const handleSearchEmployee = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const queryParams = new URLSearchParams();
+
+      if (username) queryParams.append('username', username);
+      else if (firstName && lastName) {
+        queryParams.append('firstName', firstName);
+        queryParams.append('lastName', lastName);
+      }
+    
+      const res = await axios.get(`http://localhost:5000/api/employees/oneEmployee?${queryParams.toString()}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setEmployees({
+        list: res.data.employee || [],
+        source: 'search', 
+      });
+
+      setView('showAllEmployees');
+    } catch (error) {
+      console.error('Error fetching employees:', error);
+      alert('Could not find employee. Check your input and try again.');
+    }
   };
-
-  //edit an existing regular employee
-  // const handleEditEmployee = async () => {
-    //add code
-  // };
-
+  
+  //=================================CUSTOMER/SERVICE HANDLERS===========================================
   const handleSearchService = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -144,6 +154,7 @@ const AdminDashboard = () => {
   
   
 // --------------------------------------------------------------------------------------------------------------
+//==============================================RETURN===========================================================
 //---------------------------------------------------------------------------------------------------------------
 
   return (
@@ -172,7 +183,7 @@ const AdminDashboard = () => {
           {/* Service Management */}
           <div className="dashboard-section">
             <button onClick={() => setView('searchService')}>Search Service</button>
-            <button onClick={() => setView('showAllServices')}>Show All Services</button>
+            <button onClick={() => setView('showAllServices')}>View All Services</button>
             <button onClick={() => setView('createService')}>Create New Service</button>
           </div>
 
@@ -213,12 +224,6 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {/* {view === 'admin' && ( ----dont think this gets used ---REMOVE
-        <div className="form-container">
-          <Administrator data={adminData} onSubmit={handleEditAdmin} onCancel={() => setView(null)} />
-        </div>
-      )} */}
-
       {/* show all admin users */}
 
       {view === 'showAllAdmins' && (
@@ -243,20 +248,35 @@ const AdminDashboard = () => {
         </div>
       )}  
 
-      {/* {view === 'createEmployee' && (
-        <div className="form-container">
-          <Employee onSubmit={handleCreateEmployee} />
-          <div className="form-actions">
-            <button onClick={() => setView(null)}>Cancel</button>
-          </div>
-        </div>
-      )} */}
-
       {view === 'createEmployee' && (
         <div className="form-container">
           <Employee onSubmit={handleCreateEmployee} onCancel={() => setView(null)} />
         </div>
       )}
+
+      {view === 'searchEmployee' && (
+        <div>
+          <p>Search by either Username (Email) or Full Name</p>
+          <input
+            type="text"
+            placeholder="Enter username (email)"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="First Name"
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <button onClick={handleSearchEmployee}>Search</button>
+          <button onClick={() => setView(null)}>Cancel</button>
+        </div>
+      )}
+
 
       {view === 'employee' && (
         <div className="form-container">
