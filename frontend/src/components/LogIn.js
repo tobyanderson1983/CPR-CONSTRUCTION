@@ -26,18 +26,15 @@ const LogIn = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
 
-      localStorage.setItem('adminName', JSON.stringify({ firstName, lastName }));
-
-      
-
       // ✅ Navigate based on role
       if (role === "admin") {
+        localStorage.setItem('adminName', JSON.stringify({ firstName, lastName }));
         navigate("/adminDashboard", { state: { firstName, lastName } });
       } else if (role === "employee") {
+        localStorage.setItem('employeeName', JSON.stringify({ firstName, lastName }));
         navigate("/employeeDashboard", { state: { firstName, lastName } });
-      } else if (role === 'service') {
-      //   navigate('/serviceDashboard', { state: { username } });
       }else if(role === 'customer'){
+        localStorage.setItem('customerName', JSON.stringify({ firstName, lastName }));
         navigate("/customerDashboard", { state: { firstName, lastName } });
       } else {
         console.error("Unexpected role received:", role);
