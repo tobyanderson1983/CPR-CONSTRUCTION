@@ -1,16 +1,15 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import Home from "./pages/Home";
-import Services from "./pages/Services";
-import Portfolio from "./pages/Portfolio";
-import ContactUs from "./pages/ContactUs";
-import AdminDashboard from "./pages/AdminDashboard";
-import EmployeeDashboard from "./pages/EmployeeDashboard";
-import CustomerDashboard from "./pages/CustomerDashboard";
-import EditService from "./pages/EditService"; 
-// import EditAdmin from "./pages/EditAdmin";
-import Administrator from "./pages/Administrator";
-import Employee from "./pages/Employee";
+import Home from "./pages/basicPages/Home";
+import Services from "./pages/basicPages/Services";
+import Portfolio from "./pages/basicPages/Portfolio";
+import ContactUs from "./pages/basicPages/ContactUs";
+import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
+import EmployeeDashboard from "./pages/employeeDashboard/EmployeeDashboard";
+import CustomerDashboard from "./pages/customerDashboard/CustomerDashboard";
+import EditService from "./pages/adminDashboard/customer/EditService"; 
+import Administrator from "./pages/adminDashboard/admin/Administrator";
+import Employee from "./pages/adminDashboard/employee/Employee";
 import PrivateRoute from "./components/PrivateRoute";
 import Header from "./components/Header";
 import axios from 'axios';
@@ -125,14 +124,6 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: "/edit-admin/:id",
-      //   element: (
-      //     <PrivateRoute allowedRoles={["admin"]}>
-      //       <EditAdmin />
-      //     </PrivateRoute>
-      //   ),
-      // },
     ],
   },
 ]);

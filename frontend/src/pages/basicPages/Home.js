@@ -1,7 +1,7 @@
 //Home.js
 
 import React from 'react';
-import LogIn from './../components/LogIn.js';
+import LogIn from './../../components/LogIn.js';
 //import { Link } from 'react-router-dom';
 import './css/Home.css';
 

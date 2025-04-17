@@ -1,12 +1,12 @@
 //AdminDashboard.js
 import React, { useState, useEffect } from 'react';
 import { redirect, useLocation, useNavigate } from 'react-router-dom';
-import Administrator from './Administrator';
-import ShowAllAdmins from './ShowAllAdmins';
-import ShowAllEmployees from './ShowAllEmployees';
-import Employee from './Employee';
-import Services from './Services';
-import ShowAllServices from './ShowAllServices';
+import Administrator from './admin/Administrator';
+import ShowAllAdmins from './admin/ShowAllAdmins';
+import ShowAllEmployees from './employee/ShowAllEmployees';
+import Employee from './employee/Employee';
+import Services from './../basicPages/Services';
+import ShowAllServices from './customer/ShowAllServices';
 import axios from 'axios';
 import './css/AdminDashboard.css';
 
@@ -182,6 +182,7 @@ const AdminDashboard = () => {
           {/* Service Management */}
           <div className="dashboard-section">
             <button onClick={() => setView('searchService')}>Search Service</button>
+            <button onClick={() => setView('showPendingServices')}>Pending Services</button>
             <button onClick={() => setView('showAllServices')}>View All Services</button>
             <button onClick={() => setView('createService')}>Create New Service</button>
           </div>

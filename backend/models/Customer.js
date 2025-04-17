@@ -8,7 +8,6 @@ const ServiceRequestSchema = new mongoose.Schema({
   status: { type: String, enum: ['Pending', 'Completed', 'In Progress'], default: 'Pending' },
   dateRequested: { type: Date, default: Date.now },
   notes: { type: String },
-  // role: {type: String, default: 'customer'}
 });
 
 const CustomerSchema = new mongoose.Schema({

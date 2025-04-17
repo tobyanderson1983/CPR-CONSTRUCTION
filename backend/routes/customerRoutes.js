@@ -116,8 +116,7 @@ router.get('/oneCustomer', async (req, res) => {
   }
 });
 
-
-// UPDATE a customer -------NOT IN USE
+// UPDATE a customer -------IN USE
 router.put('/:id', async (req, res) => {
   try {
     const updated = await Admin.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -128,7 +127,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-//edit service ---from old authRoutes ---- IN USE
+//edit service  ---- IN USE
 router.put('/services/:serviceId', async (req, res) => {
   try {
     const { serviceId } = req.params;
