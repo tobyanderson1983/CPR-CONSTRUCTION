@@ -7,7 +7,8 @@ const router = express.Router();
 
 // CREATE admin --- IN USE
 router.post('/', async (req, res) => {
-
+  console.log('create admin')
+  
   const {
     firstName, lastName, streetAddress, city, state,
     zipCode, phoneNumber, username, password
@@ -25,7 +26,7 @@ router.post('/', async (req, res) => {
       firstName, lastName, streetAddress, city, state,
       zipCode, phoneNumber, username, password
     });
-
+    
     await newAdmin.save();
     res.status(201).json({ message: 'Admin created successfully' });
   } catch (err) {
@@ -65,6 +66,9 @@ router.get('/', async (req, res) => {
 
 //search one admin
 router.get('/oneAdmin', async (req, res) => {
+  console.log('/oneAdmin')
+  console.log(req.query)
+  console.log(req.body)
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {

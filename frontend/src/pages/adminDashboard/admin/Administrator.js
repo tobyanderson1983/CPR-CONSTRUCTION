@@ -1,8 +1,6 @@
 //Administrator.js
-
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
-//import './css/Administrator.css';
 
 const Administrator = ({ onSubmit, onCancel }) => {
   const location = useLocation();
