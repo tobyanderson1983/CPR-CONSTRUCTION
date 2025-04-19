@@ -1,361 +1,16 @@
-// //AdminDashboard.js
-// import React, { useState, useEffect } from 'react';
-// import { redirect, useLocation, useNavigate } from 'react-router-dom';
-// import Administrator from './admin/Administrator';
-// import ShowAllAdmins from './admin/ShowAllAdmins';
-// import ShowAllEmployees from './employee/ShowAllEmployees';
-// import Employee from './employee/Employee';
-// import Services from './../basicPages/Services';
-// import ShowAllServices from './customer/ShowAllServices';
-// import axios from 'axios';
-// import './css/AdminDashboard.css';
 
-// const AdminDashboard = () => {
-//   const [view, setView] = useState(null);
-//   const [adminData, setAdminData] = useState(null);
-//   const [employeeData, setEmployeeData] = useState(null);
-//   const [serviceData] = useState(null);
-//   const [services, setServices] = useState([]);
-//   const [admins, setAdmins] = useState([]);
-//   const [employees, setEmployees] = useState([]);
-//   const [username, setUsername] = useState('');  
-//   const [firstName, setFirstName] = useState('');
-//   const [lastName, setLastName] = useState('');
-//   const location = useLocation();
-//   // am i using navigate???
-//   const navigate = useNavigate();
-//   const storedAdmin = JSON.parse(localStorage.getItem('adminName'));
-//   const fullName = `${storedAdmin?.firstName || ''} ${storedAdmin?.lastName || ''}`.trim();
-  
-
-//   useEffect(() => {
-//     const stateExists = !!location.state?.firstName && !!location.state?.lastName;
-//     const adminInStorage = localStorage.getItem('adminName');
-
-//     if (!stateExists && !adminInStorage) {
-//       navigate('/');
-//     }
-//   }, [location, navigate]);
-
-
-// //====================================ADMINISTRATOR HANDLERS=====================================
-
-//   //create a new administrative employee
-//   const handleCreateAdmin = async (adminData) => {
-//     try {
-//       await axios.post('http://localhost:5000/api/admins/', adminData);
-//       alert('Administrator created successfully!');
-//       setView(null);
-//     } catch (error) {
-//       console.error('Error creating admin:', error);
-//       alert('Failed to create administrator.');
-//     }
-//   };
-
-//   //search for a single admin
-//   const handleSearchAdmin = async () => {
-//     try {const token = localStorage.getItem("token");
-//       
-//       const queryParams = new URLSearchParams();
-
-//       if (username) queryParams.append('username', username);
-//       else if (firstName && lastName) {
-//         queryParams.append('firstName', firstName);
-//         queryParams.append('lastName', lastName);
-//       }
-    
-//       const res = await axios.get(`http://localhost:5000/api/admins/oneAdmin?${queryParams.toString()}`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       setAdmins({
-//         list: res.data.admin || [],
-//         source: 'search', 
-//       });
-
-//       setView('showAllAdmins');
-//     } catch (error) {
-//       console.error('Error fetching admins:', error);
-//       alert('Could not find admin. Check your input and try again.');
-//     }
-//   };
-
-//   //====================================EMPLOYEE HANDLERS================================================
-
-//   //create a new regular employee
-//   const handleCreateEmployee = async (employeeData) => {
-//     try {
-//       await axios.post('http://localhost:5000/api/employees/', employeeData);
-//       alert('Employee created successfully!');
-//       setView(null);
-//     } catch (error) {
-//       console.error('Error creating employee:', error);
-//       alert('Failed to create employee.');
-//     }
-//   };
-
-//    //search for a single employee
-//    const handleSearchEmployee = async () => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       const queryParams = new URLSearchParams();
-
-//       if (username) queryParams.append('username', username);
-//       else if (firstName && lastName) {
-//         queryParams.append('firstName', firstName);
-//         queryParams.append('lastName', lastName);
-//       }
-    
-//       const res = await axios.get(`http://localhost:5000/api/employees/oneEmployee?${queryParams.toString()}`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       setEmployees({
-//         list: res.data.employee || [],
-//         source: 'search', 
-//       });
-
-//       setView('showAllEmployees');
-//     } catch (error) {
-//       console.error('Error fetching employees:', error);
-//       alert('Could not find employee. Check your input and try again.');
-//     }
-//   };
-  
-//   //=================================CUSTOMER/SERVICE HANDLERS===========================================
-//   const handleSearchService = async () => {
-//     try {
-//       const token = localStorage.getItem("token");
-  
-//       const queryParams = new URLSearchParams();
-//       if (username) queryParams.append('username', username);
-//       else if (firstName && lastName) {
-//         queryParams.append('firstName', firstName);
-//         queryParams.append('lastName', lastName);
-//       }
-  
-//       const res = await axios.get(`http://localhost:5000/api/customers/oneCustomer?${queryParams.toString()}`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-  
-//       setServices(res.data.services || []);
-//       setView('showAllServices');
-//     } catch (error) {
-//       console.error('Error fetching service:', error);
-//       alert('Could not find service. Check your input and try again.');
-//     }
-//   };
-  
-  
-  
-// // --------------------------------------------------------------------------------------------------------------
-// //==============================================RETURN===========================================================
-// //---------------------------------------------------------------------------------------------------------------
-
-//   return (
-//     <div className="admin-dashboard">
-//       {/* Conditionally Show h2 Only When View is Null */}
-//       {view === null && <h2>Welcome, {fullName}!</h2>}
-
-//       {/* Conditionally Show Buttons or Cancel Button */}
-//       {view === null ? (
-//         <div className="dashboard-container">
-//           {/* Administrator Management */}
-//           <div className="dashboard-section">
-//             <button onClick={() => setView('searchAdmin')}>Search Administrator</button>
-//             <button onClick={() => setView('showAllAdmins')}>View All Administrators</button>
-//             <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
-//           </div>
-
-//           {/* Employee Management */}
-//           <div className="dashboard-section">
-//             <button onClick={() => setView('searchEmployee')}>Search Employee</button>
-//             <button onClick={() => setView('showAllEmployees')}>View All Employees</button>
-//             <button onClick={() => setView('createEmployee')}>Create New Employee</button>
-//           </div>
-
-//           {/* Service Management */}
-//           <div className="dashboard-section">
-//             <button onClick={() => setView('searchService')}>Search Service</button>
-//             <button onClick={() => setView('showPendingServices')}>Pending Services</button>
-//             <button onClick={() => setView('showAllServices')}>View All Services</button>
-//             <button onClick={() => setView('createService')}>Create New Service</button>
-//           </div>
-
-//         </div>
-//       ) : null}
-
-//       {/* ------------------------------------------------------------------------------------------------------ */}
-//       {/* ------------------------------------------------------------------------------------------------------ */}
-
-//       {/* ===================================ADMINISTRATOR VIEWS================================================ */}
-  
-//       {view === 'searchAdmin' && (
-//         <div>
-//           <p>Search by either Username (Email) or Full Name</p>
-//           <input
-//             type="text"
-//             placeholder="Enter username (email)"
-//             onChange={(e) => setUsername(e.target.value)}
-//           />
-//           <input
-//             type="text"
-//             placeholder="First Name"
-//             onChange={(e) => setFirstName(e.target.value)}
-//           />
-//           <input
-//             type="text"
-//             placeholder="Last Name"
-//             onChange={(e) => setLastName(e.target.value)}
-//           />
-//           <button onClick={handleSearchAdmin}>Search</button>
-//           <button onClick={() => setView(null)}>Cancel</button>
-//         </div>
-//       )}
-
-//       {/* show all admin users */}
-
-//       {view === 'showAllAdmins' && (
-//         <div className="form-container">
-//           <ShowAllAdmins 
-//             data={admins}
-//           />
-//           <div className="form-actions">
-//             <button onClick={() => setView(null)}>Cancel</button>
-//           </div>
-//         </div>
-//       )}  
-
-//       {view === 'createAdmin' && (
-//         <div className="form-container">
-//           <Administrator onSubmit={handleCreateAdmin} onCancel={() => setView(null)} />
-//         </div>
-//       )}
-
-//       {/* ========================================EMPLOYEE VIEWS================================================ */}
-
-//       {view === 'searchEmployee' && (
-//         <div>
-//           <p>Search by either Username (Email) or Full Name</p>
-//           <input
-//             type="text"
-//             placeholder="Enter username (email)"
-//             onChange={(e) => setUsername(e.target.value)}
-//           />
-//           <input
-//             type="text"
-//             placeholder="First Name"
-//             onChange={(e) => setFirstName(e.target.value)}
-//           />
-//           <input
-//             type="text"
-//             placeholder="Last Name"
-//             onChange={(e) => setLastName(e.target.value)}
-//           />
-//           <button onClick={handleSearchEmployee}>Search</button>
-//           <button onClick={() => setView(null)}>Cancel</button>
-//         </div>
-//       )}
-
-//       {view === 'showAllEmployees' && (
-//         <div className="form-container">
-//           <ShowAllEmployees 
-//             data={employees}
-//           />
-//           <div className="form-actions">
-//             <button onClick={() => setView(null)}>Cancel</button>
-//           </div>
-//         </div>
-//       )}  
-
-//       {view === 'createEmployee' && (
-//         <div className="form-container">
-//           <Employee onSubmit={handleCreateEmployee} onCancel={() => setView(null)} />
-//         </div>
-//       )}
-
-//       {/* ============================================CUSTOMER/SERVICES VIEWS=================================== */}
-
-//       {view === 'searchService' && (
-//         <div>
-//           <p>Search by either Username (Email) or Full Name</p>
-//           <input
-//             type="text"
-//             placeholder="Enter username (email)"
-//             onChange={(e) => setUsername(e.target.value)}
-//           />
-//           <input
-//             type="text"
-//             placeholder="First Name"
-//             onChange={(e) => setFirstName(e.target.value)}
-//           />
-//           <input
-//             type="text"
-//             placeholder="Last Name"
-//             onChange={(e) => setLastName(e.target.value)}
-//           />
-//           <button onClick={handleSearchService}>Search</button>
-//           <button onClick={() => setView(null)}>Cancel</button>
-//         </div>
-//       )}
-
-//       {view === 'showAllServices' && (
-//         <div className="form-container">
-//           <ShowAllServices 
-//             data={services}
-//           />
-//           <div className="form-actions">
-//             <button onClick={() => {
-//               setView(null); 
-//               setServices([]);
-//             }}>Cancel</button>
-//           </div>
-//         </div>
-//       )}     
-
-//       {view === 'createService' && (
-//         <div className="form-container">
-//           <Services data={serviceData} isAdminView={true} />
-//           <div className="form-actions">
-//             <button onClick={() => setView(null)}>Cancel</button>
-//           </div>
-//         </div>
-//       )}
-
-//     </div>
-//   );
-// };
-
-// export default AdminDashboard;
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Administrator from './admin/Administrator';
-import ShowAllAdmins from './admin/ShowAllAdmins';
-import ShowAllEmployees from './employee/ShowAllEmployees';
-import Employee from './employee/Employee';
-import Services from './../basicPages/Services';
-import ShowAllServices from './customer/ShowAllServices';
-
 import { handleCreateAdmin, handleSearchAdmin } from './admin/utils/adminHandlers';
-import {
-  SearchAdminView,
-  ShowAllAdminsView,
-  CreateAdminView
-} from './admin/utils/adminViews';
-
-import axios from 'axios';
+import { SearchAdminView, ShowAllAdminsView, CreateAdminView } from './admin/utils/adminViews';
+import { handleCreateEmployee, handleSearchEmployee } from './employee/utils/employeeHandlers';
+import { SearchEmployeeView, ShowAllEmployeesView, CreateEmployeeView } from './employee/utils/employeeViews';
+import { handleSearchService } from './customer/utils/customerHandlers';
+import { SearchServiceView, ShowAllServicesView, CreateServiceView } from './customer/utils/customerViews';
 import './css/AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [view, setView] = useState(null);
-  const [adminData, setAdminData] = useState(null);
-  const [employeeData, setEmployeeData] = useState(null);
   const [serviceData] = useState(null);
   const [services, setServices] = useState([]);
   const [admins, setAdmins] = useState([]);
@@ -378,71 +33,6 @@ const AdminDashboard = () => {
       navigate('/');
     }
   }, [location, navigate]);
-
-  //========================= EMPLOYEE HANDLERS =========================
-
-  const handleCreateEmployee = async (employeeData) => {
-    try {
-      await axios.post('http://localhost:5000/api/employees/', employeeData);
-      alert('Employee created successfully!');
-      setView(null);
-    } catch (error) {
-      console.error('Error creating employee:', error);
-      alert('Failed to create employee.');
-    }
-  };
-
-  const handleSearchEmployee = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const queryParams = new URLSearchParams();
-
-      if (username) queryParams.append('username', username);
-      else if (firstName && lastName) {
-        queryParams.append('firstName', firstName);
-        queryParams.append('lastName', lastName);
-      }
-
-      const res = await axios.get(`http://localhost:5000/api/employees/oneEmployee?${queryParams.toString()}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      setEmployees({
-        list: res.data.employee || [],
-        source: 'search',
-      });
-
-      setView('showAllEmployees');
-    } catch (error) {
-      console.error('Error fetching employees:', error);
-      alert('Could not find employee. Check your input and try again.');
-    }
-  };
-
-  //========================= SERVICE HANDLERS ==========================
-
-  const handleSearchService = async () => {
-    try {
-      const token = localStorage.getItem("token");
-
-      const queryParams = new URLSearchParams();
-      if (username) queryParams.append('username', username);
-      else if (firstName && lastName) {
-        queryParams.append('firstName', firstName);
-        queryParams.append('lastName', lastName);
-      }
-
-      const res = await axios.get(`http://localhost:5000/api/customers/oneCustomer?${queryParams.toString()}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      setServices(res.data.services || []);
-      setView('showAllServices');
-    } catch (error) {
-      console.error('Error fetching service:', error);
-      alert('Could not find service. Check your input and try again.');
-    }
-  };
 
   //========================= JSX =========================
 
@@ -473,37 +63,8 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {/* ADMIN VIEWS */}
-      {/* {view === 'searchAdmin' && (
-        <div>
-          <p>Search by either Username (Email) or Full Name</p>
-          <input type="text" placeholder="Enter username (email)" onChange={(e) => setUsername(e.target.value)} />
-          <input type="text" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
-          <input type="text" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />
-          <button onClick={() =>
-            handleSearchAdmin({ username, firstName, lastName, setAdmins, setView })
-          }>Search</button>
-          <button onClick={() => setView(null)}>Cancel</button>
-        </div>
-      )}
+      {/* --------------------------ADMIN VIEWS--------------------------- */}
 
-      {view === 'showAllAdmins' && (
-        <div className="form-container">
-          <ShowAllAdmins data={admins} />
-          <div className="form-actions">
-            <button onClick={() => setView(null)}>Cancel</button>
-          </div>
-        </div>
-      )}
-
-      {view === 'createAdmin' && (
-        <div className="form-container">
-          <Administrator
-            onSubmit={(data) => handleCreateAdmin(data, setView)}
-            onCancel={() => setView(null)}
-          />
-        </div>
-      )} */}
       {view === 'searchAdmin' && (
         <SearchAdminView
           username={username}
@@ -535,64 +96,77 @@ const AdminDashboard = () => {
         />
       )}
 
-      {/* EMPLOYEE VIEWS */}
+      {/* --------------------------------------EMPLOYEE VIEWS-------------------------------------- */}
+      
       {view === 'searchEmployee' && (
-        <div>
-          <p>Search by either Username (Email) or Full Name</p>
-          <input type="text" placeholder="Enter username (email)" onChange={(e) => setUsername(e.target.value)} />
-          <input type="text" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
-          <input type="text" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />
-          <button onClick={handleSearchEmployee}>Search</button>
-          <button onClick={() => setView(null)}>Cancel</button>
-        </div>
+        <SearchEmployeeView
+          username={username}
+          setUsername={setUsername}
+          firstName={firstName}
+          setFirstName={setFirstName}
+          lastName={lastName}
+          setLastName={setLastName}
+          handleSearchEmployee={() =>
+            handleSearchEmployee(username, firstName, lastName, setEmployees, setView)
+          }
+          setView={setView}
+        />
       )}
 
       {view === 'showAllEmployees' && (
-        <div className="form-container">
-          <ShowAllEmployees data={employees} />
-          <div className="form-actions">
-            <button onClick={() => setView(null)}>Cancel</button>
-          </div>
-        </div>
+        <ShowAllEmployeesView
+          employees={employees}
+          setView={setView}
+        />
+      )}  
+      
+       {view === 'createEmployee' && (
+        <CreateEmployeeView
+          handleCreateEmployee={(employeeData) =>
+            handleCreateEmployee(employeeData, setView)
+          }
+          setView={setView}
+        />
       )}
 
-      {view === 'createEmployee' && (
-        <div className="form-container">
-          <Employee onSubmit={handleCreateEmployee} onCancel={() => setView(null)} />
-        </div>
-      )}
+      {/* --------------------------SERVICE VIEWS--------------------------------- */}
 
-      {/* SERVICE VIEWS */}
       {view === 'searchService' && (
-        <div>
-          <p>Search by either Username (Email) or Full Name</p>
-          <input type="text" placeholder="Enter username (email)" onChange={(e) => setUsername(e.target.value)} />
-          <input type="text" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
-          <input type="text" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />
-          <button onClick={handleSearchService}>Search</button>
-          <button onClick={() => setView(null)}>Cancel</button>
-        </div>
+        <SearchServiceView
+          username={username}
+          setUsername={setUsername}
+          firstName={firstName}
+          setFirstName={setFirstName}
+          lastName={lastName}
+          setLastName={setLastName}
+          handleSearchService={() =>
+            handleSearchService(
+              username,
+              firstName,
+              lastName,
+              setServices,
+              setView,
+              setUsername,
+              setFirstName,
+              setLastName
+            )
+          }
+          setView={setView}
+        />
       )}
 
       {view === 'showAllServices' && (
-        <div className="form-container">
-          <ShowAllServices data={services} />
-          <div className="form-actions">
-            <button onClick={() => {
-              setView(null);
-              setServices([]);
-            }}>Cancel</button>
-          </div>
-        </div>
+        <ShowAllServicesView
+          services={services}
+          setView={setView}
+        />
       )}
 
       {view === 'createService' && (
-        <div className="form-container">
-          <Services data={serviceData} isAdminView={true} />
-          <div className="form-actions">
-            <button onClick={() => setView(null)}>Cancel</button>
-          </div>
-        </div>
+        <CreateServiceView
+          serviceData={serviceData}
+          setView={setView}
+        />
       )}
     </div>
   );

@@ -24,7 +24,7 @@ const Services = ({ isAdminView }) => {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-    
+    console.log('isAdminView @ services.js: ', isAdminView)
     if(isAdminView){
       const role = 'admin';
       const formPayload = new FormData();
@@ -48,7 +48,7 @@ const Services = ({ isAdminView }) => {
           }});
         alert(res.data.message);
         //change navigate to navigate('/adminDashboard'); 
-        navigate('/'); 
+        navigate('/adminDashboard'); 
       } catch (error) {
         console.error('Error submitting service request:', error);
         alert('Failed to submit request.');

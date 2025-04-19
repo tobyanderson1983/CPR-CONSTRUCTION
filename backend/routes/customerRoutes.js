@@ -10,13 +10,9 @@ const upload = multer();
 
 // CREATE customer and service request -- IN USE
 router.post('/', upload.none(), async (req, res) => {
-    console.log('at services route')
-  
   try {
     const { firstName, lastName, streetAddress, city, state, zipCode, phoneNumber, username, password, serviceType, description, role } = req.body;
     let customer = await Customer.findOne({ username });
-
-    console.log(req.body)
 
     if (!customer) {
       // Hash password before saving
@@ -175,18 +171,6 @@ router.delete('/service/:serviceId', async (req, res) => {
     console.error('Error deleting service:', error);
     res.status(500).json({ message: "Server error" });
   }
-});
-
-
-// DELETE a CUSTOMER -----NOT IN USE
-router.delete('/:id', async (req, res) => {
-//   try {
-//     const deleted = await Admin.findByIdAndDelete(req.params.id);
-//     if (!deleted) return res.status(404).json({ error: 'Admin not found' });
-//     res.json({ message: 'Admin deleted' });
-//   } catch (err) {
-//     res.status(500).json({ error: 'Server error' });
-//   }
 });
 
 module.exports = router;
