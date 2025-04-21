@@ -1,109 +1,168 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import './css/Services.css';
 
 const Services = ({ isAdminView }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const data = location.state?.service || {};
+  const serviceId = location.pathname.split('/').pop();
 
   const [formData, setFormData] = useState({
-    firstName: '', lastName: '', streetAddress: '', city: '', state: '',
-    zipCode: '', phoneNumber: '', username: '', password: '', confirmPassword: '',
-    serviceType: '', description: ''
+    firstName: data.firstName || '',
+    lastName: data.lastName || '',
+    streetAddress: data.streetAddress || '',
+    city: data.city || '',
+    state: data.state || 'WA',
+    zipCode: data.zipCode || '',
+    phoneNumber: data.phoneNumber || '',
+    username: data.username || '',
+    password: '',
+    confirmPassword: '',
+    serviceType: data.serviceType || '',
+    description: data.description || '',
   });
 
-  const navigate = useNavigate();
+  const isEditMode = Boolean(data._id);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
-  
-  const handleSubmit = async (e) => {
 
-    e.preventDefault();
-    console.log('isAdminView @ services.js: ', isAdminView)
-    if(isAdminView){
-      const role = 'admin';
-      const formPayload = new FormData();
-
-      formPayload.append('firstName', formData.firstName);
-      formPayload.append('lastName', formData.lastName);
-      formPayload.append('streetAddress', formData.streetAddress);
-      formPayload.append('city', formData.city);
-      formPayload.append('state', formData.state);
-      formPayload.append('zipCode', formData.zipCode);
-      formPayload.append('phoneNumber', formData.phoneNumber);
-      formPayload.append('username', formData.username);
-      formPayload.append('serviceType', formData.serviceType);
-      formPayload.append('description', formData.description);
-      formPayload.append('role', role);
-
+  useEffect(() => {
+    const fetchFullCustomerData = async () => {
       try {
-        const res = await axios.post('http://localhost:5000/api/customers/', formPayload, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          }});
-        alert(res.data.message);
-        //change navigate to navigate('/adminDashboard'); 
-        navigate('/adminDashboard'); 
-      } catch (error) {
-        console.error('Error submitting service request:', error);
-        alert('Failed to submit request.');
+        const res = await axios.get(`http://localhost:5000/api/customers/service/${serviceId}`);
+        const { customer, service } = res.data;
+
+        setFormData({
+          firstName: customer.firstName,
+          lastName: customer.lastName,
+          streetAddress: customer.streetAddress,
+          city: customer.city,
+          state: customer.state,
+          zipCode: customer.zipCode,
+          phoneNumber: customer.phoneNumber,
+          username: customer.username,
+          password: '',
+          confirmPassword: '',
+          serviceType: service.serviceType || '',
+          description: service.description || '',
+        });
+      } catch (err) {
+        console.error('Failed to fetch full customer data:', err);
       }
-    }else{
-      if (!isAdminView && formData.password !== formData.confirmPassword) {
-        alert('Passwords do not match!');
-        return;
-      }
-  
-      try {
-        const res = await axios.post('http://localhost:5000/api/customers/', formData);
-        alert(res.data.message);
-        navigate('/');
-      } catch (error) {
-        console.error('Error submitting service request:', error);
-        alert('Failed to submit request.');
-      }
+    };
+
+    if (isEditMode) {
+      fetchFullCustomerData();
     }
+  }, [isEditMode, serviceId]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!isEditMode && formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    const { confirmPassword, ...safeData } = formData;
+
+    try {
+      if (isEditMode) {
+        await axios.put(`http://localhost:5000/api/customers/services/${data._id}`, {
+          serviceType: formData.serviceType,
+          description: formData.description,
+        });
+        alert('Service updated successfully!');
+      } else {
+        if (isAdminView) {
+          const formPayload = new FormData();
+          Object.entries({
+            ...safeData,
+            role: 'admin',
+          }).forEach(([key, value]) => {
+            formPayload.append(key, value);
+          });
+
+          await axios.post('http://localhost:5000/api/customers/', formPayload, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+        } else {
+          await axios.post('http://localhost:5000/api/customers/', formData);
+        }
+
+        alert('Service request submitted successfully!');
+      }
+
+      navigate(isAdminView ? '/adminDashboard' : '/');
+    } catch (error) {
+      console.error('Error submitting request:', error);
+      alert('Failed to submit request.');
+    }
+  };
+
+  const handleCancel = () => {
+    navigate(isAdminView ? '/adminDashboard' : '/');
   };
 
   return (
     <div className="services-form-container">
-      <h2>Request a Service</h2>
+      <h2>{isEditMode ? 'Edit' : 'Request'} Service</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="firstName" placeholder="First Name" onChange={handleChange} required />
-        <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} required />
-        <input type="text" name="streetAddress" placeholder="Street Address" onChange={handleChange} required />
-        <input type="text" name="city" placeholder="City" onChange={handleChange} required />
-        <select name="state" onChange={handleChange} required>
-          <option value="">Select State</option>
-          <option value="WA">WA</option>
-          {/* Add all US states here */}
-        </select>
-        <input type="text" name="zipCode" placeholder="Zip Code" onChange={handleChange} required />
-        <input type="text" name="phoneNumber" placeholder="Phone Number" onChange={handleChange} required />
-        <input type="email" name="username" placeholder="Email" onChange={handleChange} required />
+        <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required />
+        <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} required />
+        <input type="text" name="streetAddress" placeholder="Street Address" value={formData.streetAddress} onChange={handleChange} required />
+        <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
 
-        {/* Only show password fields if not in admin view */}
-        {!isAdminView && (
+        <select name="state" value={formData.state} onChange={handleChange} required>
+          <option value="">Select State</option>
+          {[
+            'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO',
+            'MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'
+          ].map((s) => (
+            <option key={s} value={s}>{s}</option>
+          ))}
+        </select>
+
+        <input type="text" name="zipCode" placeholder="Zip Code" value={formData.zipCode} onChange={handleChange} required />
+        <input type="text" name="phoneNumber" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} required />
+        <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
+{/* or is in isAdminView && createMode */}
+        {!isEditMode && !isAdminView && (
           <>
-            <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} required />
+            <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} required />
           </>
         )}
 
-        <select name="serviceType" onChange={handleChange} required>
+        <select name="serviceType" value={formData.serviceType} onChange={handleChange} required>
           <option value="">Select Service Type</option>
           <option value="roofing">Roofing</option>
           <option value="remodel">Remodel</option>
           <option value="fence">Fence</option>
           <option value="deck">Deck</option>
         </select>
-        <textarea name="description" placeholder="Service Description" onChange={handleChange} required></textarea>
-        <button type="submit">Submit Request</button>
+
+        <textarea name="description" placeholder="Service Description" value={formData.description} onChange={handleChange} required></textarea>
+
+        <div className="form-actions">
+          <button type="submit" className="submit-button">
+            {isEditMode ? 'Update' : 'Submit'} Request
+          </button>
+          {isEditMode && (
+            <button type="button" className="cancel-button" onClick={handleCancel}>Cancel</button>
+          )}
+        </div>
       </form>
     </div>
   );

@@ -151,6 +151,48 @@ router.put('/services/:serviceId', async (req, res) => {
   }
 });
 
+// Get full customer data by service ID 
+router.get('/service/:id', async (req, res) => {
+  try {
+    const serviceId = req.params.id;
+
+    const customer = await Customer.findOne({
+      'serviceRequests._id': serviceId
+    });
+
+    if (!customer) {
+      return res.status(404).json({ message: "Customer with this service not found" });
+    }
+
+    const matchedService = customer.serviceRequests.find(
+      (service) => service._id.toString() === serviceId
+    );
+
+    if (!matchedService) {
+      return res.status(404).json({ message: "Service not found in customer's data" });
+    }
+
+    res.status(200).json({
+      customer: {
+        _id: customer._id,
+        firstName: customer.firstName,
+        lastName: customer.lastName,
+        streetAddress: customer.streetAddress,
+        city: customer.city,
+        state: customer.state,
+        zipCode: customer.zipCode,
+        phoneNumber: customer.phoneNumber,
+        username: customer.username,
+      },
+      service: matchedService
+    });
+
+  } catch (err) {
+    console.error("Error fetching customer by service ID:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
 //DELETE a customer's SERVICE REQUEST by id -- IN USE
 router.delete('/service/:serviceId', async (req, res) => {
   try {

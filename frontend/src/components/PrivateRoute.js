@@ -1,25 +1,29 @@
-// //PrivateRoute.js
-
-import React from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 
 const PrivateRoute = ({ children, allowedRoles }) => {
-  const token = localStorage.getItem("token"); // Check authentication
-  const role = localStorage.getItem("role");   // Check user's role
+  const [isReady, setIsReady] = useState(false); // Wait until localStorage is available
+  const [user, setUser] = useState(null);
   const location = useLocation();
-  const navigate = useNavigate();
 
-  if (!token) {
-    // Remove all history state to prevent back navigation
-    window.history.replaceState(null, "", "/");
-    return <Navigate to="/login" state={{ from: location }} replace />;
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    if (token && role) {
+      setUser({ token, role });
+    }
+    setIsReady(true); // After checking localStorage
+  }, []);
+
+  if (!isReady) return null; // Or a loading spinner
+
+  if (!user?.token) {
+    return <Navigate to="/" state={{ from: location }} replace />;
   }
 
-  if (!allowedRoles.includes(role)) {
-    // Remove all history state before redirecting to home
+  if (!allowedRoles.includes(user.role)) {
     window.history.replaceState(null, "", "/");
-    navigate("/");
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   return children;

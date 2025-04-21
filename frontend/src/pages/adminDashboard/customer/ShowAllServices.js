@@ -44,7 +44,7 @@ const ShowAllServices = ({ data }) => {
     }, [data, page, location.state?.updated]);
 
     const handleEdit = (service) => {
-        navigate(`/edit-service/${service._id}`, { state: { service } });
+        navigate(`/service/${service._id}`, { state: {service }, isAdminView: true });
     };
 
     const handleDelete = async (serviceId) => {

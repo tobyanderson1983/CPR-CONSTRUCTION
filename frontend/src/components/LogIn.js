@@ -22,19 +22,21 @@ const LogIn = () => {
      
       const { token, username: user, role, firstName, lastName } = res.data;
 
-      // ✅ Save token & role in localStorage
+      // ✅ Save token, role, and full user object
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+      localStorage.setItem("user", JSON.stringify({ username: user, role, firstName, lastName }));
+
 
       // ✅ Navigate based on role
       if (role === "admin") {
-        localStorage.setItem('adminName', JSON.stringify({ firstName, lastName }));
+        // localStorage.setItem('adminName', JSON.stringify({ firstName, lastName }));
         navigate("/adminDashboard", { state: { firstName, lastName } });
       } else if (role === "employee") {
-        localStorage.setItem('employeeName', JSON.stringify({ firstName, lastName }));
+        // localStorage.setItem('employeeName', JSON.stringify({ firstName, lastName }));
         navigate("/employeeDashboard", { state: { firstName, lastName } });
       }else if(role === 'customer'){
-        localStorage.setItem('customerName', JSON.stringify({ firstName, lastName }));
+        // localStorage.setItem('customerName', JSON.stringify({ firstName, lastName }));
         navigate("/customerDashboard", { state: { firstName, lastName } });
       } else {
         console.error("Unexpected role received:", role);
