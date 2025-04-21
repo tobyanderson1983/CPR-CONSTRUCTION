@@ -36,7 +36,7 @@ export const ShowAllServicesView = ({ services, setView }) => (
 
 export const CreateServiceView = ({ serviceData, setView }) => (
   <div className="form-container">
-    <Services data={serviceData} isAdminView={true} />
+    <Services data={serviceData} isAdminView={true} isCreateMode={true}/>
     <div className="form-actions">
       <button onClick={() => setView(null)}>Cancel</button>
     </div>

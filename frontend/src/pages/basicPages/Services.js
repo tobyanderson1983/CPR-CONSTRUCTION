@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './css/Services.css';
 
-const Services = ({ isAdminView }) => {
+const Services = ({ isAdminView, isCreateMode }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -137,8 +137,8 @@ const Services = ({ isAdminView }) => {
         <input type="text" name="zipCode" placeholder="Zip Code" value={formData.zipCode} onChange={handleChange} required />
         <input type="text" name="phoneNumber" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} required />
         <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
-{/* or is in isAdminView && createMode */}
-        {!isEditMode && !isAdminView && (
+
+        {((!isEditMode && !isAdminView) || (isCreateMode && isAdminView))&& (
           <>
             <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
             <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} required />
