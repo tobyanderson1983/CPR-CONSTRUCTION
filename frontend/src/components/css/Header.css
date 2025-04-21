@@ -1,45 +1,46 @@
 /* General header styling */
 header {
     color: #fff;
-    padding-left: 0%;
-    padding-top: 10px;
+    padding: 10px 0;
+    text-align: center;
+    position: relative;
 }
 
-/* Container for content */
+/* Container for nav content */
 header div {
     max-width: 900px;
+    margin: 0 auto;
 }
 
-/* Main title */
-header h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: white; 
-    text-transform: uppercase;
+/* Main logo styling - center at the top */
+.logo {
     text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 0.9;
 }
 
-/* Slogan styling */
-header h2 {
-    font-size: 1.5rem;
-    font-style: italic;
-    margin-bottom: 5px;
-    color: #ff6600; /* Orange for emphasis */
-    text-align: left;
+/* CPR and CONSTRUCTION font styles */
+.cpr {
+    font-size: 2rem;
+    font-weight: bold;
+    display: block;
 }
 
-header h3 {
-    font-size: 1.2rem;
-    font-weight: normal;
-    margin-bottom: 15px;
-    color: #ddd;
+.construction {
+    font-size: 0.7rem;
+    font-weight: bold;
+    display: block;
 }
 
 /* Navigation styles */
 nav {
-    margin-top: 0px;
-    margin-left: 0px;
+    margin-top: 0;
+    margin-left: 0;
 }
 
 nav a {
@@ -57,8 +58,40 @@ nav a:hover {
 
 /* Highlight the active link */
 nav a.active {
-    color: yellow; /* Bright red for emphasis */
+    color: yellow;
     font-weight: bold;
+}
+
+/* Slogan (if used) */
+header h2 {
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: 5px;
+    color: #ff6600;
+    text-align: left;
+}
+
+header h3 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 15px;
+    color: #ddd;
+}
+
+/* Log Out button */
+.logout-button {
+    width: 15%;
+    padding: 8px;
+    font-size: 1rem;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
 }
 
 /* Mobile responsiveness */
@@ -75,26 +108,9 @@ nav a.active {
         font-size: 1rem;
         margin: 0 10px;
     }
+
+    .logout-button {
+        width: 50%;
+        padding: 8px;
+    }
 }
-
-.logo {
-    line-height: 0.9; /* Reduce spacing between lines */
-  }
-  
-  .cpr {
-    font-size: 2rem;
-    font-weight: bold;
-    display: block;
-  }
-  
-  .construction {
-    font-size: .7rem;
-    font-weight: bold;
-    display: block;
-  }
-
-  .logout-button{
-    width: 15%;
-    padding: 8px;
-  }
-  

@@ -32,6 +32,10 @@ function Header() {
   return (
     <div>
       <header>
+      <h1 className="logo">
+          <span className="cpr">CPR</span>
+          <span className="construction">CONSTRUCTION</span>
+        </h1>
         <div>
           <nav>
             {isPrivateRoute ? (
@@ -48,10 +52,6 @@ function Header() {
             )}
           </nav>
         </div>
-        <h1 className="logo">
-          <span className="cpr">CPR</span>
-          <span className="construction">CONSTRUCTION</span>
-        </h1>
       </header>
     </div>
   );

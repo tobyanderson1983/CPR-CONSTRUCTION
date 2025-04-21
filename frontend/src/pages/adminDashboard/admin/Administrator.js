@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Administrator = ({ onSubmit, onCancel }) => {
   const location = useLocation();
   const data = location.state?.admin || {};
-  console.log('data: ', data)
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
