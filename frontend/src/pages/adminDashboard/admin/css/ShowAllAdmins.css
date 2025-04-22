@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem; /* optional: adds spacing between cards */
+    justify-content: flex-start; /* aligns items to the left */
+    padding: 1rem;
+  }
+  
+  .section {
+    /* background-color: #f9f9f9; */
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 8px;
+    width: calc(33.333% - 2rem); /* three per row with gap */
+    box-sizing: border-box;
+    min-width: 250px;
+    margin-bottom: 1rem;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section button {
+    margin-right: 0.5rem;
+    margin-top: 10px;
+    padding: 5px;
+  }
+  .button-container{
+    display: flex;
+    flex-direction: row;
+  }
+  @media (max-width: 768px) {
+    .section {
+      width: calc(50% - 1rem); /* 2 per row on tablets */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .section {
+      width: 100%; /* 1 per row on small screens */
+    }
+  }
+    

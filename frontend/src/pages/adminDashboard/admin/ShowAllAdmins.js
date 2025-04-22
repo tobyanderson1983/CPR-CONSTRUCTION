@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import './css/ShowAllAdmins.css'
 
 const ShowAllAdmins = ({ data }) => {
     const [admins, setAdmins] = useState([]);
@@ -59,24 +60,29 @@ const ShowAllAdmins = ({ data }) => {
     return (
         <div>
             <h1>Show All Administrators</h1>
-            {admins.length === 0 ? (
-                <p>No administrators requests found.</p>
-            ) : (
-                <ul>
-                    {admins.map((admin) => (
-                        <div key={admin._id}>
-                           <strong>Name:</strong> {admin.firstName} {admin.lastName}<br />
-                            <strong>Phone Number:</strong> {admin.phoneNumber} <br />
-                            <strong>Address:</strong> {admin.streetAddress}, {admin.state} {admin.zipCode}<br />
-                            <strong>email:</strong> {admin.username}<br />
-                            <button onClick={() => handleEdit(admin)}>Edit</button>
-                            <button onClick={() => handleDelete(admin._id)}>Delete</button>
-                            <hr />
-                        </div>
-                    ))}
-                </ul>
-            )}
-
+            <div className='container'>
+                {admins.length === 0 ? (
+                    <p>No administrators requests found.</p>
+                ) : (
+                    <ul>
+                        {admins.map((admin) => (
+                            <div key={admin._id} className='section'>
+                            <strong>Name:</strong> {admin.firstName} {admin.lastName}<br />
+                                <strong>Phone Number:</strong> {admin.phoneNumber} <br />
+                                <strong>Address:</strong> {admin.streetAddress}, {admin.state} {admin.zipCode}<br />
+                                <strong>email:</strong> {admin.username}<br />
+                                  <hr />
+                                <div className='button-container'>
+                                    <button onClick={() => handleEdit(admin)}>Edit</button>
+                                    <button onClick={() => handleDelete(admin._id)}>Delete</button>
+                                </div>
+                              
+                            </div>
+                        ))}
+                    </ul>
+                )}
+            </div>
+           
             {admins.length < totalAdmins && (
                 <button onClick={() => setPage(page + 1)}>Load More</button>
             )}

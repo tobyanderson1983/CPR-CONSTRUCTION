@@ -25,12 +25,17 @@ const LogIn = () => {
       // ✅ Save token, role, and full user object
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
-      localStorage.setItem("user", JSON.stringify({ username: user, role, firstName, lastName }));
+      // localStorage.setItem("user", JSON.stringify({ username: user, role, firstName, lastName }));
+      localStorage.setItem("adminName", JSON.stringify({ firstName, lastName }));
+
 
 
       // ✅ Navigate based on role
+      // if (role === "admin") {
+      //   // localStorage.setItem('adminName', JSON.stringify({ firstName, lastName }));
+      //   navigate("/adminDashboard", { state: { firstName, lastName } });
       if (role === "admin") {
-        // localStorage.setItem('adminName', JSON.stringify({ firstName, lastName }));
+        localStorage.setItem("adminName", JSON.stringify({ firstName, lastName }));
         navigate("/adminDashboard", { state: { firstName, lastName } });
       } else if (role === "employee") {
         // localStorage.setItem('employeeName', JSON.stringify({ firstName, lastName }));

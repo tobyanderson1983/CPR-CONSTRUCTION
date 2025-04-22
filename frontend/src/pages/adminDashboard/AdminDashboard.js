@@ -24,7 +24,7 @@ const AdminDashboard = () => {
 
   const storedAdmin = JSON.parse(localStorage.getItem('adminName'));
   const fullName = `${storedAdmin?.firstName || ''} ${storedAdmin?.lastName || ''}`.trim();
-
+  
   useEffect(() => {
     const stateExists = !!location.state?.firstName && !!location.state?.lastName;
     const adminInStorage = localStorage.getItem('adminName');
@@ -37,32 +37,38 @@ const AdminDashboard = () => {
   //========================= JSX =========================
 
   return (
-    <div className="admin-dashboard">
-      {view === null && <h2>Welcome, {fullName}!</h2>}
+    <div className="dash">
+      {view === null && <h1>Welcome, {fullName}!</h1>}
+      <div className="admin-dashboard">
 
-      {view === null && (
-        <div className="dashboard-container">
-          <div className="dashboard-section">
-            <button onClick={() => setView('searchAdmin')}>Search Administrator</button>
-            <button onClick={() => setView('showAllAdmins')}>View All Administrators</button>
-            <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
+        {view === null && (
+          <div className="dashboard-container">
+            <div className="dashboard-section">
+              <h2>Administrators</h2>
+              <button onClick={() => setView('searchAdmin')}>Search Administrator</button>
+              <button onClick={() => setView('showAllAdmins')}>View All Administrators</button>
+              <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
+            </div>
+
+            <div className="dashboard-section">
+              <h2>Employees</h2>
+              <button onClick={() => setView('searchEmployee')}>Search Employee</button>
+              <button onClick={() => setView('showAllEmployees')}>View All Employees</button>
+              <button onClick={() => setView('createEmployee')}>Create New Employee</button>
+            </div>
+
+            <div className="dashboard-section">
+              <h2>Customers</h2>
+              <button onClick={() => setView('searchService')}>Search Service</button>
+              <button onClick={() => setView('showPendingServices')}>Pending Services</button>
+              <button onClick={() => setView('showAllServices')}>View All Services</button>
+              <button onClick={() => setView('createService')}>Create New Service</button>
+            </div>
           </div>
+        )}
 
-          <div className="dashboard-section">
-            <button onClick={() => setView('searchEmployee')}>Search Employee</button>
-            <button onClick={() => setView('showAllEmployees')}>View All Employees</button>
-            <button onClick={() => setView('createEmployee')}>Create New Employee</button>
-          </div>
-
-          <div className="dashboard-section">
-            <button onClick={() => setView('searchService')}>Search Service</button>
-            <button onClick={() => setView('showPendingServices')}>Pending Services</button>
-            <button onClick={() => setView('showAllServices')}>View All Services</button>
-            <button onClick={() => setView('createService')}>Create New Service</button>
-          </div>
-        </div>
-      )}
-
+    </div>
+  
       {/* --------------------------ADMIN VIEWS--------------------------- */}
 
       {view === 'searchAdmin' && (
