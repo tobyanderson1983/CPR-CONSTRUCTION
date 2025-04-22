@@ -78,9 +78,9 @@ header h3 {
     color: #ddd;
 }
 
-/* Log Out button */
+ /* Log Out button */
 .logout-button {
-    width: 15%;
+    width: 8%;
     padding: 8px;
     font-size: 1rem;
     background-color: #ff4d4d;
@@ -88,6 +88,10 @@ header h3 {
     border: none;
     cursor: pointer;
     border-radius: 4px;
+    position: absolute;
+    top: 20px;
+    right: 100px;
+    /* margin-right: 100px; */
 }
 
 .logout-button:hover {
