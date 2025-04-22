@@ -66,9 +66,6 @@ router.get('/', async (req, res) => {
 
 //search one admin
 router.get('/oneAdmin', async (req, res) => {
-  console.log('/oneAdmin')
-  console.log(req.query)
-  console.log(req.body)
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {

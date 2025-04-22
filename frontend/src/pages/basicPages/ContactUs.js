@@ -8,7 +8,7 @@ function ContactUs(){
 
   return (
     <div>
-      <h2>Contact Us</h2>
+      <h1>Contact Us</h1>
     </div>
   );
 };

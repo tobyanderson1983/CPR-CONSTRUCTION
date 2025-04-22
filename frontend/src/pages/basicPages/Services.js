@@ -117,8 +117,8 @@ const Services = ({ isAdminView, isCreateMode }) => {
 
   return (
     <div className="services-form-container">
-      <h2>{isEditMode ? 'Edit' : 'Request'} Service</h2>
-      <form onSubmit={handleSubmit}>
+      <h1>{isEditMode ? 'Edit' : 'Request'} Service</h1>
+      <form onSubmit={handleSubmit} className='services-form'>
         <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required />
         <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} required />
         <input type="text" name="streetAddress" placeholder="Street Address" value={formData.streetAddress} onChange={handleChange} required />

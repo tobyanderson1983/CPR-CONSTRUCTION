@@ -38,27 +38,27 @@ const AdminDashboard = () => {
 
   return (
     <div className="dash">
-      {view === null && <h1>Welcome, {fullName}!</h1>}
+      {view === null && <h1>Welcome to the Admin Dashboard, {fullName.toLocaleUpperCase()}!</h1>}
       <div className="admin-dashboard">
 
         {view === null && (
           <div className="dashboard-container">
             <div className="dashboard-section">
-              <h2>Administrators</h2>
+              <h2>ADMINISTRATORS</h2>
               <button onClick={() => setView('searchAdmin')}>Search Administrator</button>
               <button onClick={() => setView('showAllAdmins')}>View All Administrators</button>
               <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
             </div>
 
             <div className="dashboard-section">
-              <h2>Employees</h2>
+              <h2>EMPLOYEES</h2>
               <button onClick={() => setView('searchEmployee')}>Search Employee</button>
               <button onClick={() => setView('showAllEmployees')}>View All Employees</button>
               <button onClick={() => setView('createEmployee')}>Create New Employee</button>
             </div>
 
             <div className="dashboard-section">
-              <h2>Customers</h2>
+              <h2>CUSTOMERS</h2>
               <button onClick={() => setView('searchService')}>Search Service</button>
               <button onClick={() => setView('showPendingServices')}>Pending Services</button>
               <button onClick={() => setView('showAllServices')}>View All Services</button>

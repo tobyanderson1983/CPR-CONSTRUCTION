@@ -1,6 +1,7 @@
 import React from 'react';
 import ShowAllEmployees from '../ShowAllEmployees';
 import Employee from '../Employee';
+import '../../css/SearchView.css';
 
 export const SearchEmployeeView = ({
     username,
@@ -12,28 +13,30 @@ export const SearchEmployeeView = ({
     handleSearchEmployee,
     setView
   }) => (
-    <div>
-      <p>Search by either Username (Email) or Full Name</p>
-      <input
-        type="text"
-        placeholder="Enter username (email)"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="First Name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Last Name"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
-      <button onClick={handleSearchEmployee}>Search</button>
-      <button onClick={() => setView(null)}>Cancel</button>
+    <div className='search-container-wraper'>
+        <div className='search-container'>
+          <h1>Search by either Username (Email) or Full Name</h1>
+          <input
+            type="text"
+            placeholder="Enter username (email)"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <button onClick={handleSearchEmployee}>Search</button>
+          <button onClick={() => setView(null)}>Cancel</button>
+        </div>
     </div>
   );
   

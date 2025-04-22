@@ -11,15 +11,18 @@ function Portfolio() {
     ];
 
     return (
-        <div className="portfolio-container">
-            <section className="portfolio-gallery">
-                {projects.map(project => (
-                    <div key={project.id} className="portfolio-item">
-                        <h3>{project.title}</h3>
-                        <p>{project.description}</p>
-                    </div>
-                ))}
-            </section>
+        <div>
+            <h1>Portfolio</h1>
+            <div className="portfolio-container">
+                <section className="portfolio-gallery">
+                    {projects.map(project => (
+                        <div key={project.id} className="portfolio-item">
+                            <h3>{project.title}</h3>
+                            <p>{project.description}</p>
+                        </div>
+                    ))}
+                </section>
+            </div>
         </div>
     );
 }
