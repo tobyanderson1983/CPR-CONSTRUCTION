@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Services from '../pages/basicPages/Services.js';
 import "./css/LogIn.css";
 
-const LogIn = () => {
+const LogIn = ({ view, setView }) => {
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -31,9 +33,6 @@ const LogIn = () => {
 
 
       // ✅ Navigate based on role
-      // if (role === "admin") {
-      //   // localStorage.setItem('adminName', JSON.stringify({ firstName, lastName }));
-      //   navigate("/adminDashboard", { state: { firstName, lastName } });
       if (role === "admin") {
         localStorage.setItem("adminName", JSON.stringify({ firstName, lastName }));
         navigate("/adminDashboard", { state: { firstName, lastName } });
@@ -53,33 +52,56 @@ const LogIn = () => {
   };
 
   return (
-    <div className="login-container">
-      <div >
-        {/* Use <form> and handle submit via onSubmit */}
-        <form onSubmit={login} className="login-box">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && login(e)} // Handle Enter key press
-          />
+    <>
+      {view === null && (
+        <div className="login-container">
+          <div>
+            <form onSubmit={login} className="login-box">
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && login(e)} 
+              />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && login(e)} // Handle Enter key press
-          />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && login(e)} 
+              />
 
-          <button type="submit">Log In</button>
-        </form>
+              <button type="submit">Log In</button>
 
-        {error && <p className="error-message">{error}</p>}
-      </div>
-    </div>
+              <p>OR</p>
+
+              <button type="button" onClick={() => setView('services')}>
+                New Customer
+              </button>
+            </form>
+
+            {error && <p className="error-message">{error}</p>}
+          </div>
+        </div>
+      )}
+
+      {view === 'services' && (
+        <div>
+          <Services />
+          <div className="cancel-button-wrapper">
+            <button type="button" onClick={() => setView(null)}>
+              Cancel / Back to Login
+            </button>
+          </div>
+
+        </div>
+      )}
+    </>
   );
-};
+
+}
+
 
 export default LogIn;

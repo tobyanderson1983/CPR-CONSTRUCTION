@@ -1,9 +1,11 @@
 .login-container {
     display: flex;
     justify-content: flex-end; /* Aligns content to the right */
+    align-self: center;
     height: 100vh; /* Full height */
     align-items:flex-start; 
-    padding-right: 50px; /*Adds some spacing from the right edge */
+    /* padding-right: 50px;  */
+    margin-top: 70px;
   }
   
   .login-box {
@@ -13,6 +15,13 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .login-box p{
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    width: 100%;
   }
   
   .login-box h2 {
@@ -53,4 +62,14 @@
     color: red;
     margin-top: 10px;
   }
+
+  .cancel-button-wrapper {
+    text-align: center;
+    margin-top: 1rem;
+    margin-left: 20px;
+    position: relative;
+    top: -250px;
+    width: 250px;
+  }
+  
   

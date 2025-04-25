@@ -1,22 +1,20 @@
-//Home.js
-
-import React from 'react';
+import React, { useState } from 'react';
 import LogIn from './../../components/LogIn.js';
-//import { Link } from 'react-router-dom';
 import './css/Home.css';
 
-function Home(){
+function Home() {
+  const [view, setView] = useState(null); // Lifted up from LogIn
 
   return (
     <div className="home-container">
-    <section className="home-content">
-        <h2>We Breathe Life Back into Your <span>HOME</span>.</h2>
-        <LogIn  />
-
-       {/* <Link to="/services" className="explore-btn" >Explore Services</Link> */}
-    </section>
-</div>
+      <section className="home-content">
+        {view === null && (
+          <h2>We Breathe Life Back into Your <span>HOME</span>.</h2>
+        )}
+        <LogIn view={view} setView={setView} />
+      </section>
+    </div>
   );
-};
+}
 
 export default Home;
