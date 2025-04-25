@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './css/Services.css';
+import './css/ScheduleServices.css';
 
 const Services = ({ isAdminView, isCreateMode }) => {
   const location = useLocation();

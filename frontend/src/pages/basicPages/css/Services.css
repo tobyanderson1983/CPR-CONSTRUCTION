@@ -1,117 +1,26 @@
-  .services-form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;    
-    min-height: 100vh;   
-    background-color: transparent;
-    padding: 20px;
-    margin-top: 0;
-    padding-top: 0;
-    border-radius: 8px;
+.services-provided-container {
+    padding: 2rem;
+    text-align: center;
   }
   
-  .services-form {
+  .service-details {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    background: transparent;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 900px;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
   }
   
-  /* Headings */
-  h1 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 1.5rem;
+  .service-card {
+    background: #f7f7f7;
+    padding: 1.5rem;
+    border-radius: 12px;
+    width: 280px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
   
-  input,
-  select,
-  textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: transparent;
-    color: white;
-  }
-  /* Standardize height and box-sizing for inputs and selects */
-  input,
-  select {
-    height: 40px; /* Adjust this value as needed */
-    box-sizing: border-box;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: transparent;
-    color: white;
-  }
-
-  /* Ensure consistent appearance for select elements */
-  select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    line-height: normal;
-  }
-
-  input::placeholder{
-    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
-  }
-  select{
-    width: 190px;
-    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
-  }
-  select::placeholder{
-    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
-  }
-
-  textarea {
-    resize: none;
-    height: 80px;
-  }
-
-  textarea::placeholder{
-    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
-  }
-
-  #city-state-zip-group{
-    margin-top: 10px;
-  }
-  
-  /* textarea-group margin */
-  #textarea{
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
-
-  /* Button styling */
-  button {
-    width: 100%;
-    padding: 12px;
-    background-color: rgba(0, 123, 255, 0.3); /* 30% transparent blue */
-    border: none;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    .flex-group {
-      flex-direction: column;
-    }
+  .service-card h2 {
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
   }
   

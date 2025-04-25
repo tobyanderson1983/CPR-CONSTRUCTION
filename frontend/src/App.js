@@ -3,6 +3,8 @@ import React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Home from "./pages/basicPages/Home";
 import ScheduleServices from "./pages/basicPages/ScheduleServices";
+import Services from "./pages/basicPages/Services";
+
 import Portfolio from "./pages/basicPages/Portfolio";
 import ContactUs from "./pages/basicPages/ContactUs";
 import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
@@ -37,7 +39,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/scheduleServices", element: <ScheduleServices /> },
+      { path: "/services", element: <Services /> },
       { path: "/portfolio", element: <Portfolio /> },
       { path: "/contact", element: <ContactUs /> },
 
