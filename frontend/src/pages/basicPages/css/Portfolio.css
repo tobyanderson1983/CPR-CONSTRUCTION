@@ -1,23 +1,62 @@
-.portfolio-container {
-    padding: 20px;
+.portfolio-page {
+    padding: 2rem;
     text-align: center;
     color: white;
 }
 
+
+
+.portfolio-dropdown {
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.portfolio-dropdown select {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: gray;
+    cursor: pointer;
+}
+
 .portfolio-gallery {
     display: flex;
-    justify-content: center;
-    gap: 20px;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .portfolio-item {
-    border: 1px solid #ddd;
-    padding: 15px;
     width: 250px;
-    border-radius: 8px;
+    min-height: 150px; /* Or whatever fits your content */
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1rem;
+    background: gray;
+    transition: all 0.2s ease-in-out;
+  }
+  
+
+.portfolio-item img {
+width: 100%;
+height: 160px;
+object-fit: cover;
+border-radius: 8px;
+display: block;
 }
- 
-h1{
-    color: white;
- }
+  
+
+.portfolio-pagination button {
+margin: 0.5rem;
+padding: 0.3rem 0.8rem;
+border: none;
+background: #eee;
+border-radius: 4px;
+}
+
+.portfolio-pagination .active {
+background: #555;
+color: white;
+}
