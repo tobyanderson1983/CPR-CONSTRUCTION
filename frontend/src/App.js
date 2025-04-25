@@ -2,7 +2,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Home from "./pages/basicPages/Home";
-import Services from "./pages/basicPages/Services";
+import ScheduleServices from "./pages/basicPages/ScheduleServices";
 import Portfolio from "./pages/basicPages/Portfolio";
 import ContactUs from "./pages/basicPages/ContactUs";
 import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/services", element: <Services /> },
+      { path: "/scheduleServices", element: <ScheduleServices /> },
       { path: "/portfolio", element: <Portfolio /> },
       { path: "/contact", element: <ContactUs /> },
 
@@ -116,7 +116,7 @@ const router = createBrowserRouter([
         path: "/service/:id",
         element: (
           <PrivateRoute allowedRoles={["admin"]}>
-            <Services
+            <ScheduleServices
               isAdminView={true}
               onSubmit={async (formData) => {
                 try {

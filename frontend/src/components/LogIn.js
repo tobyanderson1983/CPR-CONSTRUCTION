@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Services from '../pages/basicPages/Services.js';
+import Services from '../pages/basicPages/ScheduleServices.js';
 import "./css/LogIn.css";
 
 const LogIn = ({ view, setView }) => {
@@ -77,7 +77,7 @@ const LogIn = ({ view, setView }) => {
 
               <p>OR</p>
 
-              <button type="button" onClick={() => setView('services')}>
+              <button type="button" id='new-customer-cancel-button' onClick={() => setView('scheduleServices')}>
                 New Customer
               </button>
             </form>
@@ -87,7 +87,7 @@ const LogIn = ({ view, setView }) => {
         </div>
       )}
 
-      {view === 'services' && (
+      {view === 'scheduleServices' && (
         <div>
           <Services />
           <div className="cancel-button-wrapper">

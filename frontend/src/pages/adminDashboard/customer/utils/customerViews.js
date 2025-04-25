@@ -1,5 +1,5 @@
 import React from 'react';
-import Services from '../../../basicPages/Services';
+import ScheduleServices from '../../../basicPages/ScheduleServices';
 import ShowAllServices from '../ShowAllServices';
 import '../../css/SearchView.css';
 
@@ -38,7 +38,7 @@ export const ShowAllServicesView = ({ services, setView }) => (
 
 export const CreateServiceView = ({ serviceData, setView }) => (
   <div className="form-container">
-    <Services data={serviceData} isAdminView={true} isCreateMode={true}/>
+    <ScheduleServices data={serviceData} isAdminView={true} isCreateMode={true}/>
     <div className="form-actions">
       <button onClick={() => setView(null)}>Cancel</button>
     </div>

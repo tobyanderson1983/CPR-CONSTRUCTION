@@ -4,7 +4,6 @@
     align-self: center;
     height: 100vh; /* Full height */
     align-items:flex-start; 
-    /* padding-right: 50px;  */
     margin-top: 70px;
   }
   
@@ -65,11 +64,16 @@
 
   .cancel-button-wrapper {
     text-align: center;
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
+    /* margin-top: .5rem; */
     margin-left: 20px;
     position: relative;
     top: -250px;
     width: 250px;
+  }
+
+  #new-customer-cancel-button {
+    margin-top: 0;
   }
   
   
