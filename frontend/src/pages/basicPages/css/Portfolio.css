@@ -9,16 +9,37 @@
 .portfolio-dropdown {
     margin: 1rem auto;
     text-align: center;
+    position: relative; /* Needed for positioning the custom arrow */
+    width: fit-content; /* shrink wrap the select */
 }
 
 .portfolio-dropdown select {
-    padding: 0.6rem 1rem;
+    padding: 0.6rem 2.5rem 0.6rem 1rem; /* More right padding for arrow space */
     font-size: 1rem;
     border-radius: 8px;
     border: 1px solid #ccc;
     background-color: gray;
+    color: white;
     cursor: pointer;
+    appearance: none; /* remove default arrow */
+    -webkit-appearance: none; /* Safari */
+    -moz-appearance: none; /* Firefox */
+    text-align: center;
+    position: relative;
 }
+
+/* Create a custom dropdown arrow */
+.portfolio-dropdown::after {
+    content: "▼"; /* Down arrow symbol */
+    font-size: 0.8rem;
+    color: white;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Let clicks pass through */
+}
+
 
 .portfolio-gallery {
     display: flex;

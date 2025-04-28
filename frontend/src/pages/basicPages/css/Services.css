@@ -2,6 +2,10 @@
     padding: 2rem;
     text-align: center;
   }
+
+  .services-provided-container h1{
+    color: white;
+  }
   
   .service-details {
     display: flex;

@@ -13,7 +13,6 @@ function Portfolio() {
     { id: 4, title: "Roofing Fix", category: "Roofing", image: "/images/roof1.jpg" },
     { id: 5, title: "Deck Build", category: "Outdoor", image: "/images/deck1.jpg" },
     { id: 6, title: "Modern Kitchen", category: "Kitchen", image: "/images/kitchen2.jpg" },
-    // Add more static examples as needed
   ];
 
   const categories = ["All", "Kitchen", "Bathroom", "Living Room", "Roofing", "Outdoor"];
