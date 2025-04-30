@@ -83,7 +83,7 @@ header h3 {
     width: 8%;
     padding: 8px;
     font-size: 1rem;
-    background-color: #ff4d4d;
+    background-color: transparent;
     color: white;
     border: none;
     cursor: pointer;
@@ -95,7 +95,8 @@ header h3 {
 }
 
 .logout-button:hover {
-    background-color: #cc0000;
+    color: #cc0000;
+    background-color: transparent;
 }
 
 /* Admin Dashboard button - opposite side of logout */
@@ -103,7 +104,7 @@ header h3 {
     width: 10%;
     padding: 8px;
     font-size: 1rem;
-    background-color: #007bff;
+    background-color: transparent;
     color: white;
     border: none;
     cursor: pointer;
@@ -114,7 +115,8 @@ header h3 {
   }
   
   .admin-button:hover {
-    background-color: #0056b3;
+    color: blue;
+    background-color: transparent;
   }
   
 
