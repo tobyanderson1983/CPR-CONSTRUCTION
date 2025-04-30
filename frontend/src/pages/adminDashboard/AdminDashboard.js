@@ -1,6 +1,5 @@
-
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import useAuthGuard from '../hooks/useAuthGuard';
 import { handleCreateAdmin, handleSearchAdmin } from './admin/utils/adminHandlers';
 import { SearchAdminView, ShowAllAdminsView, CreateAdminView } from './admin/utils/adminViews';
 import { handleCreateEmployee, handleSearchEmployee } from './employee/utils/employeeHandlers';
@@ -10,6 +9,8 @@ import { SearchServiceView, ShowAllServicesView, CreateServiceView } from './cus
 import './css/AdminDashboard.css';
 
 const AdminDashboard = () => {
+  
+  const authorized = useAuthGuard('admin'); 
   const [view, setView] = useState(null);
   const [serviceData] = useState(null);
   const [services, setServices] = useState([]);
@@ -19,28 +20,18 @@ const AdminDashboard = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const storedAdmin = JSON.parse(localStorage.getItem('adminName'));
+  const storedAdmin = JSON.parse(localStorage.getItem('user'));
   const fullName = `${storedAdmin?.firstName || ''} ${storedAdmin?.lastName || ''}`.trim();
+
   
-  useEffect(() => {
-    const stateExists = !!location.state?.firstName && !!location.state?.lastName;
-    const adminInStorage = localStorage.getItem('adminName');
-
-    if (!stateExists && !adminInStorage) {
-      navigate('/');
-    }
-  }, [location, navigate]);
-
-  //========================= JSX =========================
+  if (!authorized) {
+    return null; // Don't render anything until authorized
+  }
 
   return (
     <div className="dash">
-      {view === null && <h1>Welcome to the Admin Dashboard, {fullName.toLocaleUpperCase()}!</h1>}
+      {view === null && <h1>Welcome to the Admin Dashboard, {fullName.toUpperCase()}!</h1>}
       <div className="admin-dashboard">
-
         {view === null && (
           <div className="dashboard-container">
             <div className="dashboard-section">
@@ -66,11 +57,9 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
+      </div>
 
-    </div>
-  
-      {/* --------------------------ADMIN VIEWS--------------------------- */}
-
+      {/* -------------------------- ADMIN VIEWS --------------------------- */}
       {view === 'searchAdmin' && (
         <SearchAdminView
           username={username}
@@ -79,9 +68,7 @@ const AdminDashboard = () => {
           setFirstName={setFirstName}
           lastName={lastName}
           setLastName={setLastName}
-          handleSearchAdmin={() =>
-            handleSearchAdmin(username, firstName, lastName, setAdmins, setView)
-          }
+          handleSearchAdmin={() => handleSearchAdmin(username, firstName, lastName, setAdmins, setView)}
           setView={setView}
         />
       )}
@@ -95,15 +82,12 @@ const AdminDashboard = () => {
 
       {view === 'createAdmin' && (
         <CreateAdminView
-          handleCreateAdmin={(adminData) =>
-            handleCreateAdmin(adminData, setView)
-          }
+          handleCreateAdmin={(adminData) => handleCreateAdmin(adminData, setView)}
           setView={setView}
         />
       )}
 
-      {/* --------------------------------------EMPLOYEE VIEWS-------------------------------------- */}
-      
+      {/* -------------------------- EMPLOYEE VIEWS --------------------------- */}
       {view === 'searchEmployee' && (
         <SearchEmployeeView
           username={username}
@@ -112,9 +96,7 @@ const AdminDashboard = () => {
           setFirstName={setFirstName}
           lastName={lastName}
           setLastName={setLastName}
-          handleSearchEmployee={() =>
-            handleSearchEmployee(username, firstName, lastName, setEmployees, setView)
-          }
+          handleSearchEmployee={() => handleSearchEmployee(username, firstName, lastName, setEmployees, setView)}
           setView={setView}
         />
       )}
@@ -124,19 +106,16 @@ const AdminDashboard = () => {
           employees={employees}
           setView={setView}
         />
-      )}  
-      
-       {view === 'createEmployee' && (
+      )}
+
+      {view === 'createEmployee' && (
         <CreateEmployeeView
-          handleCreateEmployee={(employeeData) =>
-            handleCreateEmployee(employeeData, setView)
-          }
+          handleCreateEmployee={(employeeData) => handleCreateEmployee(employeeData, setView)}
           setView={setView}
         />
       )}
 
-      {/* --------------------------SERVICE VIEWS--------------------------------- */}
-
+      {/* -------------------------- SERVICE VIEWS --------------------------- */}
       {view === 'searchService' && (
         <SearchServiceView
           username={username}

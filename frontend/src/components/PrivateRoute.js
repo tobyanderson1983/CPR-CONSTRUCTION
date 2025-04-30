@@ -1,28 +1,37 @@
+
 import React, { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 const PrivateRoute = ({ children, allowedRoles }) => {
-  const [isReady, setIsReady] = useState(false); // Wait until localStorage is available
+
+  const [isReady, setIsReady] = useState(false);
   const [user, setUser] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const role = localStorage.getItem("role");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const role = user?.role;
+
     if (token && role) {
       setUser({ token, role });
     }
-    setIsReady(true); // After checking localStorage
+    setIsReady(true);
   }, []);
 
-  if (!isReady) return null; // Or a loading spinner
+  if (!isReady) return null; // or a loading spinner
 
   if (!user?.token) {
+    // No token = not logged in => clear just in case
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
     return <Navigate to="/" state={{ from: location }} replace />;
   }
-
+  
   if (!allowedRoles.includes(user.role)) {
-    window.history.replaceState(null, "", "/");
+    // Role is wrong => clear storage
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
     return <Navigate to="/" replace />;
   }
 

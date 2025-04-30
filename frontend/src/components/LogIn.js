@@ -14,33 +14,27 @@ const LogIn = ({ view, setView }) => {
   const navigate = useNavigate();
 
   const login = async (event) => {
-    event.preventDefault(); // Prevent the default form submission
-    
+    event.preventDefault();
+  
     try {
+      // if there is a user with this name and pwd, return ther info to include role
       const res = await axios.post("http://localhost:5000/api/login", {
         username,
         password,
       });
-     
+  
       const { token, username: user, role, firstName, lastName } = res.data;
-
-      // ✅ Save token, role, and full user object
+  
+      // Store token and full user object
       localStorage.setItem("token", token);
-      localStorage.setItem("role", role);
-      // localStorage.setItem("user", JSON.stringify({ username: user, role, firstName, lastName }));
-      localStorage.setItem("adminName", JSON.stringify({ firstName, lastName }));
-
-
-
-      // ✅ Navigate based on role
+      localStorage.setItem("user", JSON.stringify({ username: user, role, firstName, lastName }));
+  
+      // Navigate based on role
       if (role === "admin") {
-        localStorage.setItem("adminName", JSON.stringify({ firstName, lastName }));
         navigate("/adminDashboard", { state: { firstName, lastName } });
       } else if (role === "employee") {
-        // localStorage.setItem('employeeName', JSON.stringify({ firstName, lastName }));
         navigate("/employeeDashboard", { state: { firstName, lastName } });
-      }else if(role === 'customer'){
-        // localStorage.setItem('customerName', JSON.stringify({ firstName, lastName }));
+      } else if (role === "customer") {
         navigate("/customerDashboard", { state: { firstName, lastName } });
       } else {
         console.error("Unexpected role received:", role);
@@ -50,6 +44,7 @@ const LogIn = ({ view, setView }) => {
       setError("Invalid credentials. Please try again.");
     }
   };
+  
 
   return (
     <>
