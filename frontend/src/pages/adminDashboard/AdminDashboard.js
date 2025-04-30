@@ -30,7 +30,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="dash">
-      {view === null && <h1>Welcome to the Admin Dashboard, {fullName.toUpperCase()}!</h1>}
+      {view === null && <h1 id='greeting'>Welcome to the Admin Dashboard, {fullName.toUpperCase()}!</h1>}
       <div className="admin-dashboard">
         {view === null && (
           <div className="dashboard-container">

@@ -22,7 +22,7 @@
     padding-right: 200px;  
   }
 
-  .dash h1{ 
+  #greeting{ 
     color:white; 
     padding-left: 135px;
   }
@@ -50,10 +50,10 @@
     background-color: gray;
   }
  
-  .dash h1 {
+  /* .dash h1 {
     text-align: left;
     margin-left: 20px;
-  }
+  } */
   
   .dashboard-section button {
     margin: 5px 0; 
