@@ -98,6 +98,26 @@ header h3 {
     background-color: #cc0000;
 }
 
+/* Admin Dashboard button - opposite side of logout */
+.admin-button {
+    width: 10%;
+    padding: 8px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    position: absolute;
+    top: 20px;
+    left: 100px;
+  }
+  
+  .admin-button:hover {
+    background-color: #0056b3;
+  }
+  
+
 /* Mobile responsiveness */
 @media (max-width: 600px) {
     header h1 {
