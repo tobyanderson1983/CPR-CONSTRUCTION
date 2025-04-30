@@ -37,7 +37,7 @@ function Header() {
             {/* Admin Dashboard button */}
             {isLoggedIn && isAdmin && !onAdminDashboard && (
               <button onClick={handleGoToDashboard} className="admin-button">
-                AdminDash
+                Admin Dash
               </button>
             )}
 

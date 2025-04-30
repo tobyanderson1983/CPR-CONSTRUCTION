@@ -22,7 +22,10 @@
     padding-right: 200px;  
   }
 
-  .dash h1{ color:white; }
+  .dash h1{ 
+    color:white; 
+    padding-left: 135px;
+  }
   
 
   .dashboard-section {
