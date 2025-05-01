@@ -1,59 +1,61 @@
 
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback, useRef } from "react";
 
-function useAutoLogoutWithWarning({ timeout = 12000, warningTime = 10000 }) {
-  const navigate = useNavigate();
- 
+const useAutoLogoutWithWarning = ({ warningTime = 700, logoutTime = 600, onLogout }) => {
+  const [showWarning, setShowWarning] = useState(false);
+  const warningTimeoutId = useRef(null);
+  const logoutTimeoutId = useRef(null);
+
+  const clearTimers = () => {
+    if (warningTimeoutId.current) {
+      clearTimeout(warningTimeoutId.current);
+      warningTimeoutId.current = null;
+    }
+    if (logoutTimeoutId.current) {
+      clearTimeout(logoutTimeoutId.current);
+      logoutTimeoutId.current = null;
+    }
+  };
+
+  const resetTimers = useCallback(() => {
+    clearTimers();
+
+    // Start warning timer
+    warningTimeoutId.current = setTimeout(() => {
+      setShowWarning(true);
+
+      // Start logout countdown after warning
+      logoutTimeoutId.current = setTimeout(() => {
+        setShowWarning(false);
+        if (typeof onLogout === "function") {
+          onLogout();
+        }
+      }, logoutTime - warningTime);
+    }, warningTime);
+  }, [warningTime, logoutTime, onLogout]);
+
+  const dismissWarning = () => {
+    setShowWarning(false);
+    resetTimers(); // Restart inactivity tracking
+  };
 
   useEffect(() => {
-    let warningTimeout;
-    let logoutTimeout;
+    const activityEvents = ["mousemove", "keydown", "click", "scroll"];
 
-    const logout = () => {
-        
-      localStorage.removeItem("token");
-      localStorage.removeItem('user');
-      window.dispatchEvent(new Event("storage"));
-      alert("You have been logged out.");
-      navigate("/"); // redirect to login/home
-    
+    const handleActivity = () => {
+      resetTimers();
     };
 
-    
-    const showWarning = () => {
-     
-      logoutTimeout = setTimeout(logout, warningTime); // ✅ guarantee logout after warning
-      alert("You will be logged out soon due to inactivity.");
-
-    };
-
-    const resetTimers = () => {
-      clearTimeout(warningTimeout);
-      clearTimeout(logoutTimeout);
-      warningTimeout = setTimeout(showWarning, timeout - warningTime);
-    };
-
-    // Start timers initially
-    resetTimers();
-
-    // Listen for activity to reset timers
-    const events = ["mousemove", "keydown", "click", "scroll"];
-    events.forEach((event) =>
-      window.addEventListener(event, resetTimers)
-    );
+    activityEvents.forEach((event) => window.addEventListener(event, handleActivity));
+    resetTimers(); // Initialize timers on mount
 
     return () => {
-      clearTimeout(warningTimeout);
-      clearTimeout(logoutTimeout);
-      events.forEach((event) =>
-        window.removeEventListener(event, resetTimers)
-      );
+      activityEvents.forEach((event) => window.removeEventListener(event, handleActivity));
+      clearTimers();
     };
-  }, [navigate, timeout, warningTime]);
+  }, [resetTimers]);
 
-  return null;
-}
+  return { showWarning, dismissWarning };
+};
 
 export default useAutoLogoutWithWarning;
-
