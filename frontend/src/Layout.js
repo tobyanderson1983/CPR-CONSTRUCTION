@@ -6,23 +6,41 @@ import Header from "./components/Header";
 
 const Layout = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token"); // Check if user is logged in
 
   const handleLogout = () => {
-   
-    localStorage.removeItem("token");  // Clear user session data
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     window.dispatchEvent(new Event("storage"));
-   
     navigate("/"); // Redirect to homepage or login
   };
 
+  // Always call the hook but pass conditional logic to it
   const { showWarning, dismissWarning } = useAutoLogoutWithWarning({
-    // warningTime: 60 * 1000,     // 1 minute before logout
-    // logoutTime: 5 * 60 * 1000,  // total 5 minutes of inactivity
-    warningTime: 10 * 1000,     // 1 minute before logout
-    logoutTime: 1 * 60 * 1000,  // total 5 minutes of inactivity
+    warningTime: 10 * 1000,    // 10 seconds before logout
+    logoutTime: 1 * 60 * 1000, // 1 minute total inactivity time
     onLogout: handleLogout,
   });
+
+  // Don't show the warning if there's no token (i.e., the user is not logged in)
+  if (!token) {
+    return (
+      <div
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                            url('https://www.zadinteriors.com/blog/wp-content/uploads/2020/10/old-home-renovation.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          minHeight: "100vh",
+          width: "100vw",
+        }}
+      >
+        <Header />
+        <Outlet />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -73,3 +91,4 @@ const modalContentStyle = {
 };
 
 export default Layout;
+
