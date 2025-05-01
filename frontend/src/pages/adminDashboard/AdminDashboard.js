@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
 import useAuthGuard from '../hooks/useAuthGuard';
 import { handleCreateAdmin, handleSearchAdmin } from './admin/utils/adminHandlers';
 import { SearchAdminView, ShowAllAdminsView, CreateAdminView } from './admin/utils/adminViews';
@@ -9,9 +10,10 @@ import { SearchServiceView, ShowAllServicesView, CreateServiceView } from './cus
 import './css/AdminDashboard.css';
 
 const AdminDashboard = () => {
-  
-  const authorized = useAuthGuard('admin'); 
+  const authorized = useAuthGuard('admin');
   const [view, setView] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [serviceData] = useState(null);
   const [services, setServices] = useState([]);
   const [admins, setAdmins] = useState([]);
@@ -23,43 +25,84 @@ const AdminDashboard = () => {
   const storedAdmin = JSON.parse(localStorage.getItem('user'));
   const fullName = `${storedAdmin?.firstName || ''} ${storedAdmin?.lastName || ''}`.trim();
 
-  
-  if (!authorized) {
-    return null; // Don't render anything until authorized
-  }
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuOpen && menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+        setSelectedCategory(null);
+      }
+    };
+
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        setSelectedCategory(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [menuOpen]);
+
+  if (!authorized) return null;
+
+  const categoryOptions = {
+    administrators: [
+      { label: 'Search Administrator', view: 'searchAdmin' },
+      { label: 'View All Administrators', view: 'showAllAdmins' },
+      { label: 'Create New Administrator', view: 'createAdmin' },
+    ],
+    employees: [
+      { label: 'Search Employee', view: 'searchEmployee' },
+      { label: 'View All Employees', view: 'showAllEmployees' },
+      { label: 'Create New Employee', view: 'createEmployee' },
+    ],
+    customers: [
+      { label: 'Search Service', view: 'searchService' },
+      { label: 'Pending Services', view: 'showPendingServices' },
+      { label: 'View All Services', view: 'showAllServices' },
+      { label: 'Create New Service', view: 'createService' },
+    ],
+  };
 
   return (
-    <div className="dash">
-      {view === null && <h1 id='greeting'>Welcome to the Admin Dashboard, {fullName.toUpperCase()}!</h1>}
-      <div className="admin-dashboard">
-        {view === null && (
-          <div className="dashboard-container">
-            <div className="dashboard-section">
-              <h2>ADMINISTRATORS</h2>
-              <button onClick={() => setView('searchAdmin')}>Search Administrator</button>
-              <button onClick={() => setView('showAllAdmins')}>View All Administrators</button>
-              <button onClick={() => setView('createAdmin')}>Create New Administrator</button>
-            </div>
-
-            <div className="dashboard-section">
-              <h2>EMPLOYEES</h2>
-              <button onClick={() => setView('searchEmployee')}>Search Employee</button>
-              <button onClick={() => setView('showAllEmployees')}>View All Employees</button>
-              <button onClick={() => setView('createEmployee')}>Create New Employee</button>
-            </div>
-
-            <div className="dashboard-section">
-              <h2>CUSTOMERS</h2>
-              <button onClick={() => setView('searchService')}>Search Service</button>
-              <button onClick={() => setView('showPendingServices')}>Pending Services</button>
-              <button onClick={() => setView('showAllServices')}>View All Services</button>
-              <button onClick={() => setView('createService')}>Create New Service</button>
-            </div>
-          </div>
-        )}
+    <div className="admin-dashboard-wrapper">
+      {/* Hamburger Menu */}
+      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+        &#9776;
       </div>
 
-      {/* -------------------------- ADMIN VIEWS --------------------------- */}
+      {menuOpen && (
+        <div className="menu-dropdown" ref={menuRef}>
+          {!selectedCategory ? (
+            <>
+              <button onClick={() => setSelectedCategory('administrators')}>Administrators</button>
+              <button onClick={() => setSelectedCategory('employees')}>Employees</button>
+              <button onClick={() => setSelectedCategory('customers')}>Customers</button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => setSelectedCategory(null)}>← Back</button>
+              {categoryOptions[selectedCategory].map((option, index) => (
+                <button key={index} onClick={() => { setView(option.view); setMenuOpen(false); }}>
+                  {option.label}
+                </button>
+              ))}
+            </>
+          )}
+        </div>
+      )}
+
+      {view === null && <h1 id='greeting'>Welcome to the Admin Dashboard, {fullName.toUpperCase()}!</h1>}
+
+      {/* ---------- VIEWS ---------- */}
       {view === 'searchAdmin' && (
         <SearchAdminView
           username={username}
@@ -73,21 +116,11 @@ const AdminDashboard = () => {
         />
       )}
 
-      {view === 'showAllAdmins' && (
-        <ShowAllAdminsView
-          admins={admins}
-          setView={setView}
-        />
-      )}
-
+      {view === 'showAllAdmins' && <ShowAllAdminsView admins={admins} setView={setView} />}
       {view === 'createAdmin' && (
-        <CreateAdminView
-          handleCreateAdmin={(adminData) => handleCreateAdmin(adminData, setView)}
-          setView={setView}
-        />
+        <CreateAdminView handleCreateAdmin={(adminData) => handleCreateAdmin(adminData, setView)} setView={setView} />
       )}
 
-      {/* -------------------------- EMPLOYEE VIEWS --------------------------- */}
       {view === 'searchEmployee' && (
         <SearchEmployeeView
           username={username}
@@ -101,21 +134,11 @@ const AdminDashboard = () => {
         />
       )}
 
-      {view === 'showAllEmployees' && (
-        <ShowAllEmployeesView
-          employees={employees}
-          setView={setView}
-        />
-      )}
-
+      {view === 'showAllEmployees' && <ShowAllEmployeesView employees={employees} setView={setView} />}
       {view === 'createEmployee' && (
-        <CreateEmployeeView
-          handleCreateEmployee={(employeeData) => handleCreateEmployee(employeeData, setView)}
-          setView={setView}
-        />
+        <CreateEmployeeView handleCreateEmployee={(data) => handleCreateEmployee(data, setView)} setView={setView} />
       )}
 
-      {/* -------------------------- SERVICE VIEWS --------------------------- */}
       {view === 'searchService' && (
         <SearchServiceView
           username={username}
@@ -124,35 +147,13 @@ const AdminDashboard = () => {
           setFirstName={setFirstName}
           lastName={lastName}
           setLastName={setLastName}
-          handleSearchService={() =>
-            handleSearchService(
-              username,
-              firstName,
-              lastName,
-              setServices,
-              setView,
-              setUsername,
-              setFirstName,
-              setLastName
-            )
-          }
+          handleSearchService={() => handleSearchService(username, firstName, lastName, setServices, setView, setUsername, setFirstName, setLastName)}
           setView={setView}
         />
       )}
 
-      {view === 'showAllServices' && (
-        <ShowAllServicesView
-          services={services}
-          setView={setView}
-        />
-      )}
-
-      {view === 'createService' && (
-        <CreateServiceView
-          serviceData={serviceData}
-          setView={setView}
-        />
-      )}
+      {view === 'showAllServices' && <ShowAllServicesView services={services} setView={setView} />}
+      {view === 'createService' && <CreateServiceView serviceData={serviceData} setView={setView} />}
     </div>
   );
 };
