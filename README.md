@@ -7,8 +7,11 @@ This full-stack web application is designed to manage construction services and 
 ✅ Role-based access control (Public, Customer, Employee, Admin)  
 ✅ Service request creation and management  
 ✅ Employee scheduling  
-✅ Administrative dashboards  
+✅ Administrative dashboards
+✅ Employee dashboards
+✅ Customer dashboards
 ✅ Responsive design (React19)
+✅ AND...more as it is an ongoing project
 
 ---
 
