@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 
-const useAutoLogoutWithWarning = ({ warningTime = 540000, logoutTime = 600000, onLogout }) => {
+const useAutoLogoutWithWarning = ({ warningTime = 60000, logoutTime = 120000, onLogout }) => {
   const [showWarning, setShowWarning] = useState(false);
   const warningTimeoutId = useRef(null);
   const logoutTimeoutId = useRef(null);

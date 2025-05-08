@@ -1,14 +1,20 @@
 .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    gap: 1rem; /* optional: adds spacing between cards */
-    justify-content: flex-start; /* aligns items to the left */
+    gap: 1rem; 
+    justify-content: flex-start;  /* aligns items to the left */
     padding: 1rem;
+  }
+  .container ul{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   
   .section {
-    /* background-color: #f9f9f9; */
+    background-color: lightgray;
+    color: white;
     border: 2px solid #ccc;
     padding: 1rem;
     border-radius: 8px;
@@ -39,4 +45,6 @@
       width: 100%; /* 1 per row on small screens */
     }
   }
-    
+  
+ 
+  

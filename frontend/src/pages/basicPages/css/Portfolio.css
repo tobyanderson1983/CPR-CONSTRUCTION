@@ -4,14 +4,15 @@
     color: white;
 }
 
-
-
 .portfolio-dropdown {
     margin: 1rem auto;
     text-align: center;
     position: relative; /* Needed for positioning the custom arrow */
     width: fit-content; /* shrink wrap the select */
 }
+.portfolio-dropdown:hover{
+    background-color:  rgb(78, 74, 74);
+}   
 
 .portfolio-dropdown select {
     padding: 0.6rem 2.5rem 0.6rem 1rem; /* More right padding for arrow space */
@@ -27,6 +28,13 @@
     text-align: center;
     position: relative;
 }
+.portfolio-dropdown select:hover{
+    background-color:  rgb(78, 74, 74);
+} 
+
+/* .portfolio-dropdown select option:hover{
+    background-color:  rgb(78, 74, 74);
+}  */
 
 /* Create a custom dropdown arrow */
 .portfolio-dropdown::after {
@@ -73,8 +81,12 @@ display: block;
 margin: 0.5rem;
 padding: 0.3rem 0.8rem;
 border: none;
-background: #eee;
+background: rgb(109, 108, 108);
 border-radius: 4px;
+width: 50px;
+}
+.portfolio-pagination button:hover{
+    background-color:  rgb(78, 74, 74);
 }
 
 .portfolio-pagination .active {

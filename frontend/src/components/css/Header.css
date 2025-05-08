@@ -1,142 +1,143 @@
 /* General header styling */
 header {
     color: #fff;
-    padding: 10px 0;
+    padding: 10px;
     text-align: center;
     position: relative;
-}
-
-/* Container for nav content */
-header div {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-/* Main logo styling - center at the top */
-.logo {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 10px;
-    position: relative;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    line-height: 0.9;
-}
-
-/* CPR and CONSTRUCTION font styles */
-.cpr {
+    background-color: #111;
+  }
+  
+  /* Logo styles */
+  .logo {
+    line-height: 1;
+  }
+  
+  .cpr {
     font-size: 2rem;
     font-weight: bold;
     display: block;
-}
-
-.construction {
-    font-size: 0.7rem;
+  }
+  
+  .construction {
+    font-size: 0.8rem;
     font-weight: bold;
     display: block;
-}
+  }
+  
+  /* Hamburger menu */
+  .hamburger {
+    font-size: 2rem;       /* makes it bigger */
+    padding: 12px 16px 12px 0;    /* gives enough space for fingers */
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  .hamburger:hover,
+    .hamburger:focus {
+    background-color: transparent; /* Prevent background change on hover */
+  }
 
-/* Navigation styles */
-nav {
-    margin-top: 0;
-    margin-left: 0;
-}
-
-nav a {
+  .hamburger:active {
+    background-color: transparent; /* Prevent background change on click */
+    outline: none;
+  }
+  
+  /* Nav styles - mobile first */
+  nav.nav {
+    display: none;
+    flex-direction: column;
+    background-color: #222;
+    padding: 10px 0;
+  }
+  
+  nav.open {
+    display: flex;
+  }
+  
+  nav a,
+  .admin-button,
+  .logout-button {
     color: white;
     text-decoration: none;
-    font-size: 1rem;
-    margin: 0 15px;
-    transition: color 0.3s ease;
-}
-
-nav a:hover {
+    font-size: 1.2rem;
+    padding: 10px;
+    border: none;
+    background: none;
+    text-align: center;
+  }
+  
+  nav a:hover,
+  .admin-button:hover,
+  .logout-button:hover {
     color: yellow;
-    text-decoration: none;
-}
-
-/* Highlight the active link */
-nav a.active {
+  }
+  
+  nav a.active {
     color: yellow;
     font-weight: bold;
-}
-
-/* Slogan (if used) */
-header h2 {
-    font-size: 1.5rem;
-    font-style: italic;
-    margin-bottom: 5px;
-    color: #ff6600;
-    text-align: left;
-}
-
-header h3 {
-    font-size: 1.2rem;
-    font-weight: normal;
-    margin-bottom: 15px;
-    color: #ddd;
-}
-
- /* Log Out button */
-.logout-button {
-    width: 8%;
-    padding: 8px;
-    font-size: 1rem;
-    background-color: transparent;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    position: absolute;
-    top: 20px;
-    right: 100px;
-    /* margin-right: 100px; */
-}
-
-.logout-button:hover {
-    color: #cc0000;
-    background-color: transparent;
-}
-
-/* Admin Dashboard button - opposite side of logout */
-.admin-button {
-    width: 10%;
-    padding: 8px;
-    font-size: 1rem;
-    background-color: transparent;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    position: absolute;
-    top: 20px;
-    left: 100px;
   }
   
-  .admin-button:hover {
-    color: blue;
-    background-color: transparent;
+  /* Admin and logout buttons */
+  .admin-button,
+  .logout-button {
+    cursor: pointer;
+    margin: 5px auto;
+    width: 80%;
+    border-radius: 5px;
   }
-  
 
-/* Mobile responsiveness */
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 2rem;
-    }
-
-    header h2, header h3 {
-        font-size: 1rem;
-    }
-
+  @media (max-width: 600px){
     nav a {
-        font-size: 1rem;
-        margin: 0 10px;
+        display: block;
+        padding: 12px 0;
+        font-size: 1.1rem;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+      }
+  }
+  
+  /* Larger screen styles */
+  @media (min-width: 768px) {
+    .hamburger {
+      display: none;
     }
-
+  
+    nav.nav,
+    nav.open {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    nav a,
+    .admin-button,
     .logout-button {
-        width: 50%;
-        padding: 8px;
+      font-size: 1rem;
+      padding: 0 15px;
+      margin: 0;
     }
-}
+  
+    .admin-button {
+      position: absolute;
+      left: 30px;
+      top: 20px;
+      width: auto;
+    }
+  
+    .logout-button {
+      position: absolute;
+      right: 30px;
+      top: 20px;
+      width: auto;
+    }
+  }
+  

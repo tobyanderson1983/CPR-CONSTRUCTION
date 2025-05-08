@@ -41,6 +41,7 @@
     border-radius: 5px;
     cursor: pointer;
     text-align: left;
+    width: 250px;
   }
   
   .menu-dropdown button:hover {

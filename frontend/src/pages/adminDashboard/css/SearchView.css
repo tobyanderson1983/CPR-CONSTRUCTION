@@ -5,6 +5,7 @@
 }
 
 .search-container{
+    background-color: darkgray;
     display: flex;
     flex-direction: column;
     align-self: center;

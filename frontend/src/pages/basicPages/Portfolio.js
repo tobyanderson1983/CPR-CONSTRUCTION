@@ -32,7 +32,7 @@ function Portfolio() {
     setCurrentPage(1);
   };
 
-// ready to connect to the backend
+// ready to connect to the backend, but will stay consistant and use axios instead of fetch
 
 //   useEffect(() => {
 //     fetch('http://localhost:5000/api/portfolio')

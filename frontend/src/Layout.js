@@ -17,8 +17,8 @@ const Layout = () => {
 
   // Always call the hook but pass conditional logic to it
   const { showWarning, dismissWarning } = useAutoLogoutWithWarning({
-    warningTime: 9 * 60 * 1000,    // 9 minutes before logout
-    logoutTime: 10 * 60 * 1000, // 10 minutes total inactivity time
+    warningTime: 1 * 60 * 1000,    // 1 minutes before logout
+    logoutTime: 2 * 60 * 1000, // 2 minutes total inactivity time
     onLogout: handleLogout,
   });
 
