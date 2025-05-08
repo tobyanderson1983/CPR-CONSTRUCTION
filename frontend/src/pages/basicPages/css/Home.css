@@ -8,15 +8,20 @@
  .home-content {
     display: flex;
     align-items: flex-start; /* Aligns items to the top */
-    gap: 160px; /* Adds space between LogIn and h2 */
+    /* gap: 160px; */
+     /* Adds space between LogIn and h2 */
+     flex-direction: column;
 }
 .home-content h2 {
     color: white;
     font-family:cursive;
-    text-align: left;
-    /* align-self: center; */
-    margin-top: 200px;
+    /* text-align: left; */
+    /* margin-top: 200px; */
     max-width: 500px; /* Adjust width as needed */
+    /* === */
+    font-size: 1rem;
+    padding: 0 10px;
+    text-align: center;
 }
 
 .home-content h2 span{
