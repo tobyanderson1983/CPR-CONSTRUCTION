@@ -1,79 +1,78 @@
 .login-container {
-    display: flex;
-    justify-content: flex-end; /* Aligns content to the right */
-    align-self: center;
-    height: 100vh; /* Full height */
-    align-items:flex-start; 
-    margin-top: 70px;
-  }
-  
-  .login-box {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Aligns inputs to the left */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  margin-top: 60px;
+  padding: 1rem;
+}
 
-  .login-box p{
-    font-weight: bold;
-    text-align: center;
-    color: white;
-    width: 100%;
-  }
-  
-  .login-box h2 {
-    margin-bottom: 15px;
-  }
-  
-  .login-box input {
-    width: 250px;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: transparent;
-    color: white;
-    outline: none; /* Remove outline */
-  }
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5); /* optional: background for contrast */
+  width: 100%;
+  max-width: 320px; /* keeps it readable on mobile */
+}
 
-  .login-box input::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
-  }
-  
-  .login-box button {
-    width: 100%;
-    padding: 10px;
-    background-color: rgba(0, 123, 255, 0.3); /* 30% transparent blue */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .login-box button:hover {
-    background-color: #0056b3;
-  }
-  
-  .error-message {
-    color: red;
-    margin-top: 10px;
-  }
+.login-box p {
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  width: 100%;
+}
 
-  .cancel-button-wrapper {
-    text-align: center;
-    /* margin-top: 1rem; */
-    /* margin-top: .5rem; */
-    margin-left: 20px;
-    position: relative;
-    top: -250px;
-    width: 250px;
-  }
+.login-box h2 {
+  margin-bottom: 1rem;
+  color: white;
+}
 
-  #new-customer-cancel-button {
-    margin-top: 0;
-  }
-  
-  
+.login-box input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: transparent;
+  color: white;
+  outline: none;
+}
+
+.login-box input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.login-box button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: rgba(0, 123, 255, 0.3);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.login-box button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  margin-top: 0.5rem;
+}
+
+.cancel-button-wrapper {
+  text-align: center;
+  width: 100%;
+  margin-top: 1rem;
+  position: static;
+}
+
+#new-customer-cancel-button {
+  margin-top: 0;
+}
