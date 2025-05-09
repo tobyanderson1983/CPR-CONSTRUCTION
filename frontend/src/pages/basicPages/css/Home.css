@@ -7,7 +7,8 @@
   
  .home-content {
     display: flex;
-    align-items: flex-start; /* Aligns items to the top */
+    /* align-items: flex-start; *//* Aligns items to the top */
+    align-items: center;
     /* gap: 160px; */
      /* Adds space between LogIn and h2 */
      flex-direction: column;
@@ -48,34 +49,64 @@
     /* Adjust font sizes, padding, 2-column options */
     .home-content{
         align-items: center;
+        /* margin-right: auto; */
     }
     .home-content h2 {
         font-size: 1.2rem; /* Adjust font size for larger screens */
         padding: 0 20px; /* Adjust padding for larger screens */
+        max-width: 100%; /* Allow full width on larger screens */
     }
-    .home-container {
-        padding: 0 20px; /* Add padding to the container */
+    .home-content h2 span{
+        font-size: 1.5rem;
+    }
+   
+    .explore-btn {
+        font-size: 18px; /* Adjust button font size for larger screens */
+        padding: 12px 24px; /* Adjust button padding for larger screens */
     }
   }
   
   /* >= Tablets (portrait) */
   @media (min-width: 600px) {
     /* Wider buttons, larger grids */
+    .home-content h2 {
+        font-size: 1.5rem; /* Adjust font size for larger screens */
+        padding: 0 30px; /* Adjust padding for larger screens */
+        max-width: 100%; /* Allow full width on larger screens */
+    }
+    .home-content h2 span{
+        font-size: 1.8rem;
+    }
+    .explore-btn {
+        font-size: 20px; /* Adjust button font size for larger screens */
+        padding: 14px 28px; /* Adjust button padding for larger screens */
+    }
   }
   
   /* >= Tablets (landscape) */
   @media (min-width: 768px) {
     /* Tablet layout, sidebar perhaps */
+    .home-content h2 {
+        font-size: 1.8rem; /* Adjust font size for larger screens */
+        padding: 0 40px; /* Adjust padding for larger screens */
+        max-width: 100%; /* Allow full width on larger screens */
+    }
   }
   
   /* >= Small laptops/desktops */
   @media (min-width: 992px) {
     /* Navigation bar expands, grid layout changes */
+    .home-content h2 {
+        font-size: 2rem; /* Adjust font size for larger screens */
+        padding: 0 50px; /* Adjust padding for larger screens */
+        max-width: 100%; /* Allow full width on larger screens */
+    }
   }
   
   /* >= Medium/Large desktops */
   @media (min-width: 1200px) {
     /* Max width, whitespace, 3-column layout */
+    
   }
   
   /* Optional: >= Ultra-wide */
