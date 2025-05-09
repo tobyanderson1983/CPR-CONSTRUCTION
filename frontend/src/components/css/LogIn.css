@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: flex-start;
   height: 100vh;
-  /* margin-top: 60px; */
   padding: 1rem;
 }
 .login-container div{
@@ -18,7 +17,6 @@
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: rgb(51, 49, 49);
-
   width: 100%;
   max-width: 320px; /* keeps it readable on mobile */
 }
@@ -53,7 +51,7 @@
 .login-box button {
   width: 100%;
   padding: 0.75rem;
-  background-color: rgba(0, 123, 255, 0.3);
+  background-color: gray;
   color: white;
   border: none;
   border-radius: 4px;
@@ -80,3 +78,29 @@
 #new-customer-cancel-button {
   margin-top: 0;
 }
+
+/* Default (mobile first, 320px+) */ 
+/* >= Small tablets / large phones */ 
+@media (min-width: 480px) { 
+  /* Adjust font sizes, padding, 2-column options */ 
+  .login-box {
+   padding: 1.5rem; /* Adjust padding for larger screens */
+   max-width: 400px; /* Allow wider boxes on larger screens */
+  } 
+}
+  /* >= Tablets (portrait) */ 
+  @media (min-width: 600px) { 
+  /* Wider buttons, larger grids */ 
+    .login-box {
+    padding: 2rem; /* Adjust padding for larger screens */
+    max-width: 500px; /* Allow wider boxes on larger screens */
+    } 
+  }
+  /* >= Tablets (landscape) */ 
+  @media (min-width: 768px) { 
+  /* Tablet layout, sidebar perhaps */ 
+    .login-box {
+    padding: 2.5rem; /* Adjust padding for larger screens */
+    max-width: 600px; /* Allow wider boxes on larger screens */
+    } 
+  } 
