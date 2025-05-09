@@ -32,7 +32,13 @@ function Header() {
   // Close the menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (menuOpen && navRef.current && !navRef.current.contains(e.target)) {
+      const hamburger = document.querySelector('.hamburger');
+      if (
+        menuOpen && 
+        navRef.current && 
+        !navRef.current.contains(e.target)&&
+        !hamburger.contains(e.target)
+      ) {
         setMenuOpen(false);
       }
     };
@@ -47,24 +53,33 @@ function Header() {
         <span className="construction">CONSTRUCTION</span>
       </h1>
 
-      <button className="hamburger" onClick={toggleMenu}>
+      <button
+        className="hamburger"
+        onClick={toggleMenu}
+        aria-expanded={menuOpen}
+        aria-label="Toggle navigation menu"
+      >
         ☰
       </button>
 
+
       <nav ref={navRef} className={menuOpen ? 'nav open' : 'nav'}>
         {isLoggedIn && isAdmin && !onAdminDashboard && (
-          <button onClick={handleGoToDashboard} className="admin-button">
+          <button onClick={() => { setMenuOpen(false); handleGoToDashboard(); }} className="admin-button">
             Admin Dash
           </button>
         )}
 
-        <Link to="/" className={location.pathname === "/" ? "active" : ""}>Home</Link>
-        <Link to="/services" className={location.pathname === "/services" ? "active" : ""}>Services</Link>
-        <Link to="/portfolio" className={location.pathname === "/portfolio" ? "active" : ""}>Portfolio</Link>
-        <Link to="/contact" className={location.pathname === "/contact" ? "active" : ""}>Contact Us</Link>
+      <Link to="/" onClick={() => setMenuOpen(false)} className={location.pathname === "/" ? "active" : ""}>Home</Link>
+      <Link to="/services" onClick={() => setMenuOpen(false)} className={location.pathname === "/services" ? "active" : ""}>Services</Link>
+      <Link to="/portfolio" onClick={() => setMenuOpen(false)} className={location.pathname === "/portfolio" ? "active" : ""}>Portfolio</Link>
+      <Link to="/contact" onClick={() => setMenuOpen(false)} className={location.pathname === "/contact" ? "active" : ""}>Contact Us</Link>
+      {/* <Link to="/about" onClick={() => setMenuOpen(false)} className={location.pathname === "/about" ? "active" : ""}>About Us</Link> */}
 
         {isLoggedIn && (
-          <button onClick={handleLogout} className="logout-button">Log Out</button>
+          <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="logout-button">
+            Log Out
+          </button>
         )}
       </nav>
     </header>

@@ -41,3 +41,45 @@
 .explore-btn:hover {
     background-color: #0056b3;
 }
+/* Default (mobile first, 320px+) */
+
+/* >= Small tablets / large phones */
+@media (min-width: 480px) {
+    /* Adjust font sizes, padding, 2-column options */
+    .home-content{
+        align-items: center;
+    }
+    .home-content h2 {
+        font-size: 1.2rem; /* Adjust font size for larger screens */
+        padding: 0 20px; /* Adjust padding for larger screens */
+    }
+    .home-container {
+        padding: 0 20px; /* Add padding to the container */
+    }
+  }
+  
+  /* >= Tablets (portrait) */
+  @media (min-width: 600px) {
+    /* Wider buttons, larger grids */
+  }
+  
+  /* >= Tablets (landscape) */
+  @media (min-width: 768px) {
+    /* Tablet layout, sidebar perhaps */
+  }
+  
+  /* >= Small laptops/desktops */
+  @media (min-width: 992px) {
+    /* Navigation bar expands, grid layout changes */
+  }
+  
+  /* >= Medium/Large desktops */
+  @media (min-width: 1200px) {
+    /* Max width, whitespace, 3-column layout */
+  }
+  
+  /* Optional: >= Ultra-wide */
+  @media (min-width: 1400px) {
+    /* Enhance layout for very wide screens */
+  }
+  
