@@ -6,6 +6,8 @@ header {
     position: relative;
     background-color: #111;
   }
+
+.logout-button, .admin-button {background-color: transparent;}
   
   /* Logo styles */
   .logo {
@@ -41,6 +43,7 @@ header {
   
   .hamburger:hover,
     .hamburger:focus {
+      color: white; /* Color stays same on hover */
     background-color: transparent; /* Prevent background change on hover */
   }
 
@@ -94,6 +97,7 @@ header {
   }
 
   @media (max-width: 600px){
+   
     nav a {
         display: block;
         padding: 12px 0;
@@ -106,6 +110,8 @@ header {
   
   /* Larger screen styles */
   @media (min-width: 768px) {
+     header{ background-color: transparent;}
+
     .hamburger {
       display: none;
     }
@@ -116,6 +122,7 @@ header {
       flex-direction: row;
       justify-content: center;
       align-items: center;
+      background-color: transparent;
     }
   
     nav a,

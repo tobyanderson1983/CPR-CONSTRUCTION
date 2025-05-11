@@ -6,7 +6,7 @@
 }
 
 .contact-details {
-    /* width: 100vw; */
+    max-width: 75vw;
     padding: 20px;
     color: white;
     border-radius: 8px;
@@ -20,4 +20,28 @@
 .contact-details a{
     color: white;
 }
+
+/* Default (mobile first, 320px+) */ 
+/* >= Small tablets / large phones */ 
+@media (min-width: 480px) { 
+    /* Adjust font sizes, padding, 2-column options */ 
+    .contact-container{
+        justify-content: space-between;
+        align-items: center;
+    }
+    .contact-details {
+        max-width: 50vw;
+        padding: 20px;
+    }
+
+}
+
+/* >= Tablets (portrait) */ 
+  @media (min-width: 600px) { 
+  /* Wider buttons, larger grids */ 
+  }
+
+  @media (min-width: 768px) { 
+  /* Tablet layout, sidebar perhaps */ 
+  }
 
