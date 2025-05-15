@@ -6,9 +6,11 @@
  }
   
  .home-content {
+    margin-top: 85px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-     flex-direction: column;
+   
 }
 .home-content h2 {
     color: white;
