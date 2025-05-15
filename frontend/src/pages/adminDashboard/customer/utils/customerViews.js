@@ -1,5 +1,5 @@
 import React from 'react';
-import ScheduleServices from '../../../basicPages/ScheduleServices';
+import ScheduleServices from '../../../publicPages/ScheduleServices';
 import ShowAllServices from '../ShowAllServices';
 import '../../css/SearchView.css';
 

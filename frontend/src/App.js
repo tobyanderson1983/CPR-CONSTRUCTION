@@ -4,11 +4,11 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Home from "./pages/basicPages/Home";
-import ScheduleServices from "./pages/basicPages/ScheduleServices";
-import Services from "./pages/basicPages/Services";
-import Portfolio from "./pages/basicPages/Portfolio";
-import ContactUs from "./pages/basicPages/ContactUs";
+import Home from "./pages/publicPages/Home";
+import ScheduleServices from "./pages/publicPages/ScheduleServices";
+import Services from "./pages/publicPages/Services";
+import Portfolio from "./pages/publicPages/Portfolio";
+import ContactUs from "./pages/publicPages/ContactUs";
 import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
 import EmployeeDashboard from "./pages/employeeDashboard/EmployeeDashboard";
 import CustomerDashboard from "./pages/customerDashboard/CustomerDashboard";
