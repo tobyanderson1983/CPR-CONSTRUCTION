@@ -13,6 +13,23 @@ header {
   .logo {
     line-height: 1;
   }
+
+  
+  .logo a, .logo h1{
+    display: block;
+    font-size: 2em;       
+    margin: 0.67em 0;     
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    transition: color 0.3s ease; /* Smooth transition */
+  }
+
+  .logo a:hover {
+    color: #FFD700; /* highlight color */
+  }
+
   
   .cpr {
     font-size: 2rem;
