@@ -63,9 +63,12 @@
   background-color: #0056b3;
 }
 
-.error-message {
+.login-box .error-message {
   color: red;
-  margin-top: 0.5rem;
+  margin-top: 0;
+  max-width: 200px;
+  width: 100%;
+  text-align: center;
 }
 
 .cancel-button-wrapper {

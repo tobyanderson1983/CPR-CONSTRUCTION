@@ -50,6 +50,9 @@ const LogIn = ({ view, setView }) => {
         <div className="login-container">
           <div>
             <form onSubmit={login} className="login-box">
+
+              {error && <p className="error-message">{error}</p>}
+              
               <input
                 type="text"
                 placeholder="Username"
@@ -73,9 +76,10 @@ const LogIn = ({ view, setView }) => {
               <button type="button" id='new-customer-cancel-button' onClick={() => setView('scheduleServices')}>
                 New Customer
               </button>
+              
             </form>
 
-            {error && <p className="error-message">{error}</p>}
+            {/* {error && <p className="error-message">{error}</p>} */}
           </div>
         </div>
       )}
