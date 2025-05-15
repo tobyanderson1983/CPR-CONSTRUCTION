@@ -10,6 +10,7 @@ const ContactUs = () => {
   });
 
   // Uncomment and modify the following useEffect when ready to fetch data from the backend
+  // use axios instead of fetch for better error handling and request cancellation
   /*
   useEffect(() => {
     fetch('http://localhost:5000/api/contact')
