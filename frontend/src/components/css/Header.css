@@ -1,10 +1,14 @@
 /* General header styling */
 header {
     color: #fff;
-    padding: 10px;
     text-align: center;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
     background-color: #111;
+
   }
 
 .logout-button, .admin-button {background-color: transparent;}
@@ -24,6 +28,7 @@ header {
     color: white;
     text-align: center;
     transition: color 0.3s ease; /* Smooth transition */
+    z-index: 2;
   }
 
   .logo a:hover {
@@ -45,6 +50,9 @@ header {
   
   /* Hamburger menu */
   .hamburger {
+    width: 40px;
+    height: 40px;
+    display: flex;
     font-size: 2rem;       /* makes it bigger */
     padding: 12px 16px 12px 0;    /* gives enough space for fingers */
     background: transparent;
@@ -53,8 +61,8 @@ header {
     cursor: pointer;
     position: absolute;
     top: 15px;
-    left: 5px;
-    z-index: 1000;
+    left: 15px;
+    z-index: 1;
     transition: background-color .3s ease; /* Smooth transition */
   }
   
