@@ -1,3 +1,5 @@
+/* Default (mobile first, 320px+) */ 
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -82,7 +84,10 @@
   margin-top: 0;
 }
 
-/* Default (mobile first, 320px+) */ 
+@media (min-width: 335px) { 
+ .login-box{ margin-top: 1rem; }
+}
+
 /* >= Small tablets / large phones */ 
 @media (min-width: 480px) { 
   /* Adjust font sizes, padding, 2-column options */ 
