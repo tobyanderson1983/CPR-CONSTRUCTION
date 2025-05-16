@@ -5,6 +5,7 @@ header {
     position: fixed;
     top: 0;
     left: 0;
+    height: 90px;
     width: 100%;
     z-index: 999;
     background-color: #111;
@@ -121,55 +122,71 @@ header {
     border-radius: 5px;
   }
 
-  @media (max-width: 600px){
-   
-    nav a {
-        display: block;
-        padding: 12px 0;
-        font-size: 1.1rem;
-        margin: 0 auto;
-        width: 100%;
-        text-align: center;
-      }
+  @media (min-width: 600px) and (max-width: 1024px) {
+  nav.nav {
+    position: fixed;
+    top: 90px;
+    left: -250px; /* hide it off screen */
+    width: 125px;
+    height: 100%;
+    background-color: #222;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0 10px; /* room for links */
+    transition: left 0.3s ease;
+    z-index: 998;
   }
-  
-  /* Larger screen styles */
-  @media (min-width: 768px) {
-     header{ background-color: transparent;}
 
-    .hamburger {
-      display: none;
-    }
-  
-    nav.nav,
-    nav.open {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      background-color: transparent;
-    }
-  
-    nav a,
-    .admin-button,
-    .logout-button {
-      font-size: 1rem;
-      padding: 0 15px;
-      margin: 0;
-    }
-  
-    .admin-button {
-      position: absolute;
-      left: 30px;
-      top: 20px;
-      width: auto;
-    }
-  
-    .logout-button {
-      position: absolute;
-      right: 30px;
-      top: 20px;
-      width: auto;
-    }
+  nav.nav.open {
+    left: 0; /* slide in */
   }
+
+  nav a, .admin-button, .logout-button {
+    width: 100%;
+    text-align: left;
+    font-size: 1.1rem;
+    padding: 12px 10px;
+  }
+}
+
+/* Larger screen styles */
+@media (min-width: 1025px) {
+    header{ background-color: transparent;}
+
+  .hamburger {
+    display: none;
+  }
+
+  nav.nav,
+  nav.open {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+  }
+
+  nav a,
+  .admin-button,
+  .logout-button {
+    font-size: 1rem;
+    padding: 0 15px;
+    margin: 0;
+  }
+
+  .admin-button {
+    position: absolute;
+    left: 30px;
+    top: 20px;
+    width: auto;
+  }
+
+  .logout-button {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    width: auto;
+  }
+}
   
