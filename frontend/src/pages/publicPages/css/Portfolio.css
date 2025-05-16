@@ -6,7 +6,9 @@
 }
 
 .portfolio-page h1 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
+    padding: 15px; /* Adjust padding for larger screens */
+    margin: 0;
 }
 
 .portfolio-dropdown {
@@ -95,6 +97,13 @@ width: 50px;
 }
 
 .portfolio-pagination .active {
-background: #555;
-color: white;
+    background: #555;
+    color: white;
 }
+
+ @media(min-width: 1025px){
+    .portfolio-page{
+        margin-top: 0;
+        padding-top: 130px;
+    }
+ }

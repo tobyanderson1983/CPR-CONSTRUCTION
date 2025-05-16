@@ -6,7 +6,7 @@
 
   .services-provided-container h1{
     color: white;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
   
   .service-details {
@@ -28,5 +28,64 @@
   .service-card h2 {
     margin-bottom: 0.5rem;
     color: #2c3e50;
+  }
+  @media(min-width: 335px){
+    .services-provided-container{
+        margin-top: 4rem;
+    }
+}
+
+@media(min-width: 480px){
+    .services-provided-container h1 {
+        font-size: 1.35rem; /* Adjust font size for larger screens */
+        padding: 0 20px; /* Adjust padding for larger screens */
+        max-width: 100%; /* Allow full width on larger screens */
+    }
+}
+
+ /* >= Tablets (portrait) */
+  @media (min-width: 600px) {
+    /* Wider buttons, larger grids */
+    .services-provided-container h2 {
+        font-size: 1.5rem; /* Adjust font size for larger screens */
+        padding: 0 30px; /* Adjust padding for larger screens */
+        max-width: 100%; /* Allow full width on larger screens */
+    }
+    .service-card {
+        width: 300px; /* Adjust card width for larger screens */
+    }
+  }
+
+  /* >= Tablets (landscape) */
+  @media (min-width: 768px) {
+    .services-provided-container h2 {
+        font-size: 1.8rem; /* Adjust font size for larger screens */
+        padding: 0 40px; /* Adjust padding for larger screens */
+    }
+  }
+
+   /* >= Small laptops/desktops */
+  @media (min-width: 992px) {
+    /* Navigation bar expands, grid layout changes */
+    .services-provided-container h2 {
+        font-size: 2rem; /* Adjust font size for larger screens */
+        padding: 0 50px; /* Adjust padding for larger screens */
+    }
+  }
+
+  @media(min-width: 1025px){
+    .services-provided-container{
+        margin-top: 0;
+        padding-top: 130px;
+    }
+    .service-card {
+        width: 350px; /* Adjust card width for larger screens */
+    }
+  }
+
+   /* >= Medium/Large desktops */
+  @media (min-width: 1200px) {
+    /* Max width, whitespace, 3-column layout */
+    
   }
   

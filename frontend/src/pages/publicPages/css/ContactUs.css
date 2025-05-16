@@ -18,7 +18,9 @@
   }
 
   .contact-container h1{
-    font-size: 1.25rem;
+    font-size: 1.2rem;
+    padding: 20px; /* Adjust padding for larger screens */
+    margin: 0;
   }
   
   
@@ -50,3 +52,9 @@
   /* Tablet layout, sidebar perhaps */ 
   }
 
+@media(min-width: 1025px){
+    .contact-container{
+        margin-top: 0;
+        padding-top: 130px;
+    }
+ }
