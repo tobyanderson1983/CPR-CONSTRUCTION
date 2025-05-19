@@ -96,9 +96,10 @@ header {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
-    padding: 10px;
+    height: 3rem;
     border: none;
     background: none;
+    line-height: 2.4;
   }
   
   nav a:hover,
@@ -140,13 +141,14 @@ header {
 
   nav.nav.open {
     left: 0; /* slide in */
+    padding-top: .625rem;;
   }
 
   nav a, .admin-button, .logout-button {
     /* width: 100%; */
     text-align: left;
     font-size: 1.1rem;
-    padding: 12px 10px;
+    padding-left: 15px;
   }
 }
 
