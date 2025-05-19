@@ -43,7 +43,7 @@ function Portfolio() {
   
 
   return (
-    <div className="portfolio-page">
+    <div className="portfolio-container">
       <h1>Our Work</h1>
       <div className="portfolio-dropdown">
         <select

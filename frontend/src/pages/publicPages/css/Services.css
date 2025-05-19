@@ -38,7 +38,8 @@
 @media(min-width: 480px){
     .services-provided-container h1 {
         font-size: 1.35rem; /* Adjust font size for larger screens */
-        padding: 0 20px; /* Adjust padding for larger screens */
+        padding: 0 1.25rem; /* Adjust padding for larger screens */
+        padding-top: 1.25rem;
         max-width: 100%; /* Allow full width on larger screens */
     }
 }
@@ -46,10 +47,8 @@
  /* >= Tablets (portrait) */
   @media (min-width: 600px) {
     /* Wider buttons, larger grids */
-    .services-provided-container h2 {
-        font-size: 1.5rem; /* Adjust font size for larger screens */
-        padding: 0 30px; /* Adjust padding for larger screens */
-        max-width: 100%; /* Allow full width on larger screens */
+    .services-provided-container h1 {
+        font-size: 1.4rem; /* Adjust font size for larger screens */
     }
     .service-card {
         width: 300px; /* Adjust card width for larger screens */
@@ -75,6 +74,7 @@
 
   @media(min-width: 1025px){
     .services-provided-container{
+        /* margin-top: 6.875rem; */
         margin-top: 0;
         padding-top: 130px;
     }

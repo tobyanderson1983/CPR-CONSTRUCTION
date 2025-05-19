@@ -1,11 +1,11 @@
-.portfolio-page {
+.portfolio-container {
     padding: 2rem;
     text-align: center;
     color: white;
     margin-top: 3.5rem;;
 }
 
-.portfolio-page h1 {
+.portfolio-container h1 {
     font-size: 1.2rem;
     padding: 15px; /* Adjust padding for larger screens */
     margin: 0;
@@ -38,10 +38,12 @@
 .portfolio-dropdown select:hover{
     background-color:  rgb(78, 74, 74);
 } 
+.portfolio-dropdown select:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #555; /* Change border color on focus */
+    background-color: gray;
+}
 
-/* .portfolio-dropdown select option:hover{
-    background-color:  rgb(78, 74, 74);
-}  */
 
 /* Create a custom dropdown arrow */
 .portfolio-dropdown::after {
@@ -101,8 +103,36 @@ width: 50px;
     color: white;
 }
 
+@media(min-width: 335px){
+    .portfolio-container{
+        margin-top: 4rem;
+    }
+}
+
+/* >= Small tablets / large phones */
+@media (min-width: 480px) {
+    .portfolio-container h1 {
+        font-size: 1.35rem; /* Adjust font size for larger screens */
+        padding: 0 1.25rem; /* Adjust padding for larger screens */
+        padding-top: 1.25rem;
+        max-width: 100%; /* Allow full width on larger screens */
+    }
+}
+
+ /* >= Tablets (portrait) */
+  @media (min-width: 600px) {
+    /* Wider buttons, larger grids */
+    .portfolio-container h1 {
+        font-size: 1.4rem; /* Adjust font size for larger screens */
+        padding-top: 2rem;
+    }
+    .portfolio-item {
+        width: 300px; /* Adjust card width for larger screens */
+    }
+  }
+
  @media(min-width: 1025px){
-    .portfolio-page{
+    .portfolio-container{
         margin-top: 0;
         padding-top: 130px;
     }

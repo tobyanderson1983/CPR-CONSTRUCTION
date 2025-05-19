@@ -4,11 +4,11 @@
     display: flex;
     justify-content: center; /* Centers content horizontally */
     align-items: flex-start; /* Aligns content to the top */
+    margin-top: 5.3125rem; /* Adjusted for better alignment */
     height: 100vh;
  }
   
  .home-content {
-    margin-top: 85px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,44 +27,25 @@
     text-decoration: underline;
 }
 
-.explore-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-}
-
-.explore-btn:hover {
-    background-color: #0056b3;
-}
 
 @media(min-width: 335px){
-    .home-content{
-        margin-top: 6.25rem;
+    .home-container{
+        margin-top: 5.5rem;
     }
 }
 
 /* >= Small tablets / large phones */
 @media (min-width: 480px) {
-    /* Adjust font sizes, padding, 2-column options */
     .home-content{
-        align-items: center;
+        margin-top: .75rem;
     }
     .home-content h2 {
-        font-size: 1.35rem; /* Adjust font size for larger screens */
-        padding: 0 20px; /* Adjust padding for larger screens */
+        font-size: 1.2rem; /* Adjust font size for larger screens */
+        padding: 0 1.25rem; /* Adjust padding for larger screens */
         max-width: 100%; /* Allow full width on larger screens */
     }
     .home-content h2 span{
-        font-size: 1.5rem;
-    }
-   
-    .explore-btn {
-        font-size: 18px; /* Adjust button font size for larger screens */
-        padding: 12px 24px; /* Adjust button padding for larger screens */
+        font-size: 1.3rem;
     }
   }
   
@@ -73,34 +54,31 @@
     /* Wider buttons, larger grids */
     .home-content h2 {
         font-size: 1.4rem; /* Adjust font size for larger screens */
-        padding: 0 30px; /* Adjust padding for larger screens */
-        max-width: 100%; /* Allow full width on larger screens */
     }
     .home-content h2 span{
-        font-size: 1.8rem;
-    }
-    .explore-btn {
-        font-size: 20px; /* Adjust button font size for larger screens */
-        padding: 14px 28px; /* Adjust button padding for larger screens */
+        font-size: 1.5rem;
     }
   }
   
   /* >= Tablets (landscape) */
-  @media (min-width: 768px) {
-    .home-content h2 {
-        font-size: 1.6rem; /* Adjust font size for larger screens */
-        padding: 0 40px; /* Adjust padding for larger screens */
-        max-width: 100%; /* Allow full width on larger screens */
-    }
-  }
   
   /* >= Small laptops/desktops */
   @media (min-width: 992px) {
-    /* Navigation bar expands, grid layout changes */
+    .home
     .home-content h2 {
-        font-size: 1.6rem; /* Adjust font size for larger screens */
-        padding: 0 50px; /* Adjust padding for larger screens */
-        margin-top: 40px;
+        font-size: 1.7rem; /* Adjust font size for larger screens */
+        padding: 0 3.125; /* Adjust padding for larger screens */
+    }
+  }
+
+  @media(min-width: 1025px){
+    .home-container{
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .home-content{
+        margin-top: 8rem;
     }
   }
   

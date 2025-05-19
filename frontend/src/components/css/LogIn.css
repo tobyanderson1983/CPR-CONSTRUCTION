@@ -112,3 +112,17 @@
     max-width: 600px; /* Allow wider boxes on larger screens */
     } 
   } 
+
+  @media (min-width: 1025px) {
+    .login-box{
+      margin-top: .3rem;
+    }
+  }
+
+   /* >= Medium/Large desktops */
+  @media (min-width: 1200px) {
+    .login-box{
+      margin-top: 2rem;
+    }
+    
+  }

@@ -1,3 +1,4 @@
+/* Default (mobile first, 320px+) */ 
 .contact-container{
     display: flex;
     flex-direction: column;
@@ -17,39 +18,63 @@
     background-color: gray;
   }
 
-  .contact-container h1{
+.contact-details p{ text-align: center; }
+
+ 
+
+.contact-container h1{
     font-size: 1.2rem;
-    padding: 20px; /* Adjust padding for larger screens */
+    padding: 1.25rem; /* Adjust padding for larger screens */
     margin: 0;
-  }
+}
   
   
 .contact-details a{
     color: white;
+    margin: 0;
 }
 
-/* Default (mobile first, 320px+) */ 
+.contact-details a:hover{
+    color: yellow;
+    font-weight: bold;
+}
+
+@media(min-width: 335px){
+    .contact-container{
+        margin-top: 5.5rem;
+    }
+}
+
+
 /* >= Small tablets / large phones */ 
 @media (min-width: 480px) { 
-    /* Adjust font sizes, padding, 2-column options */ 
-    .contact-container{
-        justify-content: space-between;
-        align-items: center;
+    .contact-container h1 {
+        font-size: 1.35rem; /* Adjust font size for larger screens */
+        padding-top: 1.25rem;
+        margin-top: 1rem;
+        max-width: 100%; /* Allow full width on larger screens */
     }
-    .contact-details {
-        max-width: 50vw;
-        padding: 20px;
-    }
-
 }
 
 /* >= Tablets (portrait) */ 
   @media (min-width: 600px) { 
-  /* Wider buttons, larger grids */ 
+    /* Wider buttons, larger grids */
+    .contact-container h1 {
+        font-size: 1.4rem; /* Adjust font size for larger screens */
+        /* padding-top: 1.5rem; */
+    }
+    .contact-details {
+        width: 300px; /* Adjust card width for larger screens */
+        margin-top: 1rem;
+    }   
   }
 
   @media (min-width: 768px) { 
   /* Tablet layout, sidebar perhaps */ 
+    .contact-details {
+        width: 400px; /* Adjust card width for larger screens */
+        padding: 1rem;
+    }
   }
 
 @media(min-width: 1025px){

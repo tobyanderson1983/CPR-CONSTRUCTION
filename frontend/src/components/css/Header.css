@@ -99,7 +99,6 @@ header {
     padding: 10px;
     border: none;
     background: none;
-    text-align: center;
   }
   
   nav a:hover,
@@ -112,6 +111,7 @@ header {
     color: yellow;
     font-weight: bold;
   }
+  /* nav a{ width: fit-content;} */
   
   /* Admin and logout buttons */
   .admin-button,
@@ -143,7 +143,7 @@ header {
   }
 
   nav a, .admin-button, .logout-button {
-    width: 100%;
+    /* width: 100%; */
     text-align: left;
     font-size: 1.1rem;
     padding: 12px 10px;
@@ -152,7 +152,12 @@ header {
 
 /* Larger screen styles */
 @media (min-width: 1025px) {
-    header{ background-color: transparent;}
+    header{ 
+      background-color: transparent;
+      position: absolute;
+      top: 0;
+      left: 0;
+     }
 
   .hamburger {
     display: none;

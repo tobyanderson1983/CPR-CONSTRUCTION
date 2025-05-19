@@ -20,17 +20,35 @@ const ContactUs = () => {
   }, []);
   */
 
+  // return (
+  //   <div className="contact-container">
+  //     <h1>Contact Us</h1>
+  //     <div className="contact-details">
+  //       <p><strong>Name:</strong> {contactInfo.name}</p>
+  //       <p><strong>Phone:</strong> <a href={`tel:${contactInfo.phone}`}>{contactInfo.phone}</a></p>
+  //       <p><strong>Email:</strong> <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a></p>
+  //       <p><strong>Address:</strong> {contactInfo.address}</p>
+  //     </div>
+  //   </div>
+  // );
   return (
-    <div className="contact-container">
-      <h1>Contact Us</h1>
+  <section className="contact-container" aria-labelledby="contact-heading">
+    <h1 id="contact-heading">Contact Us</h1>
+    {contactInfo && (
       <div className="contact-details">
-        <p><strong>Name:</strong> {contactInfo.name}</p>
-        <p><strong>Phone:</strong> <a href={`tel:${contactInfo.phone}`}>{contactInfo.phone}</a></p>
-        <p><strong>Email:</strong> <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a></p>
-        <p><strong>Address:</strong> {contactInfo.address}</p>
+        <p aria-label="Name"> <strong>{contactInfo.name}</strong></p>
+        <p aria-label="Phone"> <a href={`tel:${contactInfo.phone}`}>{contactInfo.phone}</a></p>
+        <p>
+          <a href={`mailto:${contactInfo.email}`} aria-label={`Email address ${contactInfo.email}`}>
+            {contactInfo.email}
+          </a>
+        </p>
+        <p aria-label="Adderss"><br />{contactInfo.address}</p>
       </div>
-    </div>
-  );
+    )}
+  </section>
+);
+
 };
 
 export default ContactUs;
