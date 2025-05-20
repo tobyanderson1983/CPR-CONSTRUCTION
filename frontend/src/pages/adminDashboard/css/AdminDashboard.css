@@ -27,8 +27,6 @@
     position: fixed;
     top: 5.65rem;
     width: 100vw;
-    background-color: white; 
-    /* remove the background-color after removing the border-radius from the a tags */
     border: 1px solid white;
     z-index: 998;
     display: flex;
