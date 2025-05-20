@@ -76,8 +76,12 @@
 .cancel-button-wrapper {
   text-align: center;
   width: 100%;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   position: static;
+}
+.cancel-button-wrapper button {
+  width:fit-content;
+  padding: 0.5rem 1rem;
 }
 
 #new-customer-cancel-button {

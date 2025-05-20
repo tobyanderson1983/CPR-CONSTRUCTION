@@ -123,17 +123,17 @@ const Services = ({ isAdminView, isCreateMode }) => {
         <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} required />
         <input type="text" name="streetAddress" placeholder="Street Address" value={formData.streetAddress} onChange={handleChange} required />
         <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
-
-        <select name="state" value={formData.state} onChange={handleChange} required>
-          <option value="">Select State</option>
-          {[
-            'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO',
-            'MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'
-          ].map((s) => (
-            <option key={s} value={s}>{s}</option>
-          ))}
-        </select>
-
+        <div className="state-dropdown">
+          <select name="state" value={formData.state} onChange={handleChange} required>
+            <option value="">Select State</option>
+            {[
+              'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO',
+              'MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'
+            ].map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </div>
         <input type="text" name="zipCode" placeholder="Zip Code" value={formData.zipCode} onChange={handleChange} required />
         <input type="text" name="phoneNumber" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} required />
         <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
@@ -144,15 +144,19 @@ const Services = ({ isAdminView, isCreateMode }) => {
             <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} required />
           </>
         )}
+        {/* <input type="text" name="serviceType" placeholder="Service Type" value={formData.serviceType} onChange={handleChange} required /> */}
+        <div className="service-type-dropdown">
 
-        <select name="serviceType" value={formData.serviceType} onChange={handleChange} required>
-          <option value="">Select Service Type</option>
-          <option value="roofing">Roofing</option>
-          <option value="remodel">Remodel</option>
-          <option value="fence">Fence</option>
-          <option value="deck">Deck</option>
-        </select>
+           <select name="serviceType" value={formData.serviceType} onChange={handleChange} required>
+            <option value="">Select Service Type</option>
+            <option value="roofing">Roofing</option>
+            <option value="remodel">Remodel</option>
+            <option value="fence">Fence</option>
+            <option value="deck">Deck</option>
+          </select>
 
+        </div>
+       
         <textarea name="description" placeholder="Service Description" value={formData.description} onChange={handleChange} required></textarea>
 
         <div className="form-actions">

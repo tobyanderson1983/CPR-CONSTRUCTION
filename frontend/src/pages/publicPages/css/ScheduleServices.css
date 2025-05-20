@@ -60,15 +60,34 @@
     -moz-appearance: none;
     appearance: none;
     line-height: normal;
+    width: 100%;
+    background-color: gray;
+    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
+  }
+
+  .service-type-dropdown, .state-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%; /* or set a fixed width if preferred */
+  }
+
+  
+
+  .service-type-dropdown::after, .state-dropdown::after {
+    content: "▼"; /* Down arrow symbol */
+    font-size: 0.8rem;
+    color: white;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Let clicks pass through */
   }
 
   input::placeholder{
     color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
   }
-  select{
-    width: 190px;
-    color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
-  }
+ 
   select::placeholder{
     color: rgba(255, 255, 255, 0.7); /* White placeholder text with slight transparency */
   }

@@ -89,7 +89,7 @@ const LogIn = ({ view, setView }) => {
           <Services />
           <div className="cancel-button-wrapper">
             <button type="button" onClick={() => setView(null)}>
-              Cancel / Back to Login
+              Cancel
             </button>
           </div>
 
