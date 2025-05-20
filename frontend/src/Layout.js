@@ -32,8 +32,8 @@ const Layout = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          minHeight: "100vh",
-          width: "100vw",
+          minHeight: "100%",
+          width: "100%",
         }}
       >
         <Header />
