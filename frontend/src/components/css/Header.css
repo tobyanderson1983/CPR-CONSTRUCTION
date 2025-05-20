@@ -146,6 +146,7 @@ header {
 
     nav.nav.open {
       left: 0; /* slide in */
+      height: fit-content;
       /* padding-top: .625rem; */
     }
 

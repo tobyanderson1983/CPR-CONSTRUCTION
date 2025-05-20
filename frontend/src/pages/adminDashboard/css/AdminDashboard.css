@@ -36,7 +36,7 @@
   }
   
   .dashboard-menu-dropdown button {
-    border-radius: none;
+    border-radius: 0;
     background-color: gray;
     color: white;
     border: 1px solid white;
