@@ -1,47 +1,51 @@
-   .admin-dashboard-wrapper {
+   .admin-dashboard-container {
     position: relative;
-    padding: 20px;
+    /* padding: 20px; */
+    background-color: blue;
+    height: 100vh;
+    width: 100vw;
   }
   
-  .hamburger {
+  .dashboard-hamburger {
     position: absolute;
-    top: -70px; 
+    /* top: -70px;  */
     left: 30px;
-    font-size: 28px;
+    font-size: 1.75rem;;
     cursor: pointer;
     color: white;
-    z-index: 999;
+    z-index: 100;
   }
 
-  .hamburger:hover{
+  .dashboard-hamburger:hover{
     color: yellow;
   }
   
   
-  .menu-dropdown {
+  .dashboard-menu-dropdown {
     position: absolute;
-    top: -35px;
-    left: 30px;
+    top: 0;
+    left: 0;
+    width: 100vw;
     background-color: white;
     border: 1px solid white;
     /* padding: 10px; */
-    border-radius: 8px;
+    /* border-radius: 8px; */
     z-index: 998;
     display: flex;
     flex-direction: column;
     /* gap: 8px; */
   }
   
-  .menu-dropdown button {
+  .dashboard-menu-dropdown button {
     background-color: lightgray;
     color: white;
     border: none;
     border: 1px solid white;
     /* padding: 8px 10px; */
-    border-radius: 5px;
+    /* border-radius: 5px; */
     cursor: pointer;
-    text-align: left;
-    width: 250px;
+    text-align: center;
+    width: 100vw;
   }
   
   .menu-dropdown button:hover {
@@ -50,6 +54,10 @@
   
   #greeting {
     color: white;
-    margin-top: 60px;
+    margin-top: 5.625rem;
+    font-size: 1.3rem;
+    padding: 3rem .75rem;
+    margin-left: 1.25rem;  
+    font-weight: 600;
   }
   

@@ -73,14 +73,14 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="admin-dashboard-wrapper">
+    <div className="admin-dashboard-container">
       {/* Hamburger Menu */}
-      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+      <div className="dashboard-hamburger" onClick={() => setMenuOpen(!menuOpen)}>
         &#9776;
       </div>
 
       {menuOpen && (
-        <div className="menu-dropdown" ref={menuRef}>
+        <div className="dashboard-menu-dropdown" ref={menuRef}>
           {!selectedCategory ? (
             <>
               <button onClick={() => setSelectedCategory('administrators')}>Administrators</button>

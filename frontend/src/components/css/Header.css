@@ -7,7 +7,7 @@ header {
     left: 0;
     height: 90px;
     width: 100%;
-    z-index: 999;
+    z-index: 200;
     background-color: #111;
 
   }
@@ -83,7 +83,7 @@ header {
     display: none;
     flex-direction: column;
     background-color: #222;
-    padding: 10px 0;
+    /* padding: 10px 0; */
   }
   
   nav.open {
@@ -100,6 +100,7 @@ header {
     border: none;
     background: none;
     line-height: 2.4;
+    border: 1px solid gray;
   }
   
   nav a:hover,
@@ -118,10 +119,10 @@ header {
   .admin-button,
   .logout-button {
     cursor: pointer;
-    margin: 5px auto;
-    width: 80%;
-    border-radius: 5px;
-  }
+    /* margin: 5px auto; */
+    width: 100vw;
+    line-height: 1;
+    /* border-radius: 5px; */  }
 
   @media (min-width: 600px) and (max-width: 1024px) {
   nav.nav {
