@@ -7,9 +7,9 @@
   }
   
   .dashboard-hamburger {
-    position: absolute;
-    top: 5px; 
-    left: 25px;
+    position: fixed;
+    top: 6rem; 
+    left: 1.7rem;
     font-size: 1.75rem;;
     cursor: pointer;
     color: white;
@@ -24,27 +24,22 @@
   
   
   .dashboard-menu-dropdown {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    top: 5.65rem;
     width: 100vw;
-    background-color: white;
+    background-color: white; 
+    /* remove the background-color after removing the border-radius from the a tags */
     border: 1px solid white;
-    /* padding: 10px; */
-    /* border-radius: 8px; */
     z-index: 998;
     display: flex;
     flex-direction: column;
-    /* gap: 8px; */
   }
   
   .dashboard-menu-dropdown button {
+    border-radius: none;
     background-color: gray;
     color: white;
-    border: none;
     border: 1px solid white;
-    /* padding: 8px 10px; */
-    /* border-radius: 5px; */
     cursor: pointer;
     text-align: center;
     width: 100vw;
@@ -78,4 +73,13 @@
         font-size: 1.4rem; /* Adjust font size for larger screens */
         padding-top: 3.5rem;;
     }
+
+    .dashboard-menu-dropdown button {
+      width: 9.5rem;
+    }
+
+    .dashboard-menu-dropdown {
+      width: auto;
+    }
+
   }

@@ -125,11 +125,9 @@ header {
   .admin-button,
   .logout-button {
     cursor: pointer;
-    /* margin: 5px auto; */
-    /* width: 100vw; */
     width: 100%;
     line-height: 1;
-    /* border-radius: 5px; */  }
+  }
 
   @media (min-width: 600px) and (max-width: 1024px) {
     nav.nav {
@@ -142,7 +140,6 @@ header {
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      
       transition: left 0.3s ease;
       z-index: 998;
     }
