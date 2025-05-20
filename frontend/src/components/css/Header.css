@@ -117,8 +117,9 @@ header {
   nav a.active {
     color: yellow;
     font-weight: bold;
+    background-color: gray;
   }
-  /* nav a{ width: fit-content;} */
+ 
   
   /* Admin and logout buttons */
   .admin-button,
