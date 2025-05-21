@@ -84,6 +84,7 @@ header {
     flex-direction: column;
     background-color: #222;
     /* padding: 10px 0; */
+    border-bottom: 2px solid black;
   }
   
   nav.open {
@@ -142,6 +143,7 @@ header {
       align-items: flex-start;
       transition: left 0.3s ease;
       z-index: 998;
+      border-bottom: none;
     }
 
     nav.nav.open {
@@ -171,13 +173,16 @@ header {
 
 /* Larger screen styles */
 @media (min-width: 1025px) {
-    header{ 
-      background-color: transparent;
-      position: absolute;
-      top: 0;
-      left: 0;
-     }
+  header{ 
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
+  nav.nav{
+    border-bottom: none;
+  }
   .hamburger {
     display: none;
   }

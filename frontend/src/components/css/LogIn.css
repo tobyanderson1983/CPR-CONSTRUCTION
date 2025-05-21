@@ -81,7 +81,12 @@
 }
 .cancel-button-wrapper button {
   width:fit-content;
-  padding: 0.5rem 1rem;
+  padding: .925rem .5rem;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  font-size: 1rem;
+  z-index: 200;
 }
 
 #new-customer-cancel-button {
