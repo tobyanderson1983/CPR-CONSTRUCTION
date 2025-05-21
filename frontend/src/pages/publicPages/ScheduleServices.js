@@ -138,13 +138,6 @@ const Services = ({ isAdminView, isCreateMode }) => {
         <input type="text" name="phoneNumber" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} required />
         <input type="email" name="username" placeholder="Email" value={formData.username} onChange={handleChange} required />
 
-        {((!isEditMode && !isAdminView) || (isCreateMode && isAdminView))&& (
-          <>
-            <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} required />
-          </>
-        )}
-        {/* <input type="text" name="serviceType" placeholder="Service Type" value={formData.serviceType} onChange={handleChange} required /> */}
         <div className="service-type-dropdown">
 
            <select name="serviceType" value={formData.serviceType} onChange={handleChange} required>
@@ -158,6 +151,13 @@ const Services = ({ isAdminView, isCreateMode }) => {
         </div>
        
         <textarea name="description" placeholder="Service Description" value={formData.description} onChange={handleChange} required></textarea>
+        
+        {((!isEditMode && !isAdminView) || (isCreateMode && isAdminView))&& (
+          <>
+            <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} required />
+          </>
+        )}
 
         <div className="form-actions">
           <button type="submit" className="submit-button">

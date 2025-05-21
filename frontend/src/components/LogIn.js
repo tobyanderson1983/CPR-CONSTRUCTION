@@ -47,13 +47,15 @@ const LogIn = ({ view, setView }) => {
   return (
     <>
       {view === null && (
-        <div className="login-container">
+        <div className="login-container" aria-label="login-container">
           <div>
-            <form onSubmit={login} className="login-box">
+            <form onSubmit={login} className="login-box" aria-label="login-form">
 
               {error && <p className="error-message">{error}</p>}
               
+              <label for="username/email">Email address</label>
               <input
+                id="username/email"
                 type="text"
                 placeholder="Username"
                 value={username}
@@ -61,7 +63,9 @@ const LogIn = ({ view, setView }) => {
                 onKeyDown={(e) => e.key === 'Enter' && login(e)} 
               />
 
+              <label for="password">Password</label>
               <input
+                id="password"
                 type="password"
                 placeholder="Password"
                 value={password}
@@ -71,7 +75,7 @@ const LogIn = ({ view, setView }) => {
 
               <button type="submit">Log In</button>
 
-              <p>OR</p>
+              <p aria-label="or" >OR</p>
 
               <button type="button" id='new-customer-cancel-button' onClick={() => setView('scheduleServices')}>
                 New Customer

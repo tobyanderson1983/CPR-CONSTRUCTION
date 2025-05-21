@@ -133,9 +133,49 @@
   h1{color: white;}
   
   /* Responsive Design */
-  @media (max-width: 600px) {
-    .flex-group {
-      flex-direction: column;
+  @media (min-width: 600px) {
+  
+    .services-form {
+      flex-direction: row;
+      max-width: 28.125rem;
+      padding: 1.75rem;
+    } 
+    select{ width: 99%}
+
+    .form-actions{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .submit-button{ 
+      width: 11rem; 
+      margin-top: .5rem;
+    }
+
+    .service-type-dropdown, .state-dropdown {
+      width: 48.75%;
+    }
+    .service-type-dropdown::after {
+      top:20%
+    }
+    textarea{
+      width: 43%;
+    }
+  }
+
+  @media (min-width: 830px) {
+    .services-form {
+      max-width: 45rem;
+      justify-content:center;
+    }
+    .service-type-dropdown, .state-dropdown {
+      width: 30.5%;
+    }
+    .service-type-dropdown::after {
+      top:20%
+    }
+    textarea{
+      width: 27.025%;
     }
   }
   
