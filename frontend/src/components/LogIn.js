@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Services from './ScheduleServices.js';
+import Services from './../pages/adminDashboard/customer/ScheduleServices';
 import "./css/LogIn.css";
 
 const LogIn = ({ view, setView }) => {

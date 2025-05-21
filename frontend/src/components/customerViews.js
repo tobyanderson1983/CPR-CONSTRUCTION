@@ -1,5 +1,8 @@
-import React from 'react';
-import ScheduleServices from './ScheduleServices';
+// File: frontend/src/components/customerViews.js
+// Description: This file contains the SearchServiceView, ShowAllServicesView, and CreateServiceView components.
+// These components are used to search for services, show all services, and create a new service respectively.
+
+import ScheduleServices from './../pages/adminDashboard/customer/ScheduleServices';
 import ShowAllServices from './../pages/adminDashboard/customer/ShowAllServices';
 import './css/SearchView.css';
 

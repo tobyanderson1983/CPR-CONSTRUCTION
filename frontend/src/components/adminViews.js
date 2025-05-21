@@ -1,5 +1,7 @@
-//adminViews.js
-import React from 'react';
+// File: frontend/src/components/customerViews.js
+// Description: This file contains the SearchServiceView, ShowAllServicesView, and CreateServiceView components.
+// These components are used to search for services, show all services, and create a new service respectively.
+
 import ShowAllAdmins from './../pages/adminDashboard/admin/ShowAllAdmins';
 import Administrator from './../pages/adminDashboard/admin/Administrator';
 import './css/SearchView.css';

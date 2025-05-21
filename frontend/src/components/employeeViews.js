@@ -1,4 +1,7 @@
-import React from 'react';
+// File: frontend/src/components/customerViews.js
+// Description: This file contains the SearchServiceView, ShowAllServicesView, and CreateServiceView components.
+// These components are used to search for services, show all services, and create a new service respectively.
+
 import ShowAllEmployees from './../pages/adminDashboard/employee/ShowAllEmployees';
 import Employee from './../pages/adminDashboard/employee/Employee';
 import './css/SearchView.css';
