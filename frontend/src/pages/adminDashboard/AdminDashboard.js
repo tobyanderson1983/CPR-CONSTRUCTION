@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import useAuthGuard from '../hooks/useAuthGuard';
-import { handleCreateAdmin, handleSearchAdmin } from './admin/utils/adminHandlers';
-import { SearchAdminView, ShowAllAdminsView, CreateAdminView } from './admin/utils/adminViews';
-import { handleCreateEmployee, handleSearchEmployee } from './employee/utils/employeeHandlers';
-import { SearchEmployeeView, ShowAllEmployeesView, CreateEmployeeView } from './employee/utils/employeeViews';
-import { handleSearchService } from './customer/utils/customerHandlers';
-import { SearchServiceView, ShowAllServicesView, CreateServiceView } from './customer/utils/customerViews';
+import useAuthGuard from '../../hooks/useAuthGuard';
+import { handleCreateAdmin, handleSearchAdmin } from './../../utilities/adminHandlers';
+import { SearchAdminView, ShowAllAdminsView, CreateAdminView } from './../../components/adminViews';
+import { handleCreateEmployee, handleSearchEmployee } from './../../utilities/employeeHandlers';
+import { SearchEmployeeView, ShowAllEmployeesView, CreateEmployeeView } from './../../components/employeeViews';
+import { handleSearchService } from './../../utilities/customerHandlers';
+import { SearchServiceView, ShowAllServicesView, CreateServiceView } from './../../components/customerViews';
 import './css/AdminDashboard.css';
 
 const AdminDashboard = () => {

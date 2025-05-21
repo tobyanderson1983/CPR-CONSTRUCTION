@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import useAutoLogoutWithWarning from "./pages/hooks/useAutoLogoutWithWarning";
+import useAutoLogoutWithWarning from "./hooks/useAutoLogoutWithWarning";
 import Header from "./components/Header";
 
 const Layout = () => {

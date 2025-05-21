@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from "./pages/publicPages/Home";
-import ScheduleServices from "./pages/publicPages/ScheduleServices";
+import ScheduleServices from "./components/ScheduleServices";
 import Services from "./pages/publicPages/Services";
 import Portfolio from "./pages/publicPages/Portfolio";
 import ContactUs from "./pages/publicPages/ContactUs";

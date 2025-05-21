@@ -1,7 +1,7 @@
 import React from 'react';
-import ShowAllEmployees from '../ShowAllEmployees';
-import Employee from '../Employee';
-import '../../css/SearchView.css';
+import ShowAllEmployees from './../pages/adminDashboard/employee/ShowAllEmployees';
+import Employee from './../pages/adminDashboard/employee/Employee';
+import './css/SearchView.css';
 
 export const SearchEmployeeView = ({
     username,

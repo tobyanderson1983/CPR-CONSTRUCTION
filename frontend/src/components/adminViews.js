@@ -1,8 +1,8 @@
 //adminViews.js
 import React from 'react';
-import ShowAllAdmins from '../ShowAllAdmins';
-import Administrator from '../Administrator';
-import '../../css/SearchView.css';
+import ShowAllAdmins from './../pages/adminDashboard/admin/ShowAllAdmins';
+import Administrator from './../pages/adminDashboard/admin/Administrator';
+import './css/SearchView.css';
 
 export const SearchAdminView = ({
   username,

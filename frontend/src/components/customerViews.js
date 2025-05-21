@@ -1,7 +1,7 @@
 import React from 'react';
-import ScheduleServices from '../../../publicPages/ScheduleServices';
-import ShowAllServices from '../ShowAllServices';
-import '../../css/SearchView.css';
+import ScheduleServices from './ScheduleServices';
+import ShowAllServices from './../pages/adminDashboard/customer/ShowAllServices';
+import './css/SearchView.css';
 
 export const SearchServiceView = ({
   username,
