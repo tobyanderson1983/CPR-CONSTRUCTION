@@ -1,7 +1,7 @@
-import React from 'react';
-import { US_STATES } from './../constants/serviceFormConstants';
+import { US_STATES, SERVICE_TYPES } from './../constants/serviceFormConstants';
 
 const ServiceForm = ({
+
   formData,
   handleChange,
   handleSubmit,
@@ -28,10 +28,9 @@ const ServiceForm = ({
     <div className="service-type-dropdown">
       <select name="serviceType" value={formData.serviceType} onChange={handleChange} required>
         <option value="">Select Service Type</option>
-        <option value="roofing">Roofing</option>
-        <option value="remodel">Remodel</option>
-        <option value="fence">Fence</option>
-        <option value="deck">Deck</option>
+        {SERVICE_TYPES.map((s) => (
+          <option key={s.value} value={s.value}>{s.label}</option>
+        ))}
       </select>
     </div>
 

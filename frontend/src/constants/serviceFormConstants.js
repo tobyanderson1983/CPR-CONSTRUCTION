@@ -5,12 +5,14 @@ export const US_STATES = [
   'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
   'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
 ];
-// export const SERVICE_TYPES = [
-//   { value: 'roofing', label: 'Roofing' },
-//   { value: 'remodel', label: 'Remodel' },
-//   { value: 'fence', label: 'Fence' },
-//   { value: 'deck', label: 'Deck' }
-// ];
+
+export const SERVICE_TYPES = [
+  { value: 'roofing', label: 'Roofing' },
+  { value: 'remodel', label: 'Remodel' },
+  { value: 'fence', label: 'Fence' },
+  { value: 'deck', label: 'Deck' }
+];
+
 // export const INITIAL_FORM_DATA = {
 //   firstName: '',
 //   lastName: '',
@@ -25,6 +27,7 @@ export const US_STATES = [
 //   serviceType: '',
 //   description: ''
 // };
+
 // export const FORM_VALIDATION = {
 //   firstName: { required: true, minLength: 2 },
 //   lastName: { required: true, minLength: 2 },
