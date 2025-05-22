@@ -16,7 +16,7 @@ This full-stack web application is designed to manage construction services and 
 ---
 
 ## Tech Stack
-- **Frontend:** React19, CSS3, SCSS
+- **Frontend:** React18-19, CSS3
 - **Backend:** Node.js, Express
 - **Database:** MongoDB (Mongoose)
 - **Authentication:** JWT (JSON Web Tokens)
