@@ -53,7 +53,7 @@ const LogIn = ({ view, setView }) => {
 
               {error && <p className="error-message">{error}</p>}
               
-              <label for="username/email">Email address</label>
+              <label htmlFor="username/email">Email address</label>
               <input
                 id="username/email"
                 type="text"
@@ -63,7 +63,7 @@ const LogIn = ({ view, setView }) => {
                 onKeyDown={(e) => e.key === 'Enter' && login(e)} 
               />
 
-              <label for="password">Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 id="password"
                 type="password"
