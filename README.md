@@ -10,13 +10,13 @@ This full-stack web application is designed to manage construction services and 
 ✅ Administrative dashboards
 ✅ Employee dashboards
 ✅ Customer dashboards
-✅ Responsive design (React19)
+✅ Responsive design 
 ✅ AND...more as it is an ongoing project
 
 ---
 
 ## Tech Stack
-- **Frontend:** React18-19, CSS3
+- **Frontend:** React 19 (using stable features from previous versions; not utilizing React 19-specific features), CSS3
 - **Backend:** Node.js, Express
 - **Database:** MongoDB (Mongoose)
 - **Authentication:** JWT (JSON Web Tokens)
