@@ -84,4 +84,15 @@
 
   @media(min-width: 1025px){
     .admin-dashboard-container{padding: 1.25rem;}
+
+    .dashboard-hamburger{
+      top: 1.75rem;
+      z-index: 999;
+    }
+
+    .dashboard-menu-dropdown {
+      /* top: 3.8rem; */
+      top: 0;
+      left: 0;
+    }
   }
